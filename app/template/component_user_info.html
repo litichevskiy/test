@@ -1,0 +1,16 @@
+<div class="more_info">
+    <div class="content">
+        {{mainHeader}}
+        <span class="simbol">i</span>
+    </div>
+    <label class="button_more_info" for="show_more_info">
+        {{header}}?
+    </label>
+    <input type="checkbox" id="show_more_info" class="hide"/>
+    <ul class="list_more_info">
+        <li class="item_list_more_info" *ngFor="let item of items, let i = index">
+            {{item}}
+            <span class="simbol">{{i+1}}</span>
+        </li>
+    </ul>
+</div>

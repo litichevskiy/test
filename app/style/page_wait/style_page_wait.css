@@ -1,0 +1,72 @@
+@import '../reset.css';
+@import '../defoult_classes.css';
+
+.container_wait_element{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+    display: none;
+}
+.container_wait_element:after{
+    content: '';
+    position: relative;
+    width: 1px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.container_loading{
+    display: inline-block;
+    vertical-align: middle;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+}
+.loading{
+    display: inline-block;
+    font-size: 2em;
+    color: rgb(255,255,255);
+    margin-right: 0.3em;
+    font-family: 'MuseoSansCyrl_3', sans-serif;
+}
+.point{
+    width: 0.7em;
+    height: 0.7em;
+    background-color: rgb(255,255,255);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.3em;
+    vertical-align: middle;
+    -webkit-transition: 0.2s linear;
+    transition: 0.2s linear;
+    -webkit-animation: points 2s infinite linear;
+            animation: points 2s infinite linear;
+}
+.container_loading :nth-child(2){
+    -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+}
+.container_loading :nth-child(3){
+    -webkit-animation-delay: 1s;
+            animation-delay: 1s;
+}
+.container_loading :nth-child(4){
+    -webkit-animation-delay: 1.5s;
+            animation-delay: 1.5s;
+}
+@-webkit-keyframes points{
+    0%{
+        opacity: 0.1;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.blur{
+    -webkit-filter: blur(3px);
+            filter: blur(3px);
+}

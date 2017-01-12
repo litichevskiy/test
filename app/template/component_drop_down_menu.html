@@ -1,0 +1,7 @@
+<input type="checkbox" id="open_close_list_language" class="hide" />
+<label for="open_close_list_language" class="open_close_list_language link_nav_panel" >{{language}}</label>
+<ul class="list_language" (click)="replaceLang($event)">
+    <li class="item_list_language" *ngFor="let item of items">
+        <div class="link_nav_panel" >{{item}}</div>
+    </li>
+</ul>

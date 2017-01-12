@@ -1,0 +1,428 @@
+@media(max-width: 1100px){
+    .block_user_info{
+        width: 100%;
+        padding-left: 0;
+    }
+    .input_range{
+        margin-left: 0;
+    }
+    .container_user_photos{
+        margin-top: 1em;
+    }
+    .container_settings{
+        margin-top: 2em;
+    }
+    .container_nav_panel{
+        padding: 0.7em 1em !important;
+    }
+    .container_content_user_info{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-justify-content: space-around;
+            -ms-flex-pack: distribute;
+                justify-content: space-around;
+        padding: 15px 0;
+        border-bottom: 1px solid rgb(219, 219, 219);
+        border-top: 1px solid rgb(219, 219, 219);
+    }
+    .block_user_info{
+        margin: 0;
+    }
+    .count_bold{
+        display: block;
+        text-align: center;
+    }
+    .container_content_user_info .user_content{
+        color: rgb(153,153,153);
+        line-height: 1;
+    }
+    .user_posts,
+    .user_followers,
+    .user_following{
+        margin: 0;
+    }
+    .info{
+        margin: 1.3em 0 1.3em 0;
+    }
+    .container_user_photo{
+        width: 100%;
+        display: block;
+        margin-left: 0;
+    }
+    .user_content.user_name{
+        text-align: center;
+    }
+    .main_block{
+        width: 100%;
+    }
+    .user_info{
+        margin-left: 1.166666%;
+        margin-right: 1.166666%;
+    }
+}
+
+@media(max-width: 900px){
+    .header_sharkgram{
+        font-size: 2.2em;
+    }
+    .container_nav_panel{
+        padding: 0.5em 1em;
+    }
+    .select,
+    .svg_plus{
+        width: 1.5em;
+        height: 1.5em;
+    }
+    .container_select{
+        left: 43.1%;
+    }
+    .container_input .content,
+    .value{
+        font-size: 100%;
+    }
+}
+@media(max-width: 870px){
+    .container_user_photo{
+        float: none;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 2em;
+    }
+    .container_user_photo .form_pay_now{
+        display: block;
+    }
+    .info,
+    .more_followers{
+        margin: 0;
+        width: 100%;
+        display: block;
+    }
+    .more_followers{
+        margin-top: 2em;
+    }
+    .nav_panel{
+        -webkit-transition: 0.3s linear;
+        transition: 0.3s linear;
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        height: 100vh;
+        margin: 0;
+        color: rgb(255,255,255);
+        width: 60%;
+        background-color: rgb(0, 198, 206);
+        z-index: 4;
+        overflow: auto;
+    }
+    .list_nav_panel{
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .item_list_nav_panel{
+        top: 0%;
+        width: 90%;
+        -webkit-transition: 0.3s linear;
+        transition: 0.3s linear;
+        opacity: 0;
+        display: table;
+        vertical-align: middle;
+    }
+    .item_list_nav_panel,
+    .link_nav_panel{
+        color: rgb(255,255,255) !important;
+        margin: 0;
+        width: 90%;
+    }
+    .link_nav_panel{
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 1.3em;
+        border-bottom: 1px solid;
+        padding: 16px 12px 16px 0px;
+    }
+    .set_visibility_nav_panel:checked ~ .nav_panel{
+        left: 0;
+    }
+    .set_visibility_nav_panel:checked ~ .open_close_nav_panel .one{
+        -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+        top: 48%;
+    }
+    .set_visibility_nav_panel:checked ~ .open_close_nav_panel .two{
+        -webkit-transform: rotate(135deg);
+            -ms-transform: rotate(135deg);
+                transform: rotate(135deg);
+        bottom: 44%;
+    }
+    .set_visibility_nav_panel:checked ~ .nav_panel .list_nav_panel :nth-child(1){
+        -webkit-transition-delay: 0.28s;
+                transition-delay: 0.28s;
+        opacity: 1;
+        padding-left: 2em;
+    }
+    .set_visibility_nav_panel:checked ~ .nav_panel .list_nav_panel :nth-child(2){
+        -webkit-transition-delay: 0.38s;
+                transition-delay: 0.38s;
+        opacity: 1;
+        padding-left: 2em;
+    }
+    .set_visibility_nav_panel:checked ~ .nav_panel .list_nav_panel :nth-child(3){
+        -webkit-transition-delay: 0.48s;
+                transition-delay: 0.48s;
+        opacity: 1;
+        padding-left: 2em;
+    }
+    .open_close_nav_panel{
+        display: inline-block;
+    }
+    .open_close_list_language:after{
+        color: rgb(255,255,255) !important;
+    }
+    .list_language{
+        background-color: rgb(0, 198, 206) !important;
+        -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+        text-align: left !important;
+        left: 13% !important;
+        width: 85% !important;
+    }
+    .list_language .item_list_language{
+        padding-left: 0 !important;
+        -webkit-transition: 0.3s linear;
+        transition: 0.3s linear;
+        -webkit-transition-delay: 0;
+                transition-delay: 0;
+        opacity: 0 !important;
+        -webkit-transition-delay: 0s !important;
+                transition-delay: 0s !important;
+    }
+    .item_list_language:hover{
+        background-color: rgb(0, 198, 206) !important;
+    }
+    #open_close_list_language:checked ~ .list_language .item_list_language{
+        opacity: 1 !important;
+        margin-left: 2em;
+    }
+    .link_nav_panel{
+        padding-left: 0.8em !important;
+    }
+}
+@media(max-width: 800px){
+    .input_range{
+        margin-top: 0;
+        margin-left: 0;
+    }
+    .block_content{
+        padding: 5% 5% 0 5%;
+    }
+}
+@media(max-width: 650px){
+    .container_input .content,
+    .likes, .comments,
+    .value{
+        font-size: 90%;
+    }
+    .block_content {
+        padding: 10% 3% 0 3%;
+    }
+    .value{
+        padding: 1% 0.5%;
+    }
+}
+@media(max-width:570px){
+    .container_select_likes_comments{
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .select{
+        width: 2em;
+        height: 2em;
+    }
+    .container_input .content, .likes, .comments {
+        font-size: 120%;
+    }
+    .block_content {
+        padding: 15% 10% 10% 10%;
+    }
+    .input_range {
+        width: 100%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+    .value{
+        font-size: 120%;
+    }
+    .content{
+        padding: 1% 0.5% !important;
+        font-size: 115% !important;
+    }
+    .container_user_photos{
+        padding: 0;
+    }
+    .unchecked,
+    .checked {
+        width: 1.2em;
+        height: 1.2em;
+    }
+    .container_settings .select_value{
+        padding: 2px 2px;
+        font-size: 1.2em;
+    }
+    .container_nav_panel {
+        padding: 0.5em 1em !important;
+    }
+    .info{
+        margin-top: 1.3em;
+    }
+    .container_sign_up{
+        padding: 10px 20px 10px 20px;
+    }
+    .form_sign_up{
+        display: block;
+        text-align: center;
+    }
+    .sign_up{
+        padding: 8px 24px !important;
+        font-size: 17px !important;
+    }
+    .container_load_more{
+        padding-bottom: 60px !important;
+    }
+    .form_container_load_more{
+        padding: 40px 0 40px 0;
+    }
+}
+@media(max-width:500px){
+    .header_sharkgram{
+        font-size: 2em !important;
+    }
+    .svg_logo{
+        width: 1.9em !important;
+        vertical-align: text-bottom !important;
+    }
+    .open_close_nav_panel{
+        width: 2em;
+        height: 2em;
+    }
+    .item_list_nav_panel,
+    .item_list_language{
+        padding-left: 0;
+    }
+}
+@media(max-width:420px){
+    .form_container_load_more{
+        padding: 17px;
+    }
+    .load{
+        width: 100%;
+        padding: 0 !important;
+        border-radius: 3px !important;
+        height: 34px;
+        border: 1px solid !important;
+    }
+    .list_language{
+        left: 0 !important;
+        width: 100% !important;
+    }
+}
+@media screen and (max-device-width:480px){
+    .header_sharkgram{
+        font-size: 2.66em !important;
+    }
+    .open_close_nav_panel{
+        width: 2.5em !important;
+        height: 2.5em !important;
+    }
+    .container_nav_panel{
+        border-bottom: 1px solid rgb(216, 216, 216);
+        padding: 0.5em 1em;
+    }
+    .nav_panel{
+        width: 80%;
+    }
+    .svg_logo{
+        width: 2.47em !important;
+    }
+    .list_language{
+        padding-left: 0 !important;
+    }
+    .open_close_nav_panel{
+        vertical-align: sub;
+    }
+    .container_user_photo{
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+    .container_user_photo .form_pay_now{
+        display: block;
+    }
+    .info,
+    .more_followers{
+        display: block;
+    }
+    .info{
+        margin-top: 1.3em;
+    }
+    .container_settings .content{
+        font-size: 105%;
+        margin: 0;
+    }
+    .add_photos, .add_comments{
+        line-height: 1.8;
+    }
+    .container_select_likes_comments{
+        margin: 1em 0em 0 0;
+    }
+    .select:before{
+        width: 1.5em;
+        height: 1.5em;
+        display: inline-block;
+        padding: 5px 5px;
+        line-height: 1.65;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+    .container_settings .select_value{
+        font-size: 100%;
+        padding: 1px 1px;
+    }
+    .user_content{
+        font-size: 1.5em;
+    }
+    .user_posts,
+    .user_followers,
+    .user_following{
+        display: block;
+        font-size: 1em;
+        margin: 0;
+    }
+    .container_user_photos{
+        padding: 0;
+    }
+    .unchecked,
+    .checked{
+        height: 1em;
+        width: 1em;
+    }
+    .form_container_load_more{
+        padding: 17px;
+    }
+    .load{
+        width: 100%;
+        height: 34px;
+        padding: 0 !important;
+        border-radius: 3px !important;
+        border: 1px solid !important;
+    }
+    .list_language .item_list_language{
+        padding-left: 2em !important;
+    }
+}

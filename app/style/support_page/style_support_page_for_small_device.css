@@ -1,0 +1,18 @@
+@media (max-width:620px){
+
+    .header{
+        text-align: left !important;
+        width: 90%;
+        margin: auto;
+    }
+    .container_list_language{
+        right: 0;
+        margin-right: 0;
+        padding-right: 0;
+    }
+    .form_support {
+        display: block;
+        width: 90%;
+        margin: auto;
+    }
+}

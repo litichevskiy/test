@@ -1,0 +1,89 @@
+.container_payment_method{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+.payment_method{
+    width: 80%;
+    margin: auto;
+    height: 80%;
+    background-color: rgb(255,255,255);
+    font-family: sans-serif;
+    padding-bottom: 60px;
+    -webkit-box-shadow: 0px 11px 61px -7px rgb(204, 198, 198);
+            box-shadow: 0px 11px 61px -7px rgb(204, 198, 198);
+    max-width: 1265px;
+    overflow: auto;
+    margin-top: 5.5%;
+}
+.header_block_payment_method{
+    color: rgb(36,36,36);
+    text-align: center;
+    margin-top: 0;
+    font-size: 1.7em;
+    font-family: 'openSans-Light', sans-serif;
+    margin-bottom: 0;
+}
+.payment_card,
+.payment_cash{
+    padding-top: 40px;
+    width: 33%;
+    text-align: center;
+    position: relative;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.container_payment_element{
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.container_btn_submit{
+    padding-top: 15%;
+    padding-bottom: 2em;
+}
+.payment_method .content{
+    color: rgb(36,36,36);
+    font-size: 1.5em;
+    width: 80%;
+    margin: auto;
+    margin-top: 55px;
+    font-family: 'open-sans', sans-serif;
+}
+.close_block_payment_method{
+    text-align: right;
+    margin-top: 1em;
+}
+.closeBlock{
+    color: rgb(88,211,216);
+    cursor: pointer;
+    font-size: 2em;
+    margin-right:  1em;
+}
+.submit_pay_now{
+    margin-top: 0;
+}

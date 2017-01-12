@@ -1,0 +1,8 @@
+<div class="container_input" #div>
+    <span class="content">{{item.content}}</span>
+    <input type="text" class="value"    [(ngModel)]="item.total"
+                                        (input)="checkDataEventInput($event)"
+                                        (input)="change()" />
+    <input type="range" class="input_range" #input (input)="changeProgres()"
+                                            (input)="change()" />
+</div>

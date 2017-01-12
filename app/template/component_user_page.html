@@ -1,0 +1,86 @@
+<ComponentPayNow *ngIf="selectedPayNow" [totalSum]="totalSum" ></ComponentPayNow>
+<div class="container_user_page" #div >
+    <ComponentNavBar [language]="language" ></ComponentNavBar>
+    <div class="main_block">
+        <div class="user_info" >
+            <div class="container_user_photo">
+                <img class="user_photo" src="{{dataUserInfo.user.pathToPhoto}}" alt="">
+                <div class="to_pay">{{totalSum}}$ {{Pay_now}}</div>
+                <div class="form_pay_now">
+                    <button class="btn submit_pay_now" type="submit" (click)="showPayNow()" >{{Pay}}</button>
+                </div>
+            </div>
+            <div class="block_user_info">
+                <div class="info">
+                    <div class="user_content user_name">{{dataUserInfo.user.name}}</div>
+                    <div class="container_content_user_info">
+                        <span class="user_content user_posts" *ngFor="let item of this.infoPosts">
+                            <strong class="count_bold">{{item.value}}</strong>
+                            {{item.content}}
+                        </span>
+                    </div>
+                </div>
+                <br/>
+                <!-- <div class="more_followers container_input_range hide">
+                    <span class="user_content content_more_followers">More followers</span>
+                    <input type="text" class="value counter_more_followers"/>
+                    <input type="range" class="input_range">
+                </div> -->
+                <div class="container_settings">
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="selectAll($event.target)">
+                        <input type="checkbox" class="hide input_container_settings" data-role="select" (change)="f($event)"/>
+                        <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
+                            <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
+                        </svg>
+                        <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
+                            <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
+                        </svg>
+                        <span class="content">{{selectPictures_first}}</span>
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="func(null)" (input)="selectAll()">
+                        <span class="content">{{selectPictures_last}}</span>
+                    </div>
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()">
+                        <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="f($event)"/>
+                        <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
+                            <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
+                        </svg>
+                        <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
+                            <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
+                        </svg>
+                        <span class="content">{{addLikes_first}}</span>
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.likes.value" data-role="likes" (input)="checkValue($event)" (input)="addSelect()">
+                        <span class="content">{{addLikes_last}}</span>
+                    </div>
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()">
+                        <input type="checkbox" class="hide input_container_settings" data-role="coments" (change)="f($event)"/>
+                        <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
+                            <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
+                        </svg>
+                        <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
+                            <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
+                        </svg>
+                        <span class="content">{{addComents_first}}</span>
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.coments.value" data-role="coments" (input)="checkValue($event)" (input)="addSelect()">
+                        <span class="content">{{addComents_last}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container_user_photos">
+            <ComponentContainerUserPhoto    *ngFor="let item of items" [item]="item"
+                                            (getTotalSum)="getTotalSum($event)"
+                                            [language]="language"   >
+            </ComponentContainerUserPhoto>
+            <div class="container_load_more">
+                <div class="form_container_load_more">
+                    <button class="btn load" (click)="loadPhotos()">Load more</button>
+                </div>
+            </div>
+            <div class="container_sign_up">
+                <div class="form_sign_up">
+                    <button class="sign_up btn" (click)="showPayNow()">{{Pay}} {{totalSum}} $</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

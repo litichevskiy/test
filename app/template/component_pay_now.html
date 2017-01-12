@@ -1,0 +1,37 @@
+<div class="container_payment_method" (click)="closePayNow($event)">
+    <div class="payment_method">
+        <div class="close_block_payment_method">
+            <span class="closeBlock" (click)="closePayNow($event)">✕</span>
+        </div>
+        <p class="header_block_payment_method">Choose the method of payment</p>
+        <div class="container_payment_element">
+            <div class="payment_card">
+                <img src="app/img/logo_2_checkout.png" alt="">
+                <div class="content">
+                    Accept, Credit Cards, PayPal and Debit Cards
+                </div>
+                <div class="container_btn_submit">
+                    <button class="btn submit_pay_now" (click)="payNow()">Pay now</button>
+                </div>
+            </div>
+            <div class="payment_cash">
+                <img src="app/img/sprypay_logo.png" alt="">
+                <div class="content">
+                    Электронные деньги, Карты, интернет-банки, Наличные, СМС-платежи
+                </div>
+                <div class="container_btn_submit">
+                    <button class="btn submit_pay_now" (click)="payNow()">Pay now</button>
+                </div>
+            </div>
+            <div class="payment_card">
+                <img src="app/img/logo_2_checkout.png" alt="">
+                <div class="content">
+                    Accept, Credit Cards, PayPal and Debit Cards
+                </div>
+                <div class="container_btn_submit">
+                    <button class="btn submit_pay_now" (click)="payNow()">Pay now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+@media (max-width:800px){
+    .link_home_page{
+        width: 50%;
+        display: block;
+        margin: auto;
+        text-align: center;
+    }
+}
+@media (max-width:700px){
+    .link_home_page{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+@media (max-width:500px){
+    .block_content{
+        width: 90%;
+    }
+}
+@media screen and (max-device-width:480px){
+    .container_page_id{
+        position: absolute;
+        height: 100%;
+    }
+    .block_content{
+        width: 95%;
+        margin: 1em auto;
+    }
+    .content{
+        margin-top: 2em;
+        width: 100%;
+    }
+    .order_id{
+        padding: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        font-weight: 600;
+    }
+    .content{
+        padding: 0 1em 1em 1em;
+        font-size: 1.2em;
+        letter-spacing: 1px;
+    }
+    .link_home_page{
+        width: 80%;
+        display: block;
+        margin: 2em auto;
+        text-align: center;
+    }
+}

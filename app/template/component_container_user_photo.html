@@ -1,0 +1,33 @@
+<div class="container_select_likes_comments container_input_range">
+    <img class="bg_container" src="{{item.url.path}}" alt="">
+    <label class="container_select" (click)="replaceState($event)">
+        <input type="checkbox" class="hide select_photo" [(ngModel)]="item.checked" checked="{{item.checked}}">
+        <span class="select">
+            <svg class="svg_plus" x="0px" y="0px" viewBox="0 0 42 42" xml:space="preserve">
+                <polygon points="42,20 22,20 22,0 20,0 20,20 0,20 0,22 20,22 20,42 22,42 22,22 42,22 " fill="#FFF"/>
+            </svg>
+        </span>
+    </label>
+    <div class="block_content">
+        <ComponentInputRange    *ngIf="item.likes"
+                                [item]="item.likes"
+                                [ranges]="item.ranges"
+                                [settings]="item.settings"
+                                [checked]="item.checked"
+                                (onChanged)="onChanged($event)"
+                                [language]="language" >
+        </ComponentInputRange>
+        <ComponentInputRange    *ngIf="item.coments"
+                                [item]="item.coments"
+                                [ranges]="item.ranges"
+                                [settings]="item.settings"
+                                [checked]="item.checked"
+                                (onChanged)="onChanged($event)"
+                                [language]="language" >
+        </ComponentInputRange>
+        <div class="container_likes_and_coments">
+            <span class="likes">{{item.data.likes}}</span>
+            <span class="comments">{{item.data.coments}}</span>
+        </div>
+    </div>
+</div>
