@@ -1,47 +1,100 @@
 "use strict";
+// import { OnInit } from '@angular/core';
 var pubSub_1 = require('./pubSub');
 var DataServiceLanguage = (function () {
     function DataServiceLanguage() {
-        this.lang = 'en';
+        this.languageDefault = 'en';
+        this.listLanguages = ['ru', 'en'];
         this.languages = {
             ru: {
-                TotalSum: '',
-                PayNow: '',
+                PayNow: 'К оплате',
                 Pay: 'Оплатить',
                 SelectPicturesFirst: 'Выбрать последние',
                 SelectPicturesLast: 'изображений',
-                AddLikesFirst: '', Добавить: на, выбранные: фото, ',: AddLikesLast, 'лайков': ,
+                AddLikesFirst: 'Добавить на выбранные фото',
+                AddLikesLast: 'лайков',
                 AddComentsFirst: 'Добавить на выбранные фото',
-                AddComentsLAst: 'комментариев',
-                LoadMore: '',
+                AddComentsLast: 'комментариев',
+                LoadMore: 'Еще',
                 Posts: 'публикаций',
                 Followers: 'подписчиков',
-                Following: 'подписки'
+                Following: 'подписки',
+                comments: 'комметариев',
+                likes: 'лайков',
+                ru: 'ru',
+                en: 'en',
+                language: 'en',
+                Support: 'поддержка',
+                Home: 'домой',
+                MainHeader: 'Лучший способ для набора популярности в Instagram',
+                Header: 'Мгновенно с 100% гарантией безопасности',
+                UserName: 'имя профиля',
+                GetStart: 'начать',
+                MainHeaderUserInfo: 'Для получения подписчиков нужно открыть доступ к Вашей странице',
+                HeaderUserInfo: 'как это сделать ',
+                UserInfoStep_1: 'Войдите на страницу своего профиля.',
+                UserInfoStep_2: 'Нажмите на "Редактировать профиль"',
+                UserInfoStep_3: 'Снимите галочку "Публикации закрыты".',
+                UserInfoStep_4: 'незабудьте нажать "готово" после вышеописанных настроек.',
+                FirstName: 'имя',
+                LastName: 'фамилия',
+                E_mailAddress: 'почта',
+                TextTextArea: 'текст сообщения',
+                TextButton: 'отправить',
+                ChooseTheMethodOfPayment: 'Выберите способ оплаты',
+                DescriptionMethodOfPayment: 'Электронные деньги, Карты, интернет-банки, Наличные, СМС-платежи',
+                MoreFollowers: 'Больше подписчиков'
             },
             en: {
-                TotalSum: 'totalSum',
                 PayNow: 'Pay now',
-                Pay: 'pay',
+                Pay: 'To pay',
                 SelectPicturesFirst: 'Select last',
                 SelectPicturesLast: 'pictures',
                 AddLikesFirst: 'Add to your selected photos',
                 AddLikesLast: 'likes',
                 AddComentsFirst: 'Add to your selected photos',
-                AddComentsLAst: 'coments',
-                LoadMore: 'Load more', б: Posts, 'posts': ,
+                AddComentsLast: 'comments',
+                LoadMore: 'Load more',
+                Posts: 'posts',
                 Followers: 'followers',
-                Following: 'following'
+                Following: 'following',
+                comments: 'comments',
+                likes: 'likes',
+                ru: 'ru',
+                en: 'en',
+                language: 'en',
+                Support: 'support',
+                Home: 'home',
+                MainHeader: 'The best way for instagram popularity',
+                Header: 'Instantly 100% safe',
+                UserName: 'Enter your profile name',
+                GetStart: 'Get popular',
+                MainHeaderUserInfo: 'For subscribers need to open access to your page',
+                HeaderUserInfo: 'how to do it ',
+                UserInfoStep_1: 'Sign in to your profile page.',
+                UserInfoStep_2: 'Click on "Edit Profile".Uncheck "Publications are closed."',
+                UserInfoStep_3: 'Uncheck "Publications are closed."',
+                UserInfoStep_4: 'do not forget to click "ready" after the above settings.',
+                FirstName: 'first name',
+                LastName: 'last name',
+                E_mailAddress: 'e-mail address',
+                TextTextArea: 'Your Suggestions Here!',
+                TextButton: 'send suggestion',
+                ChooseTheMethodOfPayment: 'ChooseThe method of payment',
+                DescriptionMethodOfPayment: 'Accept, Credit Cards, PayPal and Debit Cards',
+                MoreFollowers: 'More followers'
             }
         };
         this.init = function (that) {
-            pubSub_1.PubSub.subscribe('language', that.changeLang.bind(that));
+            pubSub_1.PubSub.subscribe('newLang', that.setLanguage.bind(that));
         }(this);
     }
-    DataServiceLanguage.prototype.changeLang = function (key) {
-        this.lang = key;
+    DataServiceLanguage.prototype.setLanguage = function (key) {
+        this.languageDefault = key;
+        pubSub_1.PubSub.publish('language', this.languageDefault);
     };
     DataServiceLanguage.prototype.GetText = function (key) {
-        return this.languages[this.lang][key];
+        return this.languages[this.languageDefault][key];
     };
     return DataServiceLanguage;
 }());

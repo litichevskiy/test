@@ -1,65 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PubSub } from './pubSub';
 import { DataService } from './data.service';
+import { DataServiceLanguage } from './data.service.language';
 
 @Component({
     selector: 'mainPage',
     templateUrl: './app/template/component_main_page.html'
 })
 
-export class componentMainPage implements OnInit{
+export class componentMainPage {
 
-    language;
-    mainHeader;
-    header;
-    userName;
-    getStart;
+    constructor(
+        private dataServiceLanguage : DataServiceLanguage,
+        private dataService : DataService
+    ){};
 
-    dataLang = {
+    checkValue( event ) {
 
-        mainHeader : {
-            'ru' : 'Лучший способ для набора популярности в Instagram',
-            'en' : 'The best way for instagram popularity'
-        },
+        var target = event.target,
+            currentTarget = event.currentTarget,
+            input , value;
 
-        header : {
-            'ru' : 'Мгновенно с 100% гарантией безопасности',
-            'en' : 'Instantly 100% safe'
-        },
+        if ( target.tagName === 'BUTTON' ) {
 
-        userName : {
-            'ru' : 'имя профиля',
-            'en' : 'Enter your profile name'
-        },
+            input = currentTarget.querySelector('input[type="text"]');
 
-        getStart : {
-            'ru' : 'начать',
-            'en' : 'Get popular'
+            if ( input.value.length > 0 ) {
+
+                this.dataService.func( input.value );
+                input.value = '';
+
+                if ( input.classList.contains('inputError') ) {
+
+                    input.classList.remove('inputError')
+                }
+            }
+
+            else {
+
+              input.classList.add('inputError')
+            }
         }
     }
 
-    constructor(private dataService: DataService){};
-
-    ngOnInit() {
-
-        this.language = this.dataService.language;
-
-        this.mainHeader = this.dataLang.mainHeader[this.language];
-        this.header = this.dataLang.header[this.language];
-        this.userName = this.dataLang.userName[this.language];
-        this.getStart = this.dataLang.getStart[this.language];
-
-        PubSub.subscribe('language', this.changeLanguages.bind(this) );
-    }
-
-
-    changeLanguages( key ) {
-
-        this.language = key;
-
-        this.mainHeader = this.dataLang.mainHeader[key];
-        this.header = this.dataLang.header[key];
-        this.userName = this.dataLang.userName[key];
-        this.getStart = this.dataLang.getStart[key];
-    }
 }

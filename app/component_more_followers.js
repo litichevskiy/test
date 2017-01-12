@@ -9,37 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
-var componentMainPage = (function () {
-    function componentMainPage(dataServiceLanguage, dataService) {
+var data_service_1 = require('./data.service');
+var pubSub_1 = require('./pubSub');
+var componentMoreFollowers = (function () {
+    function componentMoreFollowers(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
+        this.getTotalSum = new core_1.EventEmitter();
+        this.data = dataService.dataMoreFollowers;
     }
-    ;
-    componentMainPage.prototype.checkValue = function (event) {
-        var target = event.target, currentTarget = event.currentTarget, input, value;
-        if (target.tagName === 'BUTTON') {
-            input = currentTarget.querySelector('input[type="text"]');
-            if (input.value.length > 0) {
-                this.dataService.func(input.value);
-                input.value = '';
-                if (input.classList.contains('inputError')) {
-                    input.classList.remove('inputError');
-                }
-            }
-            else {
-                input.classList.add('inputError');
-            }
-        }
+    // ngOnInit() {
+    // }
+    componentMoreFollowers.prototype.onChanged = function () {
+        debugger;
+        this.data.checked = true;
+        pubSub_1.PubSub.publish('changeSum', +this.data.Followers.total);
     };
-    componentMainPage = __decorate([
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], componentMoreFollowers.prototype, "getTotalSum", void 0);
+    componentMoreFollowers = __decorate([
         core_1.Component({
-            selector: 'mainPage',
-            templateUrl: './app/template/component_main_page.html'
+            selector: 'componentMoreFollowers',
+            templateUrl: './app/template/component_more_followers.html'
         }), 
         __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
-    ], componentMainPage);
-    return componentMainPage;
+    ], componentMoreFollowers);
+    return componentMoreFollowers;
 }());
-exports.componentMainPage = componentMainPage;
+exports.componentMoreFollowers = componentMoreFollowers;

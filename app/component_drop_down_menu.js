@@ -10,24 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var pubSub_1 = require('./pubSub');
+var data_service_language_1 = require('./data.service.language');
 var componentDropDownMenu = (function () {
-    function componentDropDownMenu() {
-        this.items = ['ru', 'en'];
+    function componentDropDownMenu(dataServiceLanguage) {
+        this.dataServiceLanguage = dataServiceLanguage;
+        this.items = [];
+        this.items = dataServiceLanguage.listLanguages;
     }
     componentDropDownMenu.prototype.replaceLang = function (event) {
         this.language = event.target.innerHTML;
         pubSub_1.PubSub.publish('newLang', this.language);
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], componentDropDownMenu.prototype, "language", void 0);
     componentDropDownMenu = __decorate([
         core_1.Component({
             selector: 'componentDropDownMenu',
             templateUrl: './app/template/component_drop_down_menu.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
     ], componentDropDownMenu);
     return componentDropDownMenu;
 }());

@@ -1,5 +1,5 @@
 <div class="container_input" #div>
-    <span class="content">{{item.content}}</span>
+    <span class="content">{{dataServiceLanguage.GetText(item.content)}}</span>
     <input type="text" class="value"    [(ngModel)]="item.total"
                                         (input)="checkDataEventInput($event)"
                                         (input)="change()" />

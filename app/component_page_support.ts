@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataServiceLanguage } from './data.service.language';
 import { DataService } from './data.service';
-import { PubSub } from './pubSub';
 
 @Component({
     selector: 'support',
@@ -8,66 +8,73 @@ import { PubSub } from './pubSub';
 })
 
 
-export class componentPageSupport implements OnInit {
+export class componentPageSupport {
 
-    language;
+    constructor(
+        private dataServiceLanguage : DataServiceLanguage,
+        private dataService : DataService
+    ){};
 
-    firstName;
-    lastName;
-    E_mailAddress;
-    textTextArea;
-    textButton;
+    checkValue( event ) {
 
-    dataLang = {
+        var target = event.target,
+            currentTarget = event.currentTarget,
+            firstName, lastName, email, content;
 
-        firstName : {
-            'ru' : 'имя',
-            'en' 'first name'
-        },
+        if ( target.tagName === 'BUTTON' ) {
 
-        lastName : {
-            'ru' : 'фамилия',
-            'en' 'last name'
-        },
+            firstName = currentTarget.querySelector('.first_name');
+            lastName = currentTarget.querySelector('.last_name');
+            content = currentTarget.querySelector('.user_mesage');
+            email = currentTarget.querySelector('.user_email');
 
-        E_mailAddress : {
-            'ru' : 'почта',
-            'en' : 'e-mail address'
-        },
+            if ( email.value && content.value ) {
 
-        textTextArea : {
-            'ru' : 'текст сообщения',
-            'en' : 'Your Suggestions Here!'
-        },
+                if ( firstName.value || lastName.value ) {
 
-        textButton : {
-            'ru' : 'отправить',
-            'en' : 'send suggestion'
+                    this.dataService.func({
+
+                        firstName : firstName.value,
+                        lastName  : lastName.value,
+                        email     : email.value,
+                        content   : content.value
+                    });
+
+                    this.checkLength( [firstName, lastName, content, email], true );
+                }
+            }
+
+            else {
+
+                this.checkLength( [firstName, lastName, content, email], null );
+            }
+
         }
     }
 
-    constructor(private dataService: DataService){}
+    checkLength( list, key ) {
 
-    ngOnInit() {
+        if ( !key ) {
 
-        this.language = this.dataService.language;
-        this.firstName = this.dataLang.firstName[this.language];
-        this.lastName = this.dataLang.lastName[this.language];
-        this.E_mailAddress = this.dataLang.E_mailAddress[this.language];
-        this.textTextArea = this.dataLang.textTextArea[this.language];
-        this.textButton = this.dataLang.textButton[this.language];
+            list.forEach( function( item ) {
 
-        PubSub.subscribe('language', this.changeLanguages.bind(this) );
+                if( item.value.length === 0 ) {
+
+                    item.classList.add('inputError')
+                }
+
+            });
+        }
+
+        else {
+
+            list.forEach( function( item ) {
+
+                item.classList.remove('inputError');
+                item.value = '';
+
+            });
+        }
     }
 
-    changeLanguages( key ) {
-
-        this.language = key;
-
-        this.firstName = this.dataLang.firstName[key];
-        this.lastName = this.dataLang.lastName[key];
-        this.E_mailAddress = this.dataLang.E_mailAddress[key];
-        this.textTextArea = this.dataLang.textTextArea[key];
-        this.textButton = this.dataLang.textButton[key];
-    }
 }

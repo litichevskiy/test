@@ -13,72 +13,18 @@ var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
 var componentUserPage = (function () {
-    function componentUserPage(dataService, dataServiceLanguage) {
+    function componentUserPage(dataService, dataServiceLanguage, cdr) {
         this.dataService = dataService;
         this.dataServiceLanguage = dataServiceLanguage;
+        this.cdr = cdr;
         this.totalSum = 0;
         this.selectedPayNow = false;
-        this.dataLangPayNow = {
-            'ru': 'к оплате',
-            'en': 'pay now'
-        };
-        this.dataLangPay = {
-            'ru': 'оплатить',
-            'en': 'pay'
-        };
-        this.dataLangInfo = {
-            posts: {
-                'ru': 'публикаций',
-                'en': 'posts'
-            },
-            followers: {
-                'ru': 'подписчиков',
-                'en': 'followers'
-            },
-            following: {
-                'ru': 'подписки',
-                'en': 'following'
-            }
-        };
-        this.dataLangSelected = {
-            selectPictures: {
-                'en': {
-                    first: 'Select last',
-                    last: 'pictures'
-                },
-                'ru': {
-                    first: 'Выбрать последние',
-                    last: 'изображений'
-                }
-            },
-            addLikes: {
-                'en': {
-                    first: 'Add to your selected photos',
-                    last: 'likes'
-                },
-                'ru': {
-                    first: 'Добавить на выбранные фото',
-                    last: 'лайков'
-                }
-            },
-            addComents: {
-                'en': {
-                    first: 'Add to your selected photos',
-                    last: 'coments'
-                },
-                'ru': {
-                    first: 'Добавить на выбранные фото',
-                    last: 'комментариев'
-                }
-            }
-        };
         this.listSelected = {
             likes: { checked: false, value: 10 },
             coments: { checked: false, value: 20 },
-            select: { checked: false, value: 30 },
+            select: { checked: false, value: 30 }
         };
     }
-    ;
     componentUserPage.prototype.ngOnInit = function () {
         var that = this, target = this.div.nativeElement.parentElement;
         while (true) {
@@ -93,37 +39,17 @@ var componentUserPage = (function () {
         this.items = this.dataService.getData();
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
-        this.infoPosts = this.infoPosts.map(function (item) {
-            item.content = that.dataLangInfo[item.name][that.language];
-            return item;
-        });
-        this.selectPictures_first = this.dataLangSelected.selectPictures[this.language].first;
-        this.selectPictures_last = this.dataLangSelected.selectPictures[this.language].last;
-        this.addLikes_first = this.dataLangSelected.addLikes[this.language].first;
-        this.addLikes_last = this.dataLangSelected.addLikes[this.language].last;
-        this.addComents_first = this.dataLangSelected.addComents[this.language].first;
-        this.addComents_last = this.dataLangSelected.addComents[this.language].last;
-        this.Pay_now = this.dataLangPayNow[this.language];
-        this.Pay = this.dataLangPay[this.language];
+        this.maxSelect = this.allLIst.length;
         pubSub_1.PubSub.subscribe('closePaNow', this.closePayNow.bind(this));
         pubSub_1.PubSub.subscribe('language', this.changeLanguages.bind(this));
+        pubSub_1.PubSub.subscribe('changeSum', this.addTotalSum.bind(this));
+    };
+    componentUserPage.prototype.addTotalSum = function (sum) {
+        this.totalSum += sum;
     };
     componentUserPage.prototype.changeLanguages = function (key) {
-        var that = this;
         this.language = key;
         this.htmlElement.lang = this.language;
-        this.infoPosts = this.infoPosts.map(function (item) {
-            item.content = that.dataLangInfo[item.name][key];
-            return item;
-        });
-        this.Pay_now = this.dataLangPayNow[key];
-        this.Pay = this.dataLangPay[key];
-        this.selectPictures_first = this.dataLangSelected.selectPictures[key].first;
-        this.selectPictures_last = this.dataLangSelected.selectPictures[key].last;
-        this.addLikes_first = this.dataLangSelected.addLikes[key].first;
-        this.addLikes_last = this.dataLangSelected.addLikes[key].last;
-        this.addComents_first = this.dataLangSelected.addComents[key].first;
-        this.addComents_last = this.dataLangSelected.addComents[key].last;
     };
     componentUserPage.prototype.selectAll = function () {
         var count = 0, result = 0, storageSum = [];
@@ -171,10 +97,22 @@ var componentUserPage = (function () {
         var key = event.currentTarget.dataset.role;
         if (!isNaN(+target.value)) {
             target.value = +target.value;
+            this.checkMaxValue(target);
         }
         else {
             this.listSelected[key].value = this.listSelected[key].value.replace(/\D/g, '');
             target.value = this.listSelected[key].value;
+            this.checkMaxValue(target);
+        }
+    };
+    componentUserPage.prototype.checkMaxValue = function (target) {
+        // debugger
+        var value = target.value;
+        if (target.dataset.role === 'select') {
+            if (value < 0)
+                target.value = 0;
+            if (value > this.maxSelect)
+                target.value = this.maxSelect;
         }
     };
     componentUserPage.prototype.loadPhotos = function () {
@@ -188,6 +126,7 @@ var componentUserPage = (function () {
         this.selectedPayNow = false;
     };
     componentUserPage.prototype.getTotalSum = function () {
+        debugger;
         var total = 0;
         this.items.forEach(function (item) {
             if (item.checked) {
@@ -239,7 +178,7 @@ var componentUserPage = (function () {
             selector: 'userPage',
             templateUrl: './app/template/component_user_page.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService, data_service_language_1.DataServiceLanguage])
+        __metadata('design:paramtypes', [data_service_1.DataService, data_service_language_1.DataServiceLanguage, core_1.ChangeDetectorRef])
     ], componentUserPage);
     return componentUserPage;
 }());

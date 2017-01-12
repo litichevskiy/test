@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, ngOnInit } from '@angular/core';
-import {PubSub} from './pubSub';
+import { DataServiceLanguage } from './data.service.language';
+import { PubSub } from './pubSub';
 
 @Component({
     selector: 'ComponentInputRange',
@@ -9,12 +10,12 @@ import {PubSub} from './pubSub';
 export class ComponentInputRange implements ngOnInit {
 
     @Input() item: item;
+    @Input() video: video;
     @Input() ranges: ranges;
     @Input() checked: checked;
     @Input() settings: settings;
     @Output() onChanged = new EventEmitter<number>();
     @ViewChild('input') input: ElementRef;
-    @Input() language : any;
 
     colorDefault = 'rgb(221,224,225)';
     colorSelect = 'rgb(37,197,204)';
@@ -22,25 +23,12 @@ export class ComponentInputRange implements ngOnInit {
     maxSum;
     minSum;
 
-    dataLang = {
-
-        likes : {
-
-            'en' : 'likes',
-            'ru' : 'лайков'
-        },
-
-        coments : {
-            'en' : 'coments',
-            'ru' : 'комметариев'
-        }
-    }
+    constructor( private dataServiceLanguage : DataServiceLanguage){};
 
 
     ngOnInit() {
 
         PubSub.subscribe( 'newValue', this.replaceInputRangeValue.bind(this) );
-        PubSub.subscribe( 'language', this.changeLanguages.bind(this) );
 
         this.inputRange = this.input.nativeElement;
         this.inputRange.min = this.settings.min;
@@ -50,7 +38,7 @@ export class ComponentInputRange implements ngOnInit {
         this.maxSum = this.ranges[this.ranges.length-1].vmax;
         this.minSum = this.ranges[0].vmin;
 
-        this.item.content = this.dataLang[this.item.name][this.language];
+        this.item.content = this.item.name;
 
         if( this.item.total === 0 || this.checked === false ){
 
@@ -65,12 +53,6 @@ export class ComponentInputRange implements ngOnInit {
                 this.replaceInputRangeValue();
                 this.changeProgres(true);
             }
-    }
-
-
-    changeLanguages( key ){
-
-        this.item.content = this.dataLang[this.item.name][key];
     }
 
 
@@ -188,13 +170,13 @@ export class ComponentInputRange implements ngOnInit {
     };
 
 
-    setValue(x){
+    setValue( val ){
 
         var that = this;
 
         setTimeout(function(){
 
-            if( x ) return;
+            if( val ) return;
 
             that.item.total = '+' + that.getValue(that.inputRange.value);
 

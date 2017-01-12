@@ -18,12 +18,14 @@ var component_container_input_range_1 = require('./component_container_input_ran
 var component_container_user_photo_1 = require('./component_container_user_photo');
 var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
+var component_drop_down_menu_1 = require('./component_drop_down_menu');
 var component_nav_bar_1 = require('./component_nav_bar');
 var component_pay_now_1 = require('./component_pay_now');
-var component_drop_down_menu_1 = require('./component_drop_down_menu');
 var component_page_support_1 = require('./component_page_support');
 var component_main_page_1 = require('./component_main_page');
 var component_user_info_1 = require('./component_user_info');
+var component_video_1 = require('./component_video');
+var component_more_followers_1 = require('./component_more_followers');
 var appRoutes = [
     { path: '', component: component_user_page_1.componentUserPage },
     { path: 'support', component: component_page_support_1.componentPageSupport },
@@ -46,7 +48,9 @@ var AppModule = (function () {
                 component_drop_down_menu_1.componentDropDownMenu,
                 component_page_support_1.componentPageSupport,
                 component_main_page_1.componentMainPage,
-                component_user_info_1.ComponentUserInfo
+                component_user_info_1.ComponentUserInfo,
+                component_video_1.ComponentVideo,
+                component_more_followers_1.componentMoreFollowers
             ],
             providers: [data_service_1.DataService, data_service_language_1.DataServiceLanguage],
             bootstrap: [app_component_1.AppComponent]

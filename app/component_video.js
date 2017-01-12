@@ -8,20 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var data_service_language_1 = require('./data.service.language');
 var core_1 = require('@angular/core');
-var ComponentUserInfo = (function () {
-    function ComponentUserInfo(dataServiceLanguage) {
-        this.dataServiceLanguage = dataServiceLanguage;
+var ComponentVideo = (function () {
+    function ComponentVideo() {
     }
-    ;
-    ComponentUserInfo = __decorate([
+    ComponentVideo = __decorate([
         core_1.Component({
-            selector: 'ComponentUserInfo',
-            templateUrl: 'app/template/component_user_info.html'
+            selector: 'ComponentVideo',
+            templateUrl: './app/template/component_video.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
-    ], ComponentUserInfo);
-    return ComponentUserInfo;
+        __metadata('design:paramtypes', [])
+    ], ComponentVideo);
+    return ComponentVideo;
 }());
-exports.ComponentUserInfo = ComponentUserInfo;
+exports.ComponentVideo = ComponentVideo;

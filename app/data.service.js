@@ -10,11 +10,12 @@ var DataService = (function () {
                 for (var i = 0; i < 1000; i++) {
                     list.push({
                         url: { path: '/app/img/bg_0.png' },
-                        // likes    : { name : 'likes' , total : 0 },
-                        coments: { name: 'coments', total: 0 },
+                        likes: { name: 'likes', total: 0 },
+                        coments: { name: 'comments', total: 0 },
                         data: { likes: '+100', coments: '+300' },
                         settings: { min: 0, max: 1000, currentValue: 198 },
                         checked: false,
+                        video: true,
                         ranges: [
                             { min: 0, max: 1, vmin: 0, vmax: 0 },
                             { min: 1, max: 500, vmin: 100, vmax: 1000 },
@@ -38,6 +39,20 @@ var DataService = (function () {
                 }
             };
         }();
+        this.dataMoreFollowers = {
+            Followers: { name: 'MoreFollowers', total: 0 },
+            // data     : { likes : '+100', coments : '+300' },
+            settings: { min: 0, max: 1000, currentValue: 198 },
+            checked: true,
+            ranges: [
+                { min: 0, max: 1, vmin: 0, vmax: 0 },
+                { min: 1, max: 500, vmin: 100, vmax: 1000 },
+                { min: 501, max: 550, vmin: 1000, vmax: 5000 },
+                { min: 551, max: 650, vmin: 5000, vmax: 10000 },
+                { min: 651, max: 700, vmin: 10000, vmax: 25000 },
+                { min: 701, max: 1000, vmin: 25000, vmax: 50000 }
+            ]
+        };
         this.language = 'en';
         this.dataUserInfo = {
             user: { pathToPhoto: 'app/img/user_photo.jpg', name: 'Vasiliy' },
@@ -46,7 +61,7 @@ var DataService = (function () {
         this.data = [];
         this.init = function (that) {
             pubSub_1.PubSub.subscribe('payNow', that.getSum.bind(that));
-            pubSub_1.PubSub.subscribe('newLang', that.setLanguage.bind(that));
+            // PubSub.subscribe('newLang', that.setLanguage.bind( that ) );
         }(this);
     }
     // private data:[];
@@ -63,6 +78,9 @@ var DataService = (function () {
     };
     DataService.prototype.getDataNavBar = function () {
         return this.dataNavBar;
+    };
+    DataService.prototype.func = function (val) {
+        console.log('DataService------', val);
     };
     DataService.prototype.getSum = function (sum) {
         console.log('DataService------', sum);
@@ -81,7 +99,7 @@ var DataService = (function () {
     };
     DataService.prototype.setLanguage = function (key) {
         this.language = key;
-        pubSub_1.PubSub.publish('language', this.language);
+        // PubSub.publish('language', this.language );
     };
     return DataService;
 }());

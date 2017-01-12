@@ -250,3 +250,6 @@ body{
     font-family: 'MuseoSansCyrl_1', sans-serif;
     float: right;
 }
+.inputError{
+    background-color: rgba(255,0,0,0.4) !important;
+}

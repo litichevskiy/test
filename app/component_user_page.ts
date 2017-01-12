@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DataService } from './data.service';
 import { DataServiceLanguage } from './data.service.language';
 import { PubSub } from './pubSub';
@@ -15,104 +15,26 @@ export class componentUserPage implements OnInit {
     totalSum = 0;
     selectedPayNow = false;
     language;
-    infoPosts;
-    Pay_now;
-    Pay;
-    selectPictures_first;
-    selectPictures_last;
-    addLikes_first;
-    addLikes_last;
-    addComents_first;
-    addComents_last;
     htmlElement;
+    maxSelect;
 
 
     @ViewChild('div') div: ElementRef;
-
-
-
-    dataLangPayNow = {
-
-        'ru' : 'к оплате',
-        'en' : 'pay now'
-
-    };
-
-    dataLangPay = {
-
-        'ru' : 'оплатить',
-        'en' : 'pay'
-
-    };
-
-    dataLangInfo = {
-
-        posts : {
-            'ru' : 'публикаций',
-            'en' : 'posts'
-        },
-
-        followers : {
-            'ru' : 'подписчиков',
-            'en' : 'followers'
-        },
-
-        following : {
-            'ru' : 'подписки',
-            'en' : 'following'
-        }
-    };
-
-    dataLangSelected = {
-
-        selectPictures : {
-            'en' : {
-                first : 'Select last',
-                last : 'pictures'
-            },
-
-            'ru' : {
-                first : 'Выбрать последние',
-                last : 'изображений'
-            }
-        },
-
-        addLikes : {
-            'en' : {
-                first : 'Add to your selected photos',
-                last : 'likes'
-            },
-
-            'ru' : {
-                first : 'Добавить на выбранные фото',
-                last : 'лайков'
-            }
-        },
-
-        addComents : {
-            'en' : {
-                first : 'Add to your selected photos',
-                last : 'coments'
-            },
-
-            'ru' : {
-                first : 'Добавить на выбранные фото',
-                last : 'комментариев'
-            }
-        }
-
-    };
 
 
     listSelected = {
 
         likes   : { checked : false, value : 10 },
         coments : { checked : false, value : 20 },
-        select  : { checked : false, value : 30 },
+        select  : { checked : false, value : 30 }
     }
 
 
-    constructor(private dataService: DataService, private dataServiceLanguage : DataServiceLanguage ){};
+    constructor(
+        private dataService: DataService,
+        private dataServiceLanguage : DataServiceLanguage,
+        private cdr:ChangeDetectorRef
+    ){}
 
     ngOnInit(){
 
@@ -135,53 +57,23 @@ export class componentUserPage implements OnInit {
         this.items = this.dataService.getData();
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
-
-        this.infoPosts = this.infoPosts.map(function( item ) {
-
-            item.content = that.dataLangInfo[item.name][that.language];
-            return item;
-        });
-
-        this.selectPictures_first = this.dataLangSelected.selectPictures[this.language].first;
-        this.selectPictures_last = this.dataLangSelected.selectPictures[this.language].last;
-
-        this.addLikes_first = this.dataLangSelected.addLikes[this.language].first;
-        this.addLikes_last = this.dataLangSelected.addLikes[this.language].last;
-
-        this.addComents_first = this.dataLangSelected.addComents[this.language].first;
-        this.addComents_last = this.dataLangSelected.addComents[this.language].last;
-
-        this.Pay_now = this.dataLangPayNow[this.language];
-        this.Pay = this.dataLangPay[this.language];
+        this.maxSelect = this.allLIst.length;
 
         PubSub.subscribe('closePaNow', this.closePayNow.bind(this) );
         PubSub.subscribe('language', this.changeLanguages.bind(this) );
+        PubSub.subscribe('changeSum', this.addTotalSum.bind(this) );
     }
+
+    addTotalSum( sum ) {
+
+        this.totalSum += sum;
+    }
+
 
     changeLanguages( key ) {
 
-        var that = this;
         this.language = key;
-
         this.htmlElement.lang = this.language;
-
-        this.infoPosts = this.infoPosts.map(function( item ) {
-
-            item.content = that.dataLangInfo[item.name][key];
-            return item;
-        });
-
-        this.Pay_now = this.dataLangPayNow[key];
-        this.Pay = this.dataLangPay[key];
-
-        this.selectPictures_first = this.dataLangSelected.selectPictures[key].first;
-        this.selectPictures_last = this.dataLangSelected.selectPictures[key].last;
-
-        this.addLikes_first = this.dataLangSelected.addLikes[key].first;
-        this.addLikes_last = this.dataLangSelected.addLikes[key].last;
-
-        this.addComents_first = this.dataLangSelected.addComents[key].first;
-        this.addComents_last = this.dataLangSelected.addComents[key].last;
     }
 
     selectAll() {
@@ -262,6 +154,8 @@ export class componentUserPage implements OnInit {
         if( !isNaN( +target.value ) ) {
 
             target.value = +target.value;
+
+            this.checkMaxValue( target );
         }
 
         else {
@@ -269,6 +163,18 @@ export class componentUserPage implements OnInit {
             this.listSelected[key].value = this.listSelected[key].value.replace( /\D/g, '');
             target.value = this.listSelected[key].value;
 
+            this.checkMaxValue( target );
+        }
+    }
+
+    checkMaxValue( target ) {
+        // debugger
+        var value = target.value;
+
+        if ( target.dataset.role === 'select' ) {
+
+            if ( value < 0 ) target.value = 0;
+            if ( value > this.maxSelect ) target.value = this.maxSelect;
         }
     }
 
@@ -289,7 +195,7 @@ export class componentUserPage implements OnInit {
     }
 
     getTotalSum(){
-
+        debugger
         var total = 0;
 
         this.items.forEach(function( item ) {

@@ -10,9 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var pubSub_1 = require('./pubSub');
+var data_service_language_1 = require('./data.service.language');
 var ComponentPayNow = (function () {
-    function ComponentPayNow() {
+    function ComponentPayNow(dataServiceLanguage) {
+        this.dataServiceLanguage = dataServiceLanguage;
     }
+    ;
     ComponentPayNow.prototype.closePayNow = function (event) {
         var target = event.target;
         if (target.classList.contains('closeBlock') ||
@@ -32,7 +35,7 @@ var ComponentPayNow = (function () {
             selector: 'ComponentPayNow',
             templateUrl: 'app/template/component_pay_now.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
     ], ComponentPayNow);
     return ComponentPayNow;
 }());

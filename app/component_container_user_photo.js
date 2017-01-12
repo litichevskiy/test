@@ -33,10 +33,6 @@ var ComponentContainerUserPhoto = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], ComponentContainerUserPhoto.prototype, "getTotalSum", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ComponentContainerUserPhoto.prototype, "language", void 0);
     ComponentContainerUserPhoto = __decorate([
         core_1.Component({
             selector: 'ComponentContainerUserPhoto',

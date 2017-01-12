@@ -9,13 +9,14 @@
         </span>
     </label>
     <div class="block_content">
+        <ComponentVideo *ngIf="item.video"></ComponentVideo>
         <ComponentInputRange    *ngIf="item.likes"
                                 [item]="item.likes"
                                 [ranges]="item.ranges"
                                 [settings]="item.settings"
                                 [checked]="item.checked"
                                 (onChanged)="onChanged($event)"
-                                [language]="language" >
+                                [video]="item.video" >
         </ComponentInputRange>
         <ComponentInputRange    *ngIf="item.coments"
                                 [item]="item.coments"
@@ -23,7 +24,7 @@
                                 [settings]="item.settings"
                                 [checked]="item.checked"
                                 (onChanged)="onChanged($event)"
-                                [language]="language" >
+                                [video]="item.video" >
         </ComponentInputRange>
         <div class="container_likes_and_coments">
             <span class="likes">{{item.data.likes}}</span>

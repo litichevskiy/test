@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PubSub } from './pubSub';
+import { DataServiceLanguage } from './data.service.language';
 
 @Component({
     selector: 'componentDropDownMenu',
@@ -8,9 +9,14 @@ import { PubSub } from './pubSub';
 
 export class componentDropDownMenu {
 
-    items = ['ru','en'];
+    items = [];
+    language;
 
-    @Input() language : any;
+
+    constructor( private dataServiceLanguage : DataServiceLanguage ){
+        this.items = dataServiceLanguage.listLanguages;
+    }
+
 
     replaceLang( event ){
 

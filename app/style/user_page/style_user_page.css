@@ -512,3 +512,9 @@
     background-color: rgb(7,211,15);
     font-family: 'proximanova_cyrilic', sans-serif;
 }
+.more_followers .value{
+    color: rgb(37,197,204) !important;
+}
+.more_followers .content{
+    color: rgb(38, 38, 38) !important;
+}

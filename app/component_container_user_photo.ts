@@ -11,7 +11,6 @@ export class ComponentContainerUserPhoto {
 
     @Input() item: item;
     @Output() getTotalSum = new EventEmitter<number>();
-    @Input() language : any;
 
     replaceState( event ){
 

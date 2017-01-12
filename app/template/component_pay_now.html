@@ -3,33 +3,41 @@
         <div class="close_block_payment_method">
             <span class="closeBlock" (click)="closePayNow($event)">✕</span>
         </div>
-        <p class="header_block_payment_method">Choose the method of payment</p>
+        <p class="header_block_payment_method">
+            {{dataServiceLanguage.GetText('ChooseTheMethodOfPayment')}}
+        </p>
         <div class="container_payment_element">
             <div class="payment_card">
                 <img src="app/img/logo_2_checkout.png" alt="">
                 <div class="content">
-                    Accept, Credit Cards, PayPal and Debit Cards
+                   {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
                 </div>
                 <div class="container_btn_submit">
-                    <button class="btn submit_pay_now" (click)="payNow()">Pay now</button>
+                    <button class="btn submit_pay_now" (click)="payNow()">
+                        {{dataServiceLanguage.GetText('Pay')}}
+                    </button>
                 </div>
             </div>
             <div class="payment_cash">
                 <img src="app/img/sprypay_logo.png" alt="">
                 <div class="content">
-                    Электронные деньги, Карты, интернет-банки, Наличные, СМС-платежи
+                    {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
                 </div>
                 <div class="container_btn_submit">
-                    <button class="btn submit_pay_now" (click)="payNow()">Pay now</button>
+                    <button class="btn submit_pay_now" (click)="payNow()">
+                        {{dataServiceLanguage.GetText('Pay')}}
+                    </button>
                 </div>
             </div>
             <div class="payment_card">
                 <img src="app/img/logo_2_checkout.png" alt="">
                 <div class="content">
-                    Accept, Credit Cards, PayPal and Debit Cards
+                    {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
                 </div>
                 <div class="container_btn_submit">
-                    <button class="btn submit_pay_now" (click)="payNow()">Pay now</button>
+                    <button class="btn submit_pay_now" (click)="payNow()">
+                        {{dataServiceLanguage.GetText('Pay')}}
+                    </button>
                 </div>
             </div>
         </div>

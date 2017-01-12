@@ -9,33 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
 var ComponentInputRange = (function () {
-    function ComponentInputRange() {
+    function ComponentInputRange(dataServiceLanguage) {
+        this.dataServiceLanguage = dataServiceLanguage;
         this.onChanged = new core_1.EventEmitter();
         this.colorDefault = 'rgb(221,224,225)';
         this.colorSelect = 'rgb(37,197,204)';
-        this.dataLang = {
-            likes: {
-                'en': 'likes',
-                'ru': 'лайков'
-            },
-            coments: {
-                'en': 'coments',
-                'ru': 'комметариев'
-            }
-        };
     }
+    ;
     ComponentInputRange.prototype.ngOnInit = function () {
         pubSub_1.PubSub.subscribe('newValue', this.replaceInputRangeValue.bind(this));
-        pubSub_1.PubSub.subscribe('language', this.changeLanguages.bind(this));
         this.inputRange = this.input.nativeElement;
         this.inputRange.min = this.settings.min;
         this.inputRange.max = this.settings.max;
         this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length - 1].vmax;
         this.minSum = this.ranges[0].vmin;
-        this.item.content = this.dataLang[this.item.name][this.language];
+        this.item.content = this.item.name;
         if (this.item.total === 0 || this.checked === false) {
             this.item.total = this.getValue(this.inputRange.value);
             this.changeProgres();
@@ -44,9 +36,6 @@ var ComponentInputRange = (function () {
             this.replaceInputRangeValue();
             this.changeProgres(true);
         }
-    };
-    ComponentInputRange.prototype.changeLanguages = function (key) {
-        this.item.content = this.dataLang[this.item.name][key];
     };
     ComponentInputRange.prototype.change = function () {
         var that = this;
@@ -122,10 +111,10 @@ var ComponentInputRange = (function () {
             return this.toPercent(rangeInput, value, { min: mid, max: range.max });
     };
     ;
-    ComponentInputRange.prototype.setValue = function (x) {
+    ComponentInputRange.prototype.setValue = function (val) {
         var that = this;
         setTimeout(function () {
-            if (x)
+            if (val)
                 return;
             that.item.total = '+' + that.getValue(that.inputRange.value);
         }, 0);
@@ -148,6 +137,10 @@ var ComponentInputRange = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
+    ], ComponentInputRange.prototype, "video", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
     ], ComponentInputRange.prototype, "ranges", void 0);
     __decorate([
         core_1.Input(), 
@@ -165,16 +158,12 @@ var ComponentInputRange = (function () {
         core_1.ViewChild('input'), 
         __metadata('design:type', core_1.ElementRef)
     ], ComponentInputRange.prototype, "input", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ComponentInputRange.prototype, "language", void 0);
     ComponentInputRange = __decorate([
         core_1.Component({
             selector: 'ComponentInputRange',
             templateUrl: 'app/template/component_input_range.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
     ], ComponentInputRange);
     return ComponentInputRange;
 }());

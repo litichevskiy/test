@@ -9,57 +9,58 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var data_service_language_1 = require('./data.service.language');
 var data_service_1 = require('./data.service');
-var pubSub_1 = require('./pubSub');
 var componentPageSupport = (function () {
-    function componentPageSupport(dataService) {
+    function componentPageSupport(dataServiceLanguage, dataService) {
+        this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
-        this.dataLang = {
-            firstName: {
-                'ru': 'имя',
-                'en': 'first name'
-            },
-            lastName: {
-                'ru': 'фамилия',
-                'en': 'last name'
-            },
-            E_mailAddress: {
-                'ru': 'почта',
-                'en': 'e-mail address'
-            },
-            textTextArea: {
-                'ru': 'текст сообщения',
-                'en': 'Your Suggestions Here!'
-            },
-            textButton: {
-                'ru': 'отправить',
-                'en': 'send suggestion'
-            }
-        };
     }
-    componentPageSupport.prototype.ngOnInit = function () {
-        this.language = this.dataService.language;
-        this.firstName = this.dataLang.firstName[this.language];
-        this.lastName = this.dataLang.lastName[this.language];
-        this.E_mailAddress = this.dataLang.E_mailAddress[this.language];
-        this.textTextArea = this.dataLang.textTextArea[this.language];
-        this.textButton = this.dataLang.textButton[this.language];
-        pubSub_1.PubSub.subscribe('language', this.changeLanguages.bind(this));
+    ;
+    componentPageSupport.prototype.checkValue = function (event) {
+        var target = event.target, currentTarget = event.currentTarget, firstName, lastName, email, content;
+        if (target.tagName === 'BUTTON') {
+            firstName = currentTarget.querySelector('.first_name');
+            lastName = currentTarget.querySelector('.last_name');
+            content = currentTarget.querySelector('.user_mesage');
+            email = currentTarget.querySelector('.user_email');
+            if (email.value && content.value) {
+                if (firstName.value || lastName.value) {
+                    this.dataService.func({
+                        firstName: firstName.value,
+                        lastName: lastName.value,
+                        email: email.value,
+                        content: content.value
+                    });
+                    this.checkLength([firstName, lastName, content, email], true);
+                }
+            }
+            else {
+                this.checkLength([firstName, lastName, content, email], null);
+            }
+        }
     };
-    componentPageSupport.prototype.changeLanguages = function (key) {
-        this.language = key;
-        this.firstName = this.dataLang.firstName[key];
-        this.lastName = this.dataLang.lastName[key];
-        this.E_mailAddress = this.dataLang.E_mailAddress[key];
-        this.textTextArea = this.dataLang.textTextArea[key];
-        this.textButton = this.dataLang.textButton[key];
+    componentPageSupport.prototype.checkLength = function (list, key) {
+        if (!key) {
+            list.forEach(function (item) {
+                if (item.value.length === 0) {
+                    item.classList.add('inputError');
+                }
+            });
+        }
+        else {
+            list.forEach(function (item) {
+                item.classList.remove('inputError');
+                item.value = '';
+            });
+        }
     };
     componentPageSupport = __decorate([
         core_1.Component({
             selector: 'support',
             templateUrl: './app/template/component_page_support.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
     ], componentPageSupport);
     return componentPageSupport;
 }());

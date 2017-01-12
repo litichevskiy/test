@@ -8,21 +8,23 @@
             <h1 class="header_sharkgram">Sharkgram</h1>
         </div>
         <div class="container_list_language">
-            <componentDropDownMenu [language]="language" ></componentDropDownMenu>
+            <componentDropDownMenu></componentDropDownMenu>
         </div>
     </header>
-    <div class="container_form">
-        <form method="post" class="form_support">
+    <div class="container_form" (click)="checkValue($event)">
+        <div method="post" class="form_support">
             <div class="container_user_info">
-                <input autofocus="true" class="first_name" placeholder="{{firstName}}" type="text" name="fname"/><input class="last_name" placeholder="{{lastName}}" type="text" name="lname"/>
+                <input autofocus="true" class="first_name" placeholder="{{dataServiceLanguage.GetText('FirstName')}}" type="text" name="fname"/><input class="last_name" placeholder="{{dataServiceLanguage.GetText('LastName')}}" type="text" name="lname"/>
             </div>
             <div class="user_contact">
-                <input class="user_email" placeholder="{{E_mailAddress}}" type="email" name="email"/>
+                <input class="user_email" placeholder="{{dataServiceLanguage.GetText('E_mailAddress')}}" type="email" name="email"/>
             </div>
-            <textarea class="user_mesage" placeholder="{{textTextArea}}" name="message" rows="7"></textarea>
+            <textarea class="user_mesage" placeholder="{{dataServiceLanguage.GetText('TextTextArea')}}" name="message" rows="7"></textarea>
             <footer>
-                <button class="btn get_popular" type="submit">{{textButton}}</button>
+                <button class="btn get_popular" type="submit">
+                    {{dataServiceLanguage.GetText('TextButton')}}
+                </button>
             </footer>
-        </form>
+        </div>
     </div>
 </section>

@@ -8,20 +8,20 @@
             <h1 class="header_sharkgram">Sharkgram</h1>
         </div>
         <div class="container_list_language">
-            <componentDropDownMenu [language]="language" ></componentDropDownMenu>
+            <componentDropDownMenu></componentDropDownMenu>
         </div>
     </header>
     <div class="block_content_main_page">
         <h1 class="main_header">
-            {{mainHeader}}
-            <p class="content_main_header">{{header}}</p>
+            {{dataServiceLanguage.GetText('MainHeader')}}
+            <p class="content_main_header">{{dataServiceLanguage.GetText('Header')}}</p>
         </h1>
-        <form class="form_user__profile_name">
-            <input autofocus="true" type="text" placeholder="{{userName}}" class="user_profile_name" autocomplete="on" />
-            <button type="submit" class="btn get_popular">{{getStart}}</button>
-        </form>
+        <div class="form_user__profile_name" (click)="checkValue($event)">
+            <input autofocus="true" type="text" placeholder="{{dataServiceLanguage.GetText('UserName')}}" class="user_profile_name" autocomplete="on" />
+            <button type="submit" class="btn get_popular">{{dataServiceLanguage.GetText('GetStart')}}</button>
+        </div>
         <div class="container_main_content">
-            <ComponentUserInfo [language]="language" ></ComponentUserInfo>
+            <ComponentUserInfo></ComponentUserInfo>
         </div>
     </div>
 </section>

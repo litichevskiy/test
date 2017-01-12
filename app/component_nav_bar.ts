@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { DataServiceLanguage } from './data.service.language';
+import { Component } from '@angular/core';
 import { PubSub } from './pubSub';
 
 @Component({
@@ -8,26 +9,6 @@ import { PubSub } from './pubSub';
 
 export class ComponentNavBar implements OnInit {
 
-    dataLang = {
-
-        'ru' : ['главная', 'поддержка'],
-        'en' : ['home', 'support']
-    }
-
-    items = [];
-
-    @Input() language : language;
-
-    ngOnInit () {
-
-        this.changeLang( this.language )
-
-        PubSub.subscribe( 'language', this.changeLang.bind( this ) );
-    }
-
-    changeLang( key ) {
-
-        this.items = this.dataLang[key];
-    }
+    constructor(private dataServiceLanguage : DataServiceLanguage ){}
 
 }

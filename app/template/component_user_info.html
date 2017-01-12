@@ -1,16 +1,28 @@
 <div class="more_info">
     <div class="content">
-        {{mainHeader}}
+        {{dataServiceLanguage.GetText('MainHeaderUserInfo')}}
         <span class="simbol">i</span>
     </div>
     <label class="button_more_info" for="show_more_info">
-        {{header}}?
+        {{dataServiceLanguage.GetText('HeaderUserInfo')}}?
     </label>
     <input type="checkbox" id="show_more_info" class="hide"/>
     <ul class="list_more_info">
-        <li class="item_list_more_info" *ngFor="let item of items, let i = index">
-            {{item}}
-            <span class="simbol">{{i+1}}</span>
+        <li class="item_list_more_info">
+            {{dataServiceLanguage.GetText('UserInfoStep_1')}}
+            <span class="simbol">{{1}}</span>
+        </li>
+        <li class="item_list_more_info">
+            {{dataServiceLanguage.GetText('UserInfoStep_2')}}
+            <span class="simbol">{{2}}</span>
+        </li>
+        <li class="item_list_more_info">
+            {{dataServiceLanguage.GetText('UserInfoStep_3')}}
+            <span class="simbol">{{3}}</span>
+        </li>
+        <li class="item_list_more_info">
+            {{dataServiceLanguage.GetText('UserInfoStep_4')}}
+            <span class="simbol">{{4}}</span>
         </li>
     </ul>
 </div>

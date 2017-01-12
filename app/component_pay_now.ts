@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {PubSub} from './pubSub';
+import { PubSub } from './pubSub';
+import { DataServiceLanguage } from './data.service.language';
 
 
 @Component({
@@ -10,6 +11,8 @@ import {PubSub} from './pubSub';
 export class ComponentPayNow {
 
     @Input() totalSum : any;
+
+    constructor( private dataServiceLanguage : DataServiceLanguage ){};
 
     closePayNow( event ){
 

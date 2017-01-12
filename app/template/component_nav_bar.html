@@ -9,11 +9,11 @@
     <nav class="nav_panel">
         <ul class="list_nav_panel">
             <li class="item_list_nav_panel">
-                <a class="link_nav_panel" routerLink="/main" >{{items[0]}}</a>
+                <a class="link_nav_panel" routerLink="/main" >{{dataServiceLanguage.GetText('Home')}}</a>
             <li class="item_list_nav_panel">
-                <a class="link_nav_panel" routerLink="/support" >{{items[1]}}</a>
+                <a class="link_nav_panel" routerLink="/support" >{{dataServiceLanguage.GetText('Support')}}</a>
             <li class="item_list_nav_panel">
-                <componentDropDownMenu [language]="language" ></componentDropDownMenu>
+                <componentDropDownMenu></componentDropDownMenu>
         </ul>
     </nav>
     <label class="open_close_nav_panel" for="open_close_nav_panel">
