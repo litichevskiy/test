@@ -34,18 +34,20 @@ var componentUserPage = (function () {
             }
             target = target.parentElement;
         }
-        this.language = this.dataService.language;
+        this.language = this.dataServiceLanguage.languageDefault;
+        this.htmlElement.lang = this.language;
         this.allLIst = this.dataService.dataUsersPhotos.getAllList();
         this.items = this.dataService.getData();
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
         this.maxSelect = this.allLIst.length;
+        this.dataMoreFollowers = this.dataService.dataMoreFollowers;
         pubSub_1.PubSub.subscribe('closePaNow', this.closePayNow.bind(this));
         pubSub_1.PubSub.subscribe('language', this.changeLanguages.bind(this));
         pubSub_1.PubSub.subscribe('changeSum', this.addTotalSum.bind(this));
     };
-    componentUserPage.prototype.addTotalSum = function (sum) {
-        this.totalSum += sum;
+    componentUserPage.prototype.addTotalSum = function () {
+        this.getTotalSum();
     };
     componentUserPage.prototype.changeLanguages = function (key) {
         this.language = key;
@@ -126,7 +128,6 @@ var componentUserPage = (function () {
         this.selectedPayNow = false;
     };
     componentUserPage.prototype.getTotalSum = function () {
-        debugger;
         var total = 0;
         this.items.forEach(function (item) {
             if (item.checked) {
@@ -136,6 +137,7 @@ var componentUserPage = (function () {
                     total += +item.coments.total;
             }
         });
+        total += +this.dataMoreFollowers.Followers.total;
         this.totalSum = total;
     };
     componentUserPage.prototype.replaceState = function (event) {

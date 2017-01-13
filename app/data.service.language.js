@@ -3,7 +3,7 @@
 var pubSub_1 = require('./pubSub');
 var DataServiceLanguage = (function () {
     function DataServiceLanguage() {
-        this.languageDefault = 'en';
+        this.languageDefault = 'ru';
         this.listLanguages = ['ru', 'en'];
         this.languages = {
             ru: {
@@ -23,7 +23,7 @@ var DataServiceLanguage = (function () {
                 likes: 'лайков',
                 ru: 'ru',
                 en: 'en',
-                language: 'en',
+                language: 'ru',
                 Support: 'поддержка',
                 Home: 'домой',
                 MainHeader: 'Лучший способ для набора популярности в Instagram',

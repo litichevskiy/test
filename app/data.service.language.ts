@@ -4,7 +4,7 @@ import { PubSub } from './pubSub';
 
 export class DataServiceLanguage {
 
-    languageDefault = 'en';
+    languageDefault = 'ru';
     listLanguages = ['ru','en'];
 
     languages = {
@@ -27,7 +27,7 @@ export class DataServiceLanguage {
             likes : 'лайков',
             ru : 'ru',
             en : 'en',
-            language : 'en',
+            language : 'ru',
             Support : 'поддержка',
             Home : 'домой',
             MainHeader : 'Лучший способ для набора популярности в Instagram',

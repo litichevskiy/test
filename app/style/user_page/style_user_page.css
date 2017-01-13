@@ -222,6 +222,12 @@
     display: inline-block;
     font-size: 21px;
 }
+.more_followers .content:lang(ru){
+    font-size: 19px;
+}
+.more_followers .value:lang(ru){
+    margin: 0;
+}
 .container_settings .select_value{
     width: 4.2em;
     border: 1px solid;
@@ -514,7 +520,15 @@
 }
 .more_followers .value{
     color: rgb(37,197,204) !important;
+    border: none !important;
+    margin: 7px 0 0 0;
 }
 .more_followers .content{
     color: rgb(38, 38, 38) !important;
+    font-size: 32px;
+    font-family: 'proximanova_cyrilic', sans-serif;
+    font-weight: 100;
+}
+.more_followers .value:focus{
+    border: 1px solid !important;
 }

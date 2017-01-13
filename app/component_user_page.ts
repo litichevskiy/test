@@ -52,21 +52,23 @@ export class componentUserPage implements OnInit {
             target = target.parentElement;
         }
 
-        this.language = this.dataService.language;
+        this.language = this.dataServiceLanguage.languageDefault;
+        this.htmlElement.lang = this.language;
         this.allLIst = this.dataService.dataUsersPhotos.getAllList();
         this.items = this.dataService.getData();
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
         this.maxSelect = this.allLIst.length;
+        this.dataMoreFollowers = this.dataService.dataMoreFollowers;
 
         PubSub.subscribe('closePaNow', this.closePayNow.bind(this) );
         PubSub.subscribe('language', this.changeLanguages.bind(this) );
         PubSub.subscribe('changeSum', this.addTotalSum.bind(this) );
     }
 
-    addTotalSum( sum ) {
+    addTotalSum() {
 
-        this.totalSum += sum;
+        this.getTotalSum();
     }
 
 
@@ -195,7 +197,7 @@ export class componentUserPage implements OnInit {
     }
 
     getTotalSum(){
-        debugger
+
         var total = 0;
 
         this.items.forEach(function( item ) {
@@ -207,6 +209,8 @@ export class componentUserPage implements OnInit {
 
             }
         });
+
+        total += +this.dataMoreFollowers.Followers.total;
 
         this.totalSum = total;
     }

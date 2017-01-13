@@ -8,6 +8,25 @@ var DataService = (function () {
             var list = [], count = 0;
             (function () {
                 for (var i = 0; i < 1000; i++) {
+                    if (i < 3) {
+                        list.push({
+                            url: { path: '/app/img/bg_0.png' },
+                            likes: { name: 'likes', total: 0 },
+                            coments: { name: 'comments', total: 0 },
+                            data: { likes: '+100', coments: '+300' },
+                            settings: { min: 0, max: 1000, currentValue: 198 },
+                            checked: false,
+                            video: true,
+                            ranges: [
+                                { min: 0, max: 1, vmin: 0, vmax: 0 },
+                                { min: 1, max: 500, vmin: 100, vmax: 1000 },
+                                { min: 501, max: 550, vmin: 1000, vmax: 5000 },
+                                { min: 551, max: 650, vmin: 5000, vmax: 10000 },
+                                { min: 651, max: 700, vmin: 10000, vmax: 25000 },
+                                { min: 701, max: 1000, vmin: 25000, vmax: 50000 }
+                            ]
+                        });
+                    }
                     list.push({
                         url: { path: '/app/img/bg_0.png' },
                         likes: { name: 'likes', total: 0 },
@@ -15,7 +34,7 @@ var DataService = (function () {
                         data: { likes: '+100', coments: '+300' },
                         settings: { min: 0, max: 1000, currentValue: 198 },
                         checked: false,
-                        video: true,
+                        video: false,
                         ranges: [
                             { min: 0, max: 1, vmin: 0, vmax: 0 },
                             { min: 1, max: 500, vmin: 100, vmax: 1000 },
@@ -41,8 +60,7 @@ var DataService = (function () {
         }();
         this.dataMoreFollowers = {
             Followers: { name: 'MoreFollowers', total: 0 },
-            // data     : { likes : '+100', coments : '+300' },
-            settings: { min: 0, max: 1000, currentValue: 198 },
+            settings: { min: 0, max: 1000, currentValue: 0 },
             checked: true,
             ranges: [
                 { min: 0, max: 1, vmin: 0, vmax: 0 },
