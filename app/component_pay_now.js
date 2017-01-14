@@ -15,7 +15,6 @@ var ComponentPayNow = (function () {
     function ComponentPayNow(dataServiceLanguage) {
         this.dataServiceLanguage = dataServiceLanguage;
     }
-    ;
     ComponentPayNow.prototype.closePayNow = function (event) {
         var target = event.target;
         if (target.classList.contains('closeBlock') ||
@@ -23,13 +22,6 @@ var ComponentPayNow = (function () {
             pubSub_1.PubSub.publish('closePaNow');
         }
     };
-    ComponentPayNow.prototype.payNow = function () {
-        pubSub_1.PubSub.publish('payNow', this.totalSum);
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], ComponentPayNow.prototype, "totalSum", void 0);
     ComponentPayNow = __decorate([
         core_1.Component({
             selector: 'ComponentPayNow',

@@ -17,6 +17,9 @@ var ComponentInputRange = (function () {
         this.onChanged = new core_1.EventEmitter();
         this.colorDefault = 'rgb(221,224,225)';
         this.colorSelect = 'rgb(37,197,204)';
+        this.inputRange;
+        this.maxSum;
+        this.minSum = 0;
     }
     ;
     ComponentInputRange.prototype.ngOnInit = function () {
@@ -26,8 +29,8 @@ var ComponentInputRange = (function () {
         this.inputRange.max = this.settings.max;
         this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length - 1].vmax;
-        this.minSum = this.ranges[0].vmin;
         this.item.content = this.item.name;
+        this.item.total = parseInt(this.item.total);
         if (this.item.total === 0 || this.checked === false) {
             this.item.total = this.getValue(this.inputRange.value);
             this.changeProgres();
@@ -74,6 +77,7 @@ var ComponentInputRange = (function () {
             val = 0;
         this.toPercent(this.inputRange, val, { min: 0, max: this.inputRange.max });
         this.changeProgres(true);
+        this.item.total = '+' + parseInt(this.item.total); ///////////////////////
     };
     ComponentInputRange.prototype.getValue = function (rangeInput) {
         rangeInput = parseInt(rangeInput);

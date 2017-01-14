@@ -11,35 +11,32 @@ import { PubSub } from './pubSub';
 
 export class componentUserPage implements OnInit {
 
-    dataUserInfo;
-    totalSum = 0;
-    selectedPayNow = false;
-    language;
-    htmlElement;
-    maxSelect;
+    constructor(
+        private dataService: DataService,
+        private dataServiceLanguage : DataServiceLanguage,
+        private cdr:ChangeDetectorRef
+    ){
+
+        this.dataMoreFollowers = this.dataService.dataMoreFollowers;
+        this.allLIst = this.dataService.dataUsersPhotos.getAllList();
+        this.language = this.dataServiceLanguage.languageDefault;
+        this.dataUserInfo = this.dataService.getDataUserInfo();
+        this.infoPosts = this.dataUserInfo.info;
+        this.items = this.dataService.getData();
+        this.maxSelect = this.allLIst.length;
+        this.selectedPayNow = false;
+        this.htmlElement;
+        this.listSelected = this.dataService.selectPhotosAndVideos;
+        this.isBlur = false;
+    }
 
 
     @ViewChild('div') div: ElementRef;
 
 
-    listSelected = {
-
-        likes   : { checked : false, value : 10 },
-        coments : { checked : false, value : 20 },
-        select  : { checked : false, value : 30 }
-    }
-
-
-    constructor(
-        private dataService: DataService,
-        private dataServiceLanguage : DataServiceLanguage,
-        private cdr:ChangeDetectorRef
-    ){}
-
     ngOnInit(){
 
-        var that = this,
-            target = this.div.nativeElement.parentElement;
+        var target = this.div.nativeElement.parentElement;
 
         while( true ) {
 
@@ -52,98 +49,164 @@ export class componentUserPage implements OnInit {
             target = target.parentElement;
         }
 
-        this.language = this.dataServiceLanguage.languageDefault;
+        this.getMaxNumber( 'photo', 'maxLikesSelect' );
+        this.getMaxNumber( 'views', 'maxViewsSelect' );
+
         this.htmlElement.lang = this.language;
-        this.allLIst = this.dataService.dataUsersPhotos.getAllList();
-        this.items = this.dataService.getData();
-        this.dataUserInfo = this.dataService.getDataUserInfo();
-        this.infoPosts = this.dataUserInfo.info;
-        this.maxSelect = this.allLIst.length;
-        this.dataMoreFollowers = this.dataService.dataMoreFollowers;
+
 
         PubSub.subscribe('closePaNow', this.closePayNow.bind(this) );
-        PubSub.subscribe('language', this.changeLanguages.bind(this) );
-        PubSub.subscribe('changeSum', this.addTotalSum.bind(this) );
-    }
-
-    addTotalSum() {
-
-        this.getTotalSum();
+        PubSub.subscribe('language', this.setLanguage.bind(this) );
     }
 
 
-    changeLanguages( key ) {
+    getMaxNumber( key, vars ) {
+
+        var that = this;
+
+        this.allLIst.every(function( item ) {
+
+            if( item[ key ] ) {
+
+                that[ vars ] = item.ranges[ item.ranges.length - 1 ].vmax;
+                return false;
+            }
+
+            return true;
+        });
+    }
+
+    setLanguage( key ) {
 
         this.language = key;
         this.htmlElement.lang = this.language;
     }
 
+
+    unCheckedAll() {
+
+        this.allLIst.forEach(function( item ) {
+
+            item.checked = false;
+        })
+    }
+
+
     selectAll() {
 
-        var count = 0,
-            result = 0,
-            storageSum = [];
+        var likes = +this.listSelected.likes.value,
+            views = +this.listSelected.views.value,
+            quantity = +this.listSelected.select.value;
 
-        if( this.listSelected.select.checked ) {
+        if ( this.listSelected.select.checked ) {
 
-            for ( var key in this.listSelected ) {
+            this.unCheckedAll();
 
-                if ( key !== 'select' && this.listSelected[key].checked ) {
+            if( this.listSelected.likes.checked && this.listSelected.views.checked ) {
 
-                    result = this.func( key, +this.listSelected[key].value, +this.listSelected.select.value, true );
-                    count++;
-
-                    storageSum.push( result );
-                }
+                this.selectViewsAndLikes( likes, views, quantity, true );
             }
 
-            if ( count === 0 ) {
+            else
+                if ( this.listSelected.views.checked ) {
 
-                for ( var key in this.listSelected ) {
+                    this.selectViews( views, this.allLIst.length -1, quantity );
+                }
+                else
+                    if ( this.listSelected.likes.checked ) {
 
-                    if ( key !== 'select' ) {
-
-                        this.func( key, 0, +this.listSelected.select.value, true );
+                        this.selectLikes( likes, quantity );
                     }
-                }
-
-                this.totalSum = 0;
-            }
-
-            else {
-
-                this.totalSum = storageSum.reduce(function( sum, item ) {
-
-                    return sum + item;
-                }, 0);
-            }
+                    else this.selectViewsAndLikes( 0, 0, quantity, true );
         }
 
-        else
-            if( !this.listSelected.select.checked ) {
+        else {
 
-                for ( var key in this.listSelected ) {
+            this.selectViewsAndLikes( 0, 0, quantity, false );
+        }
 
-                    if ( key !== 'select' ) {
-
-                        this.func( null );
-                    }
-                }
-
-                this.totalSum = 0;
-            }
+        PubSub.publish('newValue');
     }
+
+    selectLikes( likes, quantity ) {
+
+        var total = 0;
+
+        for (var i = 0; i < quantity; i++ ) {
+
+            this.allLIst[i].likes.total = likes;
+            this.allLIst[i].checked = true;
+
+            total += likes;
+        }
+
+        this.dataService.totalSum = total;
+    }
+
+    selectViews( views, quantity, pictures ){
+
+        var total = 0,
+            videos = [];
+
+        for ( var i = 0; i < quantity; i++ ) {
+
+            if( this.allLIst[i].video ) videos.push( this.allLIst[i] );
+        }
+
+        videos.every(function( item, i ) {
+
+            if ( i === pictures ) return false;
+
+            item.views.total = views;
+            item.checked = true;
+
+            total += views;
+
+            return true;
+        });
+
+        this.dataService.totalSum = total;
+    }
+
+    selectViewsAndLikes( likes, views, quantity, checked ) {
+
+        var total = 0;
+
+        for (var i = 0; i < quantity; i++ ) {
+
+            if( this.allLIst[i].video ) {
+
+                this.allLIst[i].likes.total = likes;
+                this.allLIst[i].views.total = views;
+                this.allLIst[i].checked = checked;
+
+                total += likes + views;
+                continue
+            }
+
+            if( this.allLIst[i].photo ) {
+
+                this.allLIst[i].likes.total = likes;
+                this.allLIst[i].checked = checked;
+
+                total += views;
+            }
+
+        }
+
+        this.dataService.totalSum = total;
+    }
+
 
     addSelect() {
 
         if( this.listSelected.select.checked ) this.selectAll();
     }
 
-    f( event ) {
+    changeStateChecked( event ) {
 
         var target = event.currentTarget,
-            role = event.currentTarget.dataset.role,
-            count = 0;
+            role = event.currentTarget.dataset.role;
 
         this.listSelected[role].checked = target.checked;
     }
@@ -170,14 +233,29 @@ export class componentUserPage implements OnInit {
     }
 
     checkMaxValue( target ) {
-        // debugger
-        var value = target.value;
+
+        var value = +target.value;
+
+        if ( value < 0 ) return target.value = 0;
 
         if ( target.dataset.role === 'select' ) {
 
-            if ( value < 0 ) target.value = 0;
             if ( value > this.maxSelect ) target.value = this.maxSelect;
         }
+
+        else
+
+            if ( target.dataset.role === 'views' ) {
+
+                if ( value > this.maxViewsSelect ) target.value = this.maxSelect;
+            }
+
+            else
+
+                if( target.dataset.role === 'likes' ) {
+
+                    if ( value > this.maxLikesSelect ) target.value = this.maxSelect;
+                }
     }
 
     loadPhotos(){
@@ -185,15 +263,20 @@ export class componentUserPage implements OnInit {
         this.dataService.addData();
     }
 
-    showPayNow(){
+    showPayNow() {
 
-        if( this.totalSum > 0 ) this.selectedPayNow = true;
+        if( this.dataService.totalSum > 0 ) {
+
+            this.selectedPayNow = true;
+            this.isBlur = true;
+        }
     }
 
 
     closePayNow() {
 
         this.selectedPayNow = false;
+        this.isBlur = false;
     }
 
     getTotalSum(){
@@ -205,14 +288,14 @@ export class componentUserPage implements OnInit {
             if( item.checked ) {
 
                 if( item.likes ) total += +item.likes.total;
-                if( item.coments ) total += +item.coments.total;
+                if( item.views ) total += +item.views.total;
 
             }
         });
 
         total += +this.dataMoreFollowers.Followers.total;
 
-        this.totalSum = total;
+        this.dataService.totalSum = total;
     }
 
     replaceState( event ) {
@@ -221,7 +304,7 @@ export class componentUserPage implements OnInit {
 
         if( event.target.tagName === 'INPUT' ) return;
 
-        target.classList.toggle('label_active');
+        // target.classList.toggle('label_active');
 
         var input = target.querySelector('input[type="checkbox"]');
         input.checked = !input.checked
@@ -229,43 +312,4 @@ export class componentUserPage implements OnInit {
         input.dispatchEvent(new Event('change'));
 
     }
-
-    func( key, val, quantity, checked ){
-
-        var total = 0;
-
-        if ( key ) {
-
-            for (var i = 0; i < quantity; i++ ) {
-
-                if( this.allLIst[i][key] ) {
-
-                    this.allLIst[i][key].total = val;
-                    this.allLIst[i].checked = checked;
-
-                    total += val;
-
-                }
-
-            }
-
-            PubSub.publish('newValue');
-        }
-
-        if ( !key ) {
-
-            this.allLIst.every(function( item ) {
-
-                if( item.checked ) item.checked = false;
-
-                return true;
-
-                else return false;
-            });
-        }
-
-        return total;
-    }
-
-
 }

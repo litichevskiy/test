@@ -17,6 +17,7 @@ import { componentMainPage } from './component_main_page';
 import { ComponentUserInfo } from './component_user_info';
 import { ComponentVideo } from './component_video';
 import { componentMoreFollowers } from './component_more_followers';
+import { componentProcessForPayment } from './component_process_for_payment';
 
 
 const appRoutes: Routes =[
@@ -42,7 +43,8 @@ const appRoutes: Routes =[
             componentMainPage,
             ComponentUserInfo,
             ComponentVideo,
-            componentMoreFollowers
+            componentMoreFollowers,
+            componentProcessForPayment
         ],
     providers: [ DataService, DataServiceLanguage ],
     bootstrap:    [ AppComponent ]

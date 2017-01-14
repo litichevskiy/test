@@ -1,11 +1,11 @@
-<ComponentPayNow *ngIf="selectedPayNow" [totalSum]="totalSum" ></ComponentPayNow>
-<div class="container_user_page" #div >
+<ComponentPayNow *ngIf="selectedPayNow" ></ComponentPayNow>
+<div class="container_user_page" #div [ngClass]="{blur:isBlur}">
     <ComponentNavBar></ComponentNavBar>
     <div class="main_block">
         <div class="user_info" >
             <div class="container_user_photo">
                 <img class="user_photo" src="{{dataUserInfo.user.pathToPhoto}}" alt="" >
-                <div class="to_pay">{{totalSum}}$ {{dataServiceLanguage.GetText('Pay')}}</div>
+                <div class="to_pay">{{dataService.totalSum}}$ {{dataServiceLanguage.GetText('Pay')}}</div>
                 <div class="form_pay_now">
                     <button class="btn submit_pay_now" type="submit" (click)="showPayNow()" >
                         {{dataServiceLanguage.GetText('PayNow')}}
@@ -31,10 +31,10 @@
                     </div>
                 </div>
                 <br/>
-                <componentMoreFollowers></componentMoreFollowers>
+                <componentMoreFollowers (getTotalSum)="getTotalSum($event)" ></componentMoreFollowers>
                 <div class="container_settings">
                     <div class="data_role_label" (click)="replaceState($event)" (click)="selectAll($event.target)">
-                        <input type="checkbox" class="hide input_container_settings" data-role="select" (change)="f($event)"/>
+                        <input type="checkbox" class="hide input_container_settings" data-role="select" (change)="changeStateChecked($event)"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
                         </svg>
@@ -42,11 +42,11 @@
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
                         <span class="content">{{dataServiceLanguage.GetText('SelectPicturesFirst')}}</span>
-                        <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="func(null)" (input)="selectAll()">
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="selectAll($event.target)">
                         <span class="content">{{dataServiceLanguage.GetText('SelectPicturesLast')}}</span>
                     </div>
                     <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()">
-                        <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="f($event)"/>
+                        <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="changeStateChecked($event)"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
                         </svg>
@@ -58,16 +58,16 @@
                         <span class="content">{{dataServiceLanguage.GetText('AddLikesLast')}}</span>
                     </div>
                     <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()">
-                        <input type="checkbox" class="hide input_container_settings" data-role="coments" (change)="f($event)"/>
+                        <input type="checkbox" class="hide input_container_settings" data-role="views" (change)="changeStateChecked($event)"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
                         </svg>
                         <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
-                        <span class="content">{{dataServiceLanguage.GetText('AddComentsFirst')}}</span>
-                        <input type="text" class="select_value" [(ngModel)]="listSelected.coments.value" data-role="coments" (input)="checkValue($event)" (input)="addSelect()">
-                        <span class="content">{{dataServiceLanguage.GetText('AddComentsLast')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('ADDVIDEOFIRST')}}</span>
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.views.value" data-role="views" (input)="checkValue($event)" (input)="addSelect()">
+                        <span class="content">{{dataServiceLanguage.GetText('ADDVIDEOLAST')}}</span>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
             <div class="container_sign_up">
                 <div class="form_sign_up">
                     <button class="sign_up btn" (click)="showPayNow()">
-                        {{dataServiceLanguage.GetText('PayNow')}} {{totalSum}} $
+                        {{dataServiceLanguage.GetText('PayNow')}} {{dataService.totalSum}} $
                     </button>
                 </div>
             </div>

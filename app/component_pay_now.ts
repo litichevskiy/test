@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PubSub } from './pubSub';
 import { DataServiceLanguage } from './data.service.language';
 
@@ -10,9 +10,7 @@ import { DataServiceLanguage } from './data.service.language';
 
 export class ComponentPayNow {
 
-    @Input() totalSum : any;
-
-    constructor( private dataServiceLanguage : DataServiceLanguage ){};
+    constructor( private dataServiceLanguage : DataServiceLanguage ){}
 
     closePayNow( event ){
 
@@ -24,10 +22,5 @@ export class ComponentPayNow {
 
             PubSub.publish('closePaNow');
         }
-    }
-
-    payNow() {
-
-        PubSub.publish('payNow', this.totalSum );
     }
 }

@@ -1,6 +1,5 @@
 import { DataServiceLanguage } from './data.service.language';
 import { Component } from '@angular/core';
-import { PubSub } from './pubSub';
 
 
 @Component({

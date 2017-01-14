@@ -26,6 +26,7 @@ var component_main_page_1 = require('./component_main_page');
 var component_user_info_1 = require('./component_user_info');
 var component_video_1 = require('./component_video');
 var component_more_followers_1 = require('./component_more_followers');
+var component_process_for_payment_1 = require('./component_process_for_payment');
 var appRoutes = [
     { path: '', component: component_user_page_1.componentUserPage },
     { path: 'support', component: component_page_support_1.componentPageSupport },
@@ -50,7 +51,8 @@ var AppModule = (function () {
                 component_main_page_1.componentMainPage,
                 component_user_info_1.ComponentUserInfo,
                 component_video_1.ComponentVideo,
-                component_more_followers_1.componentMoreFollowers
+                component_more_followers_1.componentMoreFollowers,
+                component_process_for_payment_1.componentProcessForPayment
             ],
             providers: [data_service_1.DataService, data_service_language_1.DataServiceLanguage],
             bootstrap: [app_component_1.AppComponent]

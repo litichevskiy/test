@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PubSub } from './pubSub';
 import { DataService } from './data.service';
 import { DataServiceLanguage } from './data.service.language';
 
@@ -27,7 +26,7 @@ export class componentMainPage {
 
             if ( input.value.length > 0 ) {
 
-                this.dataService.func( input.value );
+                this.dataService.logOn( input.value );
                 input.value = '';
 
                 if ( input.classList.contains('inputError') ) {

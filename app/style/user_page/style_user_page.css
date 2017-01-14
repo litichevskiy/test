@@ -240,16 +240,17 @@
 .data_role_label{
     margin-bottom: 1.14em;
     cursor: pointer;
+    display: inline-block;
 }
-.label_active .content{
+.input_container_settings:checked ~ .content{
     opacity: 0.4;
 }
-.label_active .unchecked{
+/*.label_active .unchecked{
     display: none;
-}
-.label_active .checked{
+}*/
+/*.label_active .checked{
     display: inline-block !important;
-}
+}*/
 .container_settings .content{
     -webkit-transition: 0.2s opacity linear;
     -webkit-transition: 0.2s opacity linear;
@@ -531,4 +532,8 @@
 }
 .more_followers .value:focus{
     border: 1px solid !important;
+}
+.blur{
+    -webkit-filter: blur(5px);
+            filter: blur(5px);
 }

@@ -7,39 +7,9 @@
             {{dataServiceLanguage.GetText('ChooseTheMethodOfPayment')}}
         </p>
         <div class="container_payment_element">
-            <div class="payment_card">
-                <img src="app/img/logo_2_checkout.png" alt="">
-                <div class="content">
-                   {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
-                </div>
-                <div class="container_btn_submit">
-                    <button class="btn submit_pay_now" (click)="payNow()">
-                        {{dataServiceLanguage.GetText('Pay')}}
-                    </button>
-                </div>
-            </div>
-            <div class="payment_cash">
-                <img src="app/img/sprypay_logo.png" alt="">
-                <div class="content">
-                    {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
-                </div>
-                <div class="container_btn_submit">
-                    <button class="btn submit_pay_now" (click)="payNow()">
-                        {{dataServiceLanguage.GetText('Pay')}}
-                    </button>
-                </div>
-            </div>
-            <div class="payment_card">
-                <img src="app/img/logo_2_checkout.png" alt="">
-                <div class="content">
-                    {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
-                </div>
-                <div class="container_btn_submit">
-                    <button class="btn submit_pay_now" (click)="payNow()">
-                        {{dataServiceLanguage.GetText('Pay')}}
-                    </button>
-                </div>
-            </div>
+            <componentProcessForPayment></componentProcessForPayment>
+            <componentProcessForPayment></componentProcessForPayment>
+            <componentProcessForPayment></componentProcessForPayment>
         </div>
     </div>
 </div>

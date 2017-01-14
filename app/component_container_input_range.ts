@@ -17,13 +17,15 @@ export class ComponentInputRange implements ngOnInit {
     @Output() onChanged = new EventEmitter<number>();
     @ViewChild('input') input: ElementRef;
 
-    colorDefault = 'rgb(221,224,225)';
-    colorSelect = 'rgb(37,197,204)';
-    inputRange;
-    maxSum;
-    minSum;
 
-    constructor( private dataServiceLanguage : DataServiceLanguage){};
+    constructor( private dataServiceLanguage : DataServiceLanguage){
+
+        this.colorDefault = 'rgb(221,224,225)';
+        this.colorSelect = 'rgb(37,197,204)';
+        this.inputRange;
+        this.maxSum;
+        this.minSum = 0;
+    };
 
 
     ngOnInit() {
@@ -34,11 +36,9 @@ export class ComponentInputRange implements ngOnInit {
         this.inputRange.min = this.settings.min;
         this.inputRange.max = this.settings.max;
         this.inputRange.value = this.settings.currentValue;
-
         this.maxSum = this.ranges[this.ranges.length-1].vmax;
-        this.minSum = this.ranges[0].vmin;
-
         this.item.content = this.item.name;
+        this.item.total = parseInt( this.item.total );
 
         if( this.item.total === 0 || this.checked === false ){
 
@@ -117,6 +117,8 @@ export class ComponentInputRange implements ngOnInit {
 
         this.toPercent(this.inputRange, val, {min: 0, max: this.inputRange.max});
         this.changeProgres( true );
+
+        this.item.total = '+' + parseInt( this.item.total ); ///////////////////////
     }
 
 
@@ -197,5 +199,4 @@ export class ComponentInputRange implements ngOnInit {
 
         return rng;
     };
-
 }

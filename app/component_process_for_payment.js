@@ -11,35 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
-var componentMainPage = (function () {
-    function componentMainPage(dataServiceLanguage, dataService) {
+var componentProcessForPayment = (function () {
+    function componentProcessForPayment(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
     }
-    ;
-    componentMainPage.prototype.checkValue = function (event) {
-        var target = event.target, currentTarget = event.currentTarget, input, value;
-        if (target.tagName === 'BUTTON') {
-            input = currentTarget.querySelector('input[type="text"]');
-            if (input.value.length > 0) {
-                this.dataService.logOn(input.value);
-                input.value = '';
-                if (input.classList.contains('inputError')) {
-                    input.classList.remove('inputError');
-                }
-            }
-            else {
-                input.classList.add('inputError');
-            }
-        }
+    componentProcessForPayment.prototype.payNow = function () {
+        this.dataService.payNow();
     };
-    componentMainPage = __decorate([
+    componentProcessForPayment = __decorate([
         core_1.Component({
-            selector: 'mainPage',
-            templateUrl: './app/template/component_main_page.html'
+            selector: 'componentProcessForPayment',
+            templateUrl: './app/template/component_process_for_payment.html'
         }), 
         __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
-    ], componentMainPage);
-    return componentMainPage;
+    ], componentProcessForPayment);
+    return componentProcessForPayment;
 }());
-exports.componentMainPage = componentMainPage;
+exports.componentProcessForPayment = componentProcessForPayment;

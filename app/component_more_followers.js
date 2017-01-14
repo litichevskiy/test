@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var data_service_language_1 = require('./data.service.language');
 var data_service_1 = require('./data.service');
-var pubSub_1 = require('./pubSub');
 var componentMoreFollowers = (function () {
     function componentMoreFollowers(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
@@ -19,12 +18,8 @@ var componentMoreFollowers = (function () {
         this.getTotalSum = new core_1.EventEmitter();
         this.data = dataService.dataMoreFollowers;
     }
-    // ngOnInit() {
-    // }
     componentMoreFollowers.prototype.onChanged = function () {
-        debugger;
-        this.data.checked = true;
-        pubSub_1.PubSub.publish('changeSum', +this.data.Followers.total);
+        this.getTotalSum.emit();
     };
     __decorate([
         core_1.Output(), 

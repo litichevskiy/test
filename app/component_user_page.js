@@ -17,16 +17,20 @@ var componentUserPage = (function () {
         this.dataService = dataService;
         this.dataServiceLanguage = dataServiceLanguage;
         this.cdr = cdr;
-        this.totalSum = 0;
+        this.dataMoreFollowers = this.dataService.dataMoreFollowers;
+        this.allLIst = this.dataService.dataUsersPhotos.getAllList();
+        this.language = this.dataServiceLanguage.languageDefault;
+        this.dataUserInfo = this.dataService.getDataUserInfo();
+        this.infoPosts = this.dataUserInfo.info;
+        this.items = this.dataService.getData();
+        this.maxSelect = this.allLIst.length;
         this.selectedPayNow = false;
-        this.listSelected = {
-            likes: { checked: false, value: 10 },
-            coments: { checked: false, value: 20 },
-            select: { checked: false, value: 30 }
-        };
+        this.htmlElement;
+        this.listSelected = this.dataService.selectPhotosAndVideos;
+        this.isBlur = false;
     }
     componentUserPage.prototype.ngOnInit = function () {
-        var that = this, target = this.div.nativeElement.parentElement;
+        var target = this.div.nativeElement.parentElement;
         while (true) {
             if (target.tagName === 'HTML') {
                 this.htmlElement = target;
@@ -34,64 +38,101 @@ var componentUserPage = (function () {
             }
             target = target.parentElement;
         }
-        this.language = this.dataServiceLanguage.languageDefault;
+        this.getMaxNumber('photo', 'maxLikesSelect');
+        this.getMaxNumber('views', 'maxViewsSelect');
         this.htmlElement.lang = this.language;
-        this.allLIst = this.dataService.dataUsersPhotos.getAllList();
-        this.items = this.dataService.getData();
-        this.dataUserInfo = this.dataService.getDataUserInfo();
-        this.infoPosts = this.dataUserInfo.info;
-        this.maxSelect = this.allLIst.length;
-        this.dataMoreFollowers = this.dataService.dataMoreFollowers;
         pubSub_1.PubSub.subscribe('closePaNow', this.closePayNow.bind(this));
-        pubSub_1.PubSub.subscribe('language', this.changeLanguages.bind(this));
-        pubSub_1.PubSub.subscribe('changeSum', this.addTotalSum.bind(this));
+        pubSub_1.PubSub.subscribe('language', this.setLanguage.bind(this));
     };
-    componentUserPage.prototype.addTotalSum = function () {
-        this.getTotalSum();
+    componentUserPage.prototype.getMaxNumber = function (key, vars) {
+        var that = this;
+        this.allLIst.every(function (item) {
+            if (item[key]) {
+                that[vars] = item.ranges[item.ranges.length - 1].vmax;
+                return false;
+            }
+            return true;
+        });
     };
-    componentUserPage.prototype.changeLanguages = function (key) {
+    componentUserPage.prototype.setLanguage = function (key) {
         this.language = key;
         this.htmlElement.lang = this.language;
     };
+    componentUserPage.prototype.unCheckedAll = function () {
+        this.allLIst.forEach(function (item) {
+            item.checked = false;
+        });
+    };
     componentUserPage.prototype.selectAll = function () {
-        var count = 0, result = 0, storageSum = [];
+        var likes = +this.listSelected.likes.value, views = +this.listSelected.views.value, quantity = +this.listSelected.select.value;
         if (this.listSelected.select.checked) {
-            for (var key in this.listSelected) {
-                if (key !== 'select' && this.listSelected[key].checked) {
-                    result = this.func(key, +this.listSelected[key].value, +this.listSelected.select.value, true);
-                    count++;
-                    storageSum.push(result);
-                }
+            this.unCheckedAll();
+            if (this.listSelected.likes.checked && this.listSelected.views.checked) {
+                this.selectViewsAndLikes(likes, views, quantity, true);
             }
-            if (count === 0) {
-                for (var key in this.listSelected) {
-                    if (key !== 'select') {
-                        this.func(key, 0, +this.listSelected.select.value, true);
-                    }
-                }
-                this.totalSum = 0;
+            else if (this.listSelected.views.checked) {
+                this.selectViews(views, this.allLIst.length - 1, quantity);
             }
-            else {
-                this.totalSum = storageSum.reduce(function (sum, item) {
-                    return sum + item;
-                }, 0);
+            else if (this.listSelected.likes.checked) {
+                this.selectLikes(likes, quantity);
+            }
+            else
+                this.selectViewsAndLikes(0, 0, quantity, true);
+        }
+        else {
+            this.selectViewsAndLikes(0, 0, quantity, false);
+        }
+        pubSub_1.PubSub.publish('newValue');
+    };
+    componentUserPage.prototype.selectLikes = function (likes, quantity) {
+        var total = 0;
+        for (var i = 0; i < quantity; i++) {
+            this.allLIst[i].likes.total = likes;
+            this.allLIst[i].checked = true;
+            total += likes;
+        }
+        this.dataService.totalSum = total;
+    };
+    componentUserPage.prototype.selectViews = function (views, quantity, pictures) {
+        var total = 0, videos = [];
+        for (var i = 0; i < quantity; i++) {
+            if (this.allLIst[i].video)
+                videos.push(this.allLIst[i]);
+        }
+        videos.every(function (item, i) {
+            if (i === pictures)
+                return false;
+            item.views.total = views;
+            item.checked = true;
+            total += views;
+            return true;
+        });
+        this.dataService.totalSum = total;
+    };
+    componentUserPage.prototype.selectViewsAndLikes = function (likes, views, quantity, checked) {
+        var total = 0;
+        for (var i = 0; i < quantity; i++) {
+            if (this.allLIst[i].video) {
+                this.allLIst[i].likes.total = likes;
+                this.allLIst[i].views.total = views;
+                this.allLIst[i].checked = checked;
+                total += likes + views;
+                continue;
+            }
+            if (this.allLIst[i].photo) {
+                this.allLIst[i].likes.total = likes;
+                this.allLIst[i].checked = checked;
+                total += views;
             }
         }
-        else if (!this.listSelected.select.checked) {
-            for (var key in this.listSelected) {
-                if (key !== 'select') {
-                    this.func(null);
-                }
-            }
-            this.totalSum = 0;
-        }
+        this.dataService.totalSum = total;
     };
     componentUserPage.prototype.addSelect = function () {
         if (this.listSelected.select.checked)
             this.selectAll();
     };
-    componentUserPage.prototype.f = function (event) {
-        var target = event.currentTarget, role = event.currentTarget.dataset.role, count = 0;
+    componentUserPage.prototype.changeStateChecked = function (event) {
+        var target = event.currentTarget, role = event.currentTarget.dataset.role;
         this.listSelected[role].checked = target.checked;
     };
     componentUserPage.prototype.checkValue = function (event) {
@@ -108,12 +149,19 @@ var componentUserPage = (function () {
         }
     };
     componentUserPage.prototype.checkMaxValue = function (target) {
-        // debugger
-        var value = target.value;
+        var value = +target.value;
+        if (value < 0)
+            return target.value = 0;
         if (target.dataset.role === 'select') {
-            if (value < 0)
-                target.value = 0;
             if (value > this.maxSelect)
+                target.value = this.maxSelect;
+        }
+        else if (target.dataset.role === 'views') {
+            if (value > this.maxViewsSelect)
+                target.value = this.maxSelect;
+        }
+        else if (target.dataset.role === 'likes') {
+            if (value > this.maxLikesSelect)
                 target.value = this.maxSelect;
         }
     };
@@ -121,11 +169,14 @@ var componentUserPage = (function () {
         this.dataService.addData();
     };
     componentUserPage.prototype.showPayNow = function () {
-        if (this.totalSum > 0)
+        if (this.dataService.totalSum > 0) {
             this.selectedPayNow = true;
+            this.isBlur = true;
+        }
     };
     componentUserPage.prototype.closePayNow = function () {
         this.selectedPayNow = false;
+        this.isBlur = false;
     };
     componentUserPage.prototype.getTotalSum = function () {
         var total = 0;
@@ -133,43 +184,21 @@ var componentUserPage = (function () {
             if (item.checked) {
                 if (item.likes)
                     total += +item.likes.total;
-                if (item.coments)
-                    total += +item.coments.total;
+                if (item.views)
+                    total += +item.views.total;
             }
         });
         total += +this.dataMoreFollowers.Followers.total;
-        this.totalSum = total;
+        this.dataService.totalSum = total;
     };
     componentUserPage.prototype.replaceState = function (event) {
         var target = event.currentTarget;
         if (event.target.tagName === 'INPUT')
             return;
-        target.classList.toggle('label_active');
+        // target.classList.toggle('label_active');
         var input = target.querySelector('input[type="checkbox"]');
         input.checked = !input.checked;
         input.dispatchEvent(new Event('change'));
-    };
-    componentUserPage.prototype.func = function (key, val, quantity, checked) {
-        var total = 0;
-        if (key) {
-            for (var i = 0; i < quantity; i++) {
-                if (this.allLIst[i][key]) {
-                    this.allLIst[i][key].total = val;
-                    this.allLIst[i].checked = checked;
-                    total += val;
-                }
-            }
-            pubSub_1.PubSub.publish('newValue');
-        }
-        if (!key) {
-            this.allLIst.every(function (item) {
-                if (item.checked)
-                    item.checked = false;
-                return true;
-                return false;
-            });
-        }
-        return total;
     };
     __decorate([
         core_1.ViewChild('div'), 

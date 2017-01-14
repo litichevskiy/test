@@ -32,7 +32,7 @@ export class componentPageSupport {
 
                 if ( firstName.value || lastName.value ) {
 
-                    this.dataService.func({
+                    this.dataService.messageSupport({
 
                         firstName : firstName.value,
                         lastName  : lastName.value,

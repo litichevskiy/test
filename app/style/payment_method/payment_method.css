@@ -31,7 +31,7 @@
 .payment_card,
 .payment_cash{
     padding-top: 40px;
-    width: 33%;
+    width: 100%;
     text-align: center;
     position: relative;
     display: -webkit-inline-box;
@@ -54,9 +54,6 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
         -ms-flex-pack: center;

@@ -26,7 +26,7 @@ var componentPageSupport = (function () {
             email = currentTarget.querySelector('.user_email');
             if (email.value && content.value) {
                 if (firstName.value || lastName.value) {
-                    this.dataService.func({
+                    this.dataService.messageSupport({
                         firstName: firstName.value,
                         lastName: lastName.value,
                         email: email.value,

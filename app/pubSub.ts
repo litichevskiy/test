@@ -22,7 +22,7 @@ export let PubSub{
 
         var index = this.storage[eventName].indexOf( func );
 
-        if ( index > -1 ){
+        if ( index > -1 ) {
 
             this.storage[eventName].splice( index, 1  )
         };
