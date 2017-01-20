@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PubSub } from './pubSub';
 import { DataServiceLanguage } from './data.service.language';
+import { DataService } from './data.service';
 
 
 @Component({
@@ -8,9 +9,14 @@ import { DataServiceLanguage } from './data.service.language';
     templateUrl: 'app/template/component_pay_now.html'
 })
 
-export class ComponentPayNow {
+export class ComponentPayNow  {
 
-    constructor( private dataServiceLanguage : DataServiceLanguage ){}
+    constructor(
+        private dataServiceLanguage : DataServiceLanguage,
+        private dataService : DataService
+    ){
+        this.listPayMethod = this.dataService.listPayNow;
+    }
 
     closePayNow( event ){
 

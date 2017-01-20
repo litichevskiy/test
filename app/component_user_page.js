@@ -171,8 +171,12 @@ var componentUserPage = (function () {
     };
     componentUserPage.prototype.showPayNow = function () {
         if (this.dataService.totalSum > 0) {
-            this.selectedPayNow = true;
-            this.isBlur = true;
+            if (this.dataService.listPayNow.length > 1) {
+                this.selectedPayNow = true;
+                this.isBlur = true;
+            }
+            else
+                this.dataService.payNow();
         }
     };
     componentUserPage.prototype.closePayNow = function () {

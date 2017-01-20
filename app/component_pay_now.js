@@ -11,9 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var pubSub_1 = require('./pubSub');
 var data_service_language_1 = require('./data.service.language');
+var data_service_1 = require('./data.service');
 var ComponentPayNow = (function () {
-    function ComponentPayNow(dataServiceLanguage) {
+    function ComponentPayNow(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
+        this.dataService = dataService;
+        this.listPayMethod = this.dataService.listPayNow;
     }
     ComponentPayNow.prototype.closePayNow = function (event) {
         var target = event.target;
@@ -27,7 +30,7 @@ var ComponentPayNow = (function () {
             selector: 'ComponentPayNow',
             templateUrl: 'app/template/component_pay_now.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
     ], ComponentPayNow);
     return ComponentPayNow;
 }());

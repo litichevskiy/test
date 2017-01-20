@@ -19,7 +19,7 @@ export class componentDropDownMenu {
 
 
     replaceLang( event ){
-
+        debugger
         this.language = event.target.innerHTML;
         PubSub.publish('newLang', this.language );
     }

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
+var pubSub_1 = require('./pubSub');
 var componentProcessForPayment = (function () {
     function componentProcessForPayment(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
@@ -18,7 +19,12 @@ var componentProcessForPayment = (function () {
     }
     componentProcessForPayment.prototype.payNow = function () {
         this.dataService.payNow();
+        pubSub_1.PubSub.publish('closePaNow');
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], componentProcessForPayment.prototype, "item", void 0);
     componentProcessForPayment = __decorate([
         core_1.Component({
             selector: 'componentProcessForPayment',

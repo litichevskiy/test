@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DataService } from './data.service';
 import { DataServiceLanguage } from './data.service.language';
+import { PubSub } from './pubSub';
 
 @Component({
     selector: 'componentProcessForPayment',
@@ -8,6 +9,8 @@ import { DataServiceLanguage } from './data.service.language';
 })
 
 export class componentProcessForPayment {
+
+    @Input() item : any;
 
     constructor(
         private dataServiceLanguage : DataServiceLanguage,
@@ -17,5 +20,6 @@ export class componentProcessForPayment {
     payNow() {
 
         this.dataService.payNow();
+        PubSub.publish('closePaNow');
     }
 }

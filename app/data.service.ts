@@ -88,6 +88,12 @@ export class DataService{
     profileIsOpen = false;
     id = '123 123 123';/////////////////////
 
+    listPayNow = [
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DescriptionMethodOfPayment'},
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DescriptionMethodOfPayment'},
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DescriptionMethodOfPayment'}
+    ]
+
     dataMoreFollowers = {
 
         checked   : true,

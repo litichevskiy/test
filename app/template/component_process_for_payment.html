@@ -1,7 +1,7 @@
 <div class="payment_card">
-    <img src="app/img/logo_2_checkout.png" alt="">
+    <img src="{{item.pathToPhoto}}" alt="">
     <div class="content">
-       {{dataServiceLanguage.GetText('DescriptionMethodOfPayment')}}
+       {{dataServiceLanguage.GetText(item.content)}}
     </div>
     <div class="container_btn_submit">
         <button class="btn submit_pay_now" (click)="payNow()">

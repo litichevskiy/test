@@ -7,9 +7,9 @@
             {{dataServiceLanguage.GetText('ChooseTheMethodOfPayment')}}
         </p>
         <div class="container_payment_element">
-            <componentProcessForPayment></componentProcessForPayment>
-            <componentProcessForPayment></componentProcessForPayment>
-            <componentProcessForPayment></componentProcessForPayment>
+            <componentProcessForPayment [item]="item" *ngFor="let item of listPayMethod">
+
+            </componentProcessForPayment>
         </div>
     </div>
 </div>

@@ -4,6 +4,6 @@
 </label>
 <ul class="list_language" (click)="replaceLang($event)">
     <li class="item_list_language" *ngFor="let item of items">
-        <div class="link_nav_panel" >{{dataServiceLanguage.GetText( item )}}</div>
+        {{dataServiceLanguage.GetText( item )}}
     </li>
 </ul>

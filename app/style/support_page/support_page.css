@@ -5,7 +5,7 @@
 :-ms-input-placeholder      { color: rgb(255, 255, 255); }
 
 
-.container_main_page .nav_panel{
+/*.container_main_page .nav_panel{
     position: absolute;
     right: 4em;
     height: 100%;
@@ -17,7 +17,7 @@
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-}
+}*/
 .container_main_page .open_close_list_language:after{
     color:  rgb(37,197,204) !important;
 }
