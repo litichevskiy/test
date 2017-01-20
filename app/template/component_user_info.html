@@ -1,27 +1,35 @@
 <div class="more_info">
-    <div class="content">
+    <div class="content_more_info">
         {{dataServiceLanguage.GetText('MainHeaderUserInfo')}}
         <span class="simbol">i</span>
     </div>
     <label class="button_more_info" for="show_more_info">
         {{dataServiceLanguage.GetText('HeaderUserInfo')}}?
     </label>
-    <input type="checkbox" id="show_more_info" class="hide"/>
+    <input type="checkbox" id="show_more_info" class="hide" [checked]="dataService.profileIsOpen" (change)="replaceStateChecked($event)"/>
     <ul class="list_more_info">
         <li class="item_list_more_info">
-            {{dataServiceLanguage.GetText('UserInfoStep_1')}}
+            <div class="">
+                {{dataServiceLanguage.GetText('UserInfoStep_1')}}
+            </div>
             <span class="simbol">{{1}}</span>
         </li>
         <li class="item_list_more_info">
-            {{dataServiceLanguage.GetText('UserInfoStep_2')}}
+            <div class="">
+                {{dataServiceLanguage.GetText('UserInfoStep_2')}}
+            </div>
             <span class="simbol">{{2}}</span>
         </li>
         <li class="item_list_more_info">
-            {{dataServiceLanguage.GetText('UserInfoStep_3')}}
+            <div class="">
+                {{dataServiceLanguage.GetText('UserInfoStep_3')}}
+            </div>
             <span class="simbol">{{3}}</span>
         </li>
         <li class="item_list_more_info">
-            {{dataServiceLanguage.GetText('UserInfoStep_4')}}
+            <div class="">
+                {{dataServiceLanguage.GetText('UserInfoStep_4')}}
+            </div>
             <span class="simbol">{{4}}</span>
         </li>
     </ul>

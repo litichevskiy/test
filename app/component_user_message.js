@@ -10,21 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var data_service_language_1 = require('./data.service.language');
-var ComponentNavBar = (function () {
-    function ComponentNavBar(dataServiceLanguage) {
+var componentUserMessage = (function () {
+    function componentUserMessage(dataServiceLanguage) {
         this.dataServiceLanguage = dataServiceLanguage;
     }
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
-    ], ComponentNavBar.prototype, "list", void 0);
-    ComponentNavBar = __decorate([
+    ], componentUserMessage.prototype, "text", void 0);
+    componentUserMessage = __decorate([
         core_1.Component({
-            selector: 'ComponentNavBar',
-            templateUrl: 'app/template/component_nav_bar.html'
+            selector: 'componentUserMessage',
+            templateUrl: 'app/template/component_user_message.html'
         }), 
         __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
-    ], ComponentNavBar);
-    return ComponentNavBar;
+    ], componentUserMessage);
+    return componentUserMessage;
 }());
-exports.ComponentNavBar = ComponentNavBar;
+exports.componentUserMessage = componentUserMessage;
+// component_user_message 

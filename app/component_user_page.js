@@ -28,6 +28,7 @@ var componentUserPage = (function () {
         this.htmlElement;
         this.listSelected = this.dataService.selectPhotosAndVideos;
         this.isBlur = false;
+        this.listNavbar = ['home', 'support'];
     }
     componentUserPage.prototype.ngOnInit = function () {
         var target = this.div.nativeElement.parentElement;

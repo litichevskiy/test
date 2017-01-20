@@ -15,24 +15,28 @@ var componentMainPage = (function () {
     function componentMainPage(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
+        this.errorUser = false;
+        this.UserError = 'UserError';
+        this.input;
     }
     ;
+    componentMainPage.prototype.ngOnInit = function () {
+        this.input = this.div.nativeElement.querySelector('input[type="text"]');
+    };
     componentMainPage.prototype.checkValue = function (event) {
-        var target = event.target, currentTarget = event.currentTarget, input, value;
-        if (target.tagName === 'BUTTON') {
-            input = currentTarget.querySelector('input[type="text"]');
-            if (input.value.length > 0) {
-                this.dataService.logOn(input.value);
-                input.value = '';
-                if (input.classList.contains('inputError')) {
-                    input.classList.remove('inputError');
-                }
-            }
-            else {
-                input.classList.add('inputError');
-            }
+        var value = this.input.value;
+        if (value === '')
+            this.errorUser = true;
+        else {
+            this.dataService.logOn(value);
+            if (this.errorUser)
+                this.errorUser = false;
         }
     };
+    __decorate([
+        core_1.ViewChild('div'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], componentMainPage.prototype, "div", void 0);
     componentMainPage = __decorate([
         core_1.Component({
             selector: 'mainPage',

@@ -1,6 +1,6 @@
 <ComponentPayNow *ngIf="selectedPayNow" ></ComponentPayNow>
 <div class="container_user_page" #div [ngClass]="{blur:isBlur}">
-    <ComponentNavBar></ComponentNavBar>
+    <ComponentNavBar [list]="listNavbar" ></ComponentNavBar>
     <div class="main_block">
         <div class="user_info" >
             <div class="container_user_photo">
@@ -33,8 +33,8 @@
                 <br/>
                 <componentMoreFollowers (getTotalSum)="getTotalSum($event)" ></componentMoreFollowers>
                 <div class="container_settings">
-                    <div class="data_role_label" (click)="replaceState($event)" (click)="selectAll($event.target)">
-                        <input type="checkbox" class="hide input_container_settings" data-role="select" (change)="changeStateChecked($event)"/>
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="selectAll($event.target)" >
+                        <input type="checkbox" class="hide input_container_settings" data-role="select" (change)="changeStateChecked($event)" [checked]="listSelected.select.checked" />
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
                         </svg>
@@ -45,8 +45,8 @@
                         <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="selectAll($event.target)">
                         <span class="content">{{dataServiceLanguage.GetText('SelectPicturesLast')}}</span>
                     </div>
-                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()">
-                        <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="changeStateChecked($event)"/>
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()" >
+                        <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="changeStateChecked($event)" [checked]="listSelected.likes.checked"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
                         </svg>
@@ -57,8 +57,8 @@
                         <input type="text" class="select_value" [(ngModel)]="listSelected.likes.value" data-role="likes" (input)="checkValue($event)" (input)="addSelect()">
                         <span class="content">{{dataServiceLanguage.GetText('AddLikesLast')}}</span>
                     </div>
-                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()">
-                        <input type="checkbox" class="hide input_container_settings" data-role="views" (change)="changeStateChecked($event)"/>
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()" >
+                        <input type="checkbox" class="hide input_container_settings" data-role="views" (change)="changeStateChecked($event)" [checked]="listSelected.views.checked"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
                         </svg>

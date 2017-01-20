@@ -9,22 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
-var ComponentNavBar = (function () {
-    function ComponentNavBar(dataServiceLanguage) {
+var componentError = (function () {
+    function componentError(dataService, dataServiceLanguage) {
+        this.dataService = dataService;
         this.dataServiceLanguage = dataServiceLanguage;
     }
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
-    ], ComponentNavBar.prototype, "list", void 0);
-    ComponentNavBar = __decorate([
+    ], componentError.prototype, "text", void 0);
+    componentError = __decorate([
         core_1.Component({
-            selector: 'ComponentNavBar',
-            templateUrl: 'app/template/component_nav_bar.html'
+            selector: 'componentError',
+            templateUrl: './app/template/component_error.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
-    ], ComponentNavBar);
-    return ComponentNavBar;
+        __metadata('design:paramtypes', [data_service_1.DataService, data_service_language_1.DataServiceLanguage])
+    ], componentError);
+    return componentError;
 }());
-exports.ComponentNavBar = ComponentNavBar;
+exports.componentError = componentError;

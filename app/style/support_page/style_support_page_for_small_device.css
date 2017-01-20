@@ -1,18 +1,22 @@
-@media (max-width:620px){
-
-    .header{
-        text-align: left !important;
-        width: 90%;
+/*@media (max-width: 870px){
+    .container_main_page.page_support .link_nav_panel,
+    .container_main_page.page_support .open_close_list_language{
+        color: rgb(255,255,255) !important;
+    }
+    .container_main_page.page_support .open_close_list_language:after{
+        color: rgb(255,255,255) !important;
+    }
+    .container_main_page.page_support .list_language{
+        background-color: rgb(0, 198, 206) !important;
+    }
+    .container_main_page.page_support .link_nav_panel{
+        border-bottom: 1px solid rgb(255,255,255) !important;
+    }
+}*/
+@media(max-width: 750px){
+    .form_support{
+        width: 95%;
         margin: auto;
-    }
-    .container_list_language{
-        right: 0;
-        margin-right: 0;
-        padding-right: 0;
-    }
-    .form_support {
         display: block;
-        width: 90%;
-        margin: auto;
     }
 }

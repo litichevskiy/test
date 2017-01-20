@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DataServiceLanguage } from './data.service.language';
 import { DataService } from './data.service';
 
@@ -8,73 +8,112 @@ import { DataService } from './data.service';
 })
 
 
-export class componentPageSupport {
+export class componentPageSupport implements OnInit{
+
+    MAX_LENGTH_MESSAGE = 250;
+    REG_EXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
+
 
     constructor(
         private dataServiceLanguage : DataServiceLanguage,
         private dataService : DataService
-    ){};
+    ){
+        this.container;
+        this.email;
+        this.content;
+        this.userName;
+        this.errorEmail = false;
+        this.errorMessage = false;
+        this.errorEmailText = 'errorMail';
+        this.errorMessageText = 'errorMessage';
+        this.text;
+        this.message = false;
+        this.messageSupport = 'messageSupport';
+        this.isBlur = false;
+        this.listNavbar = ['home'];
+    };
+
+    @ViewChild('div') div: ElementRef;
+
+    ngOnInit() {
+
+        this.container = this.div.nativeElement;
+        this.email = this.container.querySelector('.user_email');
+        this.content = this.container.querySelector('.user_mesage');
+        this.userName = this.container.querySelector('.user_name');
+    }
+
+    checkUserEmail( val ) {
+
+        var result = this.REG_EXP.test( val );
+
+        if ( result ) return result;
+        else return false;
+    }
+
+    checkUserMessage( val ) {
+
+        if( val.length > 0 && val.length < this.MAX_LENGTH_MESSAGE ) return true;
+        else return false;
+    }
 
     checkValue( event ) {
 
-        var target = event.target,
-            currentTarget = event.currentTarget,
-            firstName, lastName, email, content;
+        var email = this.checkUserEmail( this.email.value ),
+            content = this.checkUserMessage( this.content.value );
 
-        if ( target.tagName === 'BUTTON' ) {
+        if( email && content ) {
 
-            firstName = currentTarget.querySelector('.first_name');
-            lastName = currentTarget.querySelector('.last_name');
-            content = currentTarget.querySelector('.user_mesage');
-            email = currentTarget.querySelector('.user_email');
+            this.dataService.messageSupport({
 
-            if ( email.value && content.value ) {
+                firstName : this.userName.value,
+                email     : this.email.value,
+                content   : this.content.value
+            });
 
-                if ( firstName.value || lastName.value ) {
+            this.clearInput( [this.userName, this.email, this.content] );
+            this.isBlur = this.message = true;
 
-                    this.dataService.messageSupport({
+            this.removeMessage();
 
-                        firstName : firstName.value,
-                        lastName  : lastName.value,
-                        email     : email.value,
-                        content   : content.value
-                    });
+            if ( this.errorEmail || this.errorMessage ) {
 
-                    this.checkLength( [firstName, lastName, content, email], true );
-                }
-            }
-
-            else {
-
-                this.checkLength( [firstName, lastName, content, email], null );
+                this.errorMessage = this.errorEmail = false;
             }
 
         }
+
+        else
+            if ( !email ) {
+
+                this.text = this.errorEmailText;
+                this.errorEmail = true;
+            }
+
+            if ( !content ) {
+
+                this.text = this.errorMessageText;
+                this.errorMessage = true;
+            }
     }
 
-    checkLength( list, key ) {
+    clearInput( list ) {
 
-        if ( !key ) {
+        list.forEach(function(  item) {
 
-            list.forEach( function( item ) {
+            item.value = '';
+        });
+    }
 
-                if( item.value.length === 0 ) {
+    removeMessage() {
 
-                    item.classList.add('inputError')
-                }
+        var that = this;
 
-            });
-        }
+        setTimeout(function(){
 
-        else {
+            that.isBlur = that.message = false;
 
-            list.forEach( function( item ) {
-
-                item.classList.remove('inputError');
-                item.value = '';
-
-            });
-        }
+        }, this.CLEAR_MESSAGE );
     }
 
 }

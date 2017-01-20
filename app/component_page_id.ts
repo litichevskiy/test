@@ -2,22 +2,16 @@ import { DataServiceLanguage } from './data.service.language';
 import { DataService } from './data.service';
 import { Component } from '@angular/core';
 
-
 @Component({
-    selector: 'ComponentUserInfo',
-    templateUrl: 'app/template/component_user_info.html'
+    selector: 'componentPageId',
+    templateUrl: 'app/template/component_page_id.html'
 })
 
-export class ComponentUserInfo {
+export class componentPageId {
 
     constructor(
         private dataServiceLanguage : DataServiceLanguage,
         private dataService : DataService
-    ){};
+    ){}
 
-    replaceStateChecked() {
-
-        this.dataService.profileIsOpen = !this.dataService.profileIsOpen;
-
-    }
 }

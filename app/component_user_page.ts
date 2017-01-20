@@ -28,6 +28,7 @@ export class componentUserPage implements OnInit {
         this.htmlElement;
         this.listSelected = this.dataService.selectPhotosAndVideos;
         this.isBlur = false;
+        this.listNavbar = ['home', 'support'];
     }
 
 

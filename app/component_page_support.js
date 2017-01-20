@@ -15,46 +15,81 @@ var componentPageSupport = (function () {
     function componentPageSupport(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
+        this.MAX_LENGTH_MESSAGE = 250;
+        this.REG_EXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
+        this.container;
+        this.email;
+        this.content;
+        this.userName;
+        this.errorEmail = false;
+        this.errorMessage = false;
+        this.errorEmailText = 'errorMail';
+        this.errorMessageText = 'errorMessage';
+        this.text;
+        this.message = false;
+        this.messageSupport = 'messageSupport';
+        this.isBlur = false;
+        this.listNavbar = ['home'];
     }
     ;
+    componentPageSupport.prototype.ngOnInit = function () {
+        this.container = this.div.nativeElement;
+        this.email = this.container.querySelector('.user_email');
+        this.content = this.container.querySelector('.user_mesage');
+        this.userName = this.container.querySelector('.user_name');
+    };
+    componentPageSupport.prototype.checkUserEmail = function (val) {
+        var result = this.REG_EXP.test(val);
+        if (result)
+            return result;
+        else
+            return false;
+    };
+    componentPageSupport.prototype.checkUserMessage = function (val) {
+        if (val.length > 0 && val.length < this.MAX_LENGTH_MESSAGE)
+            return true;
+        else
+            return false;
+    };
     componentPageSupport.prototype.checkValue = function (event) {
-        var target = event.target, currentTarget = event.currentTarget, firstName, lastName, email, content;
-        if (target.tagName === 'BUTTON') {
-            firstName = currentTarget.querySelector('.first_name');
-            lastName = currentTarget.querySelector('.last_name');
-            content = currentTarget.querySelector('.user_mesage');
-            email = currentTarget.querySelector('.user_email');
-            if (email.value && content.value) {
-                if (firstName.value || lastName.value) {
-                    this.dataService.messageSupport({
-                        firstName: firstName.value,
-                        lastName: lastName.value,
-                        email: email.value,
-                        content: content.value
-                    });
-                    this.checkLength([firstName, lastName, content, email], true);
-                }
-            }
-            else {
-                this.checkLength([firstName, lastName, content, email], null);
+        var email = this.checkUserEmail(this.email.value), content = this.checkUserMessage(this.content.value);
+        if (email && content) {
+            this.dataService.messageSupport({
+                firstName: this.userName.value,
+                email: this.email.value,
+                content: this.content.value
+            });
+            this.clearInput([this.userName, this.email, this.content]);
+            this.isBlur = this.message = true;
+            this.removeMessage();
+            if (this.errorEmail || this.errorMessage) {
+                this.errorMessage = this.errorEmail = false;
             }
         }
-    };
-    componentPageSupport.prototype.checkLength = function (list, key) {
-        if (!key) {
-            list.forEach(function (item) {
-                if (item.value.length === 0) {
-                    item.classList.add('inputError');
-                }
-            });
+        else if (!email) {
+            this.text = this.errorEmailText;
+            this.errorEmail = true;
         }
-        else {
-            list.forEach(function (item) {
-                item.classList.remove('inputError');
-                item.value = '';
-            });
+        if (!content) {
+            this.text = this.errorMessageText;
+            this.errorMessage = true;
         }
     };
+    componentPageSupport.prototype.clearInput = function (list) {
+        list.forEach(function (item) {
+            item.value = '';
+        });
+    };
+    componentPageSupport.prototype.removeMessage = function () {
+        var that = this;
+        setTimeout(function () {
+            that.isBlur = that.message = false;
+        }, this.CLEAR_MESSAGE);
+    };
+    __decorate([
+        core_1.ViewChild('div'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], componentPageSupport.prototype, "div", void 0);
     componentPageSupport = __decorate([
         core_1.Component({
             selector: 'support',

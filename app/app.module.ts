@@ -18,12 +18,16 @@ import { ComponentUserInfo } from './component_user_info';
 import { ComponentVideo } from './component_video';
 import { componentMoreFollowers } from './component_more_followers';
 import { componentProcessForPayment } from './component_process_for_payment';
+import { componentPageId } from './component_page_id';
+import { componentError } from './component_error';
+import { componentUserMessage } from './component_user_message';
 
 
 const appRoutes: Routes =[
     { path: '', component: componentUserPage },
     { path: 'support', component: componentPageSupport },
     { path: 'main', component: componentMainPage },
+    { path: 'id', component: componentPageId },
     { path: '**', redirectTo: 'main' }
 ];
 
@@ -44,7 +48,10 @@ const appRoutes: Routes =[
             ComponentUserInfo,
             ComponentVideo,
             componentMoreFollowers,
-            componentProcessForPayment
+            componentProcessForPayment,
+            componentPageId,
+            componentError,
+            componentUserMessage
         ],
     providers: [ DataService, DataServiceLanguage ],
     bootstrap:    [ AppComponent ]

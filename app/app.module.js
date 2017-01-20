@@ -27,10 +27,14 @@ var component_user_info_1 = require('./component_user_info');
 var component_video_1 = require('./component_video');
 var component_more_followers_1 = require('./component_more_followers');
 var component_process_for_payment_1 = require('./component_process_for_payment');
+var component_page_id_1 = require('./component_page_id');
+var component_error_1 = require('./component_error');
+var component_user_message_1 = require('./component_user_message');
 var appRoutes = [
     { path: '', component: component_user_page_1.componentUserPage },
     { path: 'support', component: component_page_support_1.componentPageSupport },
     { path: 'main', component: component_main_page_1.componentMainPage },
+    { path: 'id', component: component_page_id_1.componentPageId },
     { path: '**', redirectTo: 'main' }
 ];
 var AppModule = (function () {
@@ -52,7 +56,10 @@ var AppModule = (function () {
                 component_user_info_1.ComponentUserInfo,
                 component_video_1.ComponentVideo,
                 component_more_followers_1.componentMoreFollowers,
-                component_process_for_payment_1.componentProcessForPayment
+                component_process_for_payment_1.componentProcessForPayment,
+                component_page_id_1.componentPageId,
+                component_error_1.componentError,
+                component_user_message_1.componentUserMessage
             ],
             providers: [data_service_1.DataService, data_service_language_1.DataServiceLanguage],
             bootstrap: [app_component_1.AppComponent]

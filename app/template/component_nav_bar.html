@@ -8,12 +8,12 @@
     <input type="checkbox" id="open_close_nav_panel" class="hide set_visibility_nav_panel" />
     <nav class="nav_panel">
         <ul class="list_nav_panel">
+            <li class="item_list_nav_panel" *ngFor="let item of list" >
+                <a class="link_nav_panel" routerLink="/main" >{{dataServiceLanguage.GetText(item)}}</a>
             <li class="item_list_nav_panel">
-                <a class="link_nav_panel" routerLink="/main" >{{dataServiceLanguage.GetText('Home')}}</a>
-            <li class="item_list_nav_panel">
-                <a class="link_nav_panel" routerLink="/support" >{{dataServiceLanguage.GetText('Support')}}</a>
-            <li class="item_list_nav_panel">
-                <componentDropDownMenu></componentDropDownMenu>
+                <a class="link_nav_panel">
+                    <componentDropDownMenu class="pad"></componentDropDownMenu>
+                </a>
         </ul>
     </nav>
     <label class="open_close_nav_panel" for="open_close_nav_panel">

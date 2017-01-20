@@ -8,15 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 var core_1 = require('@angular/core');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
 var ComponentInputRange = (function () {
     function ComponentInputRange(dataServiceLanguage) {
         this.dataServiceLanguage = dataServiceLanguage;
+        this.COLOR_DEFAULT = 'rgb(221,224,225)';
+        this.COLOR_SELECT = 'rgb(37,197,204)';
         this.onChanged = new core_1.EventEmitter();
-        this.colorDefault = 'rgb(221,224,225)';
-        this.colorSelect = 'rgb(37,197,204)';
         this.inputRange;
         this.maxSum;
         this.minSum = 0;
@@ -25,17 +27,13 @@ var ComponentInputRange = (function () {
     ComponentInputRange.prototype.ngOnInit = function () {
         pubSub_1.PubSub.subscribe('newValue', this.replaceInputRangeValue.bind(this));
         this.inputRange = this.input.nativeElement;
-        this.inputRange.min = this.settings.min;
-        this.inputRange.max = this.settings.max;
         this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length - 1].vmax;
-        this.item.content = this.item.name;
-        this.item.total = parseInt(this.item.total);
-        if (this.item.total === 0 || this.checked === false) {
-            this.item.total = this.getValue(this.inputRange.value);
+        if (!this.checked) {
+            this.item.total = this.getValue(this.settings.currentValue);
             this.changeProgres();
         }
-        else if (this.item.total > 0) {
+        else if (this.checked) {
             this.replaceInputRangeValue();
             this.changeProgres(true);
         }
@@ -50,8 +48,8 @@ var ComponentInputRange = (function () {
         var val = this.inputRange.value / 1000;
         this.inputRange.style.backgroundImage = '-webkit-gradient(' +
             'linear, left top, right top,' +
-            'color-stop(' + val + ', ' + this.colorSelect + ' ),' +
-            'color-stop(' + val + ', ' + this.colorDefault + ')' +
+            'color-stop(' + val + ', ' + this.COLOR_SELECT + ' ),' +
+            'color-stop(' + val + ', ' + this.COLOR_DEFAULT + ')' +
             ')';
         this.setValue(bol);
     };
@@ -72,7 +70,7 @@ var ComponentInputRange = (function () {
         }
     };
     ComponentInputRange.prototype.replaceInputRangeValue = function () {
-        var val = parseInt(this.item.total);
+        var val = parseInt(this.inputRange.value);
         if (isNaN(val) || val < 0)
             val = 0;
         this.toPercent(this.inputRange, val, { min: 0, max: this.inputRange.max });

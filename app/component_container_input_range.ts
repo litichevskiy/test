@@ -1,3 +1,5 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, ngOnInit } from '@angular/core';
 import { DataServiceLanguage } from './data.service.language';
 import { PubSub } from './pubSub';
@@ -8,6 +10,9 @@ import { PubSub } from './pubSub';
 })
 
 export class ComponentInputRange implements ngOnInit {
+
+    COLOR_DEFAULT = 'rgb(221,224,225)';
+    COLOR_SELECT = 'rgb(37,197,204)';
 
     @Input() item: item;
     @Input() video: video;
@@ -20,8 +25,6 @@ export class ComponentInputRange implements ngOnInit {
 
     constructor( private dataServiceLanguage : DataServiceLanguage){
 
-        this.colorDefault = 'rgb(221,224,225)';
-        this.colorSelect = 'rgb(37,197,204)';
         this.inputRange;
         this.maxSum;
         this.minSum = 0;
@@ -33,22 +36,18 @@ export class ComponentInputRange implements ngOnInit {
         PubSub.subscribe( 'newValue', this.replaceInputRangeValue.bind(this) );
 
         this.inputRange = this.input.nativeElement;
-        this.inputRange.min = this.settings.min;
-        this.inputRange.max = this.settings.max;
         this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length-1].vmax;
-        this.item.content = this.item.name;
-        this.item.total = parseInt( this.item.total );
 
-        if( this.item.total === 0 || this.checked === false ){
+        if( !this.checked ){
 
-            this.item.total = this.getValue(this.inputRange.value);
+            this.item.total = this.getValue(this.settings.currentValue);
             this.changeProgres();
         }
 
         else
 
-            if( this.item.total > 0 ){
+            if( this.checked ){
 
                 this.replaceInputRangeValue();
                 this.changeProgres(true);
@@ -74,8 +73,8 @@ export class ComponentInputRange implements ngOnInit {
 
         this.inputRange.style.backgroundImage = '-webkit-gradient('+
             'linear, left top, right top,'+
-            'color-stop('+val+', '+this.colorSelect+' ),' +
-            'color-stop('+val+', '+this.colorDefault+')' +
+            'color-stop('+val+', '+this.COLOR_SELECT+' ),' +
+            'color-stop('+val+', '+this.COLOR_DEFAULT+')' +
         ')';
 
         this.setValue( bol );
@@ -111,7 +110,7 @@ export class ComponentInputRange implements ngOnInit {
 
     replaceInputRangeValue () {
 
-        var val = parseInt( this.item.total );
+        var val = parseInt( this.inputRange.value );
 
         if( isNaN( val ) || val < 0 ) val = 0;
 

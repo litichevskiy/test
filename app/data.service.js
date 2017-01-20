@@ -60,6 +60,8 @@ var DataService = (function () {
             };
         }();
         this.totalSum = 0;
+        this.profileIsOpen = false;
+        this.id = '123 123 123'; /////////////////////
         this.dataMoreFollowers = {
             checked: true,
             Followers: { name: 'MoreFollowers', total: 0 },
@@ -99,10 +101,12 @@ var DataService = (function () {
         return this.dataUserInfo;
     };
     DataService.prototype.logOn = function (val) {
+        this.profileIsOpen = true;
         console.log('DataService------', val);
     };
     DataService.prototype.payNow = function () {
-        console.log('DataService------', this.totalSum);
+        var data = this.getSelectedPhotos();
+        console.log('DataService------', data);
     };
     DataService.prototype.messageSupport = function (data) {
         console.log('DataService------', data);
@@ -115,6 +119,24 @@ var DataService = (function () {
             that.data.push(item);
         });
         return this.data;
+    };
+    DataService.prototype.getSelectedPhotos = function () {
+        var list = this.dataUsersPhotos.getAllList(), result = [], check = false;
+        list.forEach(function (item) {
+            if (item.checked) {
+                if (item.likes) {
+                    if (+item.likes.total > 0)
+                        check = true;
+                }
+                if (item.views) {
+                    if (+item.views.total > 0)
+                        check = true;
+                }
+                if (check)
+                    check = false, result.push(item);
+            }
+        });
+        return result;
     };
     return DataService;
 }());

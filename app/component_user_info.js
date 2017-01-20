@@ -9,18 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var data_service_language_1 = require('./data.service.language');
+var data_service_1 = require('./data.service');
 var core_1 = require('@angular/core');
 var ComponentUserInfo = (function () {
-    function ComponentUserInfo(dataServiceLanguage) {
+    function ComponentUserInfo(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
+        this.dataService = dataService;
     }
     ;
+    ComponentUserInfo.prototype.replaceStateChecked = function () {
+        this.dataService.profileIsOpen = !this.dataService.profileIsOpen;
+    };
     ComponentUserInfo = __decorate([
         core_1.Component({
             selector: 'ComponentUserInfo',
             templateUrl: 'app/template/component_user_info.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
     ], ComponentUserInfo);
     return ComponentUserInfo;
 }());

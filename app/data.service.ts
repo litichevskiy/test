@@ -85,7 +85,8 @@ export class DataService{
 
 
     totalSum = 0;
-
+    profileIsOpen = false;
+    id = '123 123 123';/////////////////////
 
     dataMoreFollowers = {
 
@@ -149,13 +150,17 @@ export class DataService{
 
     logOn( val ) {
 
+        this.profileIsOpen = true;
+
         console.log( 'DataService------', val );
     }
 
 
     payNow() {
 
-       console.log( 'DataService------', this.totalSum );
+        var data = this.getSelectedPhotos();
+
+       console.log( 'DataService------', data );
     }
 
 
@@ -180,5 +185,32 @@ export class DataService{
 
         return this.data;
 
+    }
+
+    getSelectedPhotos() {
+
+        var list = this.dataUsersPhotos.getAllList(),
+            result = [],
+            check = false;
+
+        list.forEach(function( item ) {
+
+            if( item.checked ) {
+
+                if( item.likes ) {
+
+                    if ( +item.likes.total > 0 ) check = true;
+                }
+
+                if( item.views ) {
+
+                    if ( +item.views.total > 0 )  check = true;
+                }
+
+                if( check ) check = false, result.push( item );
+            }
+        });
+
+        return result;
     }
 }

@@ -1,11 +1,26 @@
-@import '../reset.css';
-@import '../defoult_classes.css';
 
 ::-webkit-input-placeholder { color: rgb(255, 255, 255); }
 ::-moz-placeholder          { color: rgb(255, 255, 255); }
 :-moz-placeholder           { color: rgb(255, 255, 255); }
 :-ms-input-placeholder      { color: rgb(255, 255, 255); }
 
+
+.container_main_page .nav_panel{
+    position: absolute;
+    right: 4em;
+    height: 100%;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.container_main_page .open_close_list_language:after{
+    color:  rgb(37,197,204) !important;
+}
 .container_form{
     text-align: center;
     min-height: 650px;
@@ -37,8 +52,7 @@
 }
 .user_mesage,
 .user_email,
-.first_name,
-.last_name{
+.user_name{
     width: 100%;
     display: inline-block;
     border: none;
@@ -66,9 +80,44 @@
 }
 .user_mesage:focus,
 .user_email:focus,
-.first_name:focus,
-.last_name:focus{
+.user_name:focus{
     outline: none;
     border-bottom: 1px solid rgb(255,255,255);
     background-color :rgba(0, 0, 0, 0.05);
+}
+
+
+.component_user_message{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.component_user_message .content{
+    background: rgb(255,255,255);
+    padding: 1em 1.5em;
+    border-radius: 10px;
+    font-family: 'MuseoSansCyrl_1', sans-serif;
+    color: rgb(38, 38, 38);
+    font-size: 120%;
+}
+
+
+.pad{
+    padding-left: 0 !important;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 import { DataServiceLanguage } from './data.service.language';
 
@@ -7,39 +7,37 @@ import { DataServiceLanguage } from './data.service.language';
     templateUrl: './app/template/component_main_page.html'
 })
 
-export class componentMainPage {
+export class componentMainPage implements OnInit{
 
     constructor(
         private dataServiceLanguage : DataServiceLanguage,
         private dataService : DataService
-    ){};
+    ){
+        this.errorUser = false;
+        this.UserError = 'UserError';
+        this.input;
+    };
+
+    @ViewChild('div') div: ElementRef;
+
+    ngOnInit() {
+
+        this.input = this.div.nativeElement.querySelector('input[type="text"]');
+    }
 
     checkValue( event ) {
 
-        var target = event.target,
-            currentTarget = event.currentTarget,
-            input , value;
+        var value = this.input.value;
 
-        if ( target.tagName === 'BUTTON' ) {
+        if( value === '' ) this.errorUser = true;
 
-            input = currentTarget.querySelector('input[type="text"]');
+        else {
 
-            if ( input.value.length > 0 ) {
+            this.dataService.logOn( value );
 
-                this.dataService.logOn( input.value );
-                input.value = '';
-
-                if ( input.classList.contains('inputError') ) {
-
-                    input.classList.remove('inputError')
-                }
-            }
-
-            else {
-
-              input.classList.add('inputError')
-            }
+            if( this.errorUser ) this.errorUser = false;
         }
+
     }
 
 }
