@@ -16,7 +16,7 @@ var componentMainPage = (function () {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
         this.errorUser = false;
-        this.UserError = 'UserError';
+        this.UserError = 'USER_ERROR';
         this.input;
     }
     ;

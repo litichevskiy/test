@@ -14,5 +14,3 @@ export class componentUserMessage {
 
     @Input() text: any;
 }
-
-// component_user_message

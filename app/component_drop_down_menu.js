@@ -15,10 +15,9 @@ var componentDropDownMenu = (function () {
     function componentDropDownMenu(dataServiceLanguage) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.items = [];
-        this.items = dataServiceLanguage.listLanguages;
+        this.items = dataServiceLanguage.languagesList;
     }
     componentDropDownMenu.prototype.replaceLang = function (event) {
-        debugger;
         this.language = event.target.innerHTML;
         pubSub_1.PubSub.publish('newLang', this.language);
     };

@@ -23,13 +23,13 @@ var componentPageSupport = (function () {
         this.userName;
         this.errorEmail = false;
         this.errorMessage = false;
-        this.errorEmailText = 'errorMail';
-        this.errorMessageText = 'errorMessage';
+        this.errorEmailText = 'ERROR_MAIL';
+        this.errorMessageText = 'ERROR_MESSAGE';
         this.text;
         this.message = false;
-        this.messageSupport = 'messageSupport';
+        this.messageSupport = 'MESSAGE_SUPPORT';
         this.isBlur = false;
-        this.listNavbar = ['home'];
+        this.listNavbar = ['HOME'];
     }
     ;
     componentPageSupport.prototype.ngOnInit = function () {

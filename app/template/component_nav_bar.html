@@ -9,7 +9,7 @@
     <nav class="nav_panel">
         <ul class="list_nav_panel">
             <li class="item_list_nav_panel" *ngFor="let item of list" >
-                <a class="link_nav_panel" routerLink="/main" >{{dataServiceLanguage.GetText(item)}}</a>
+                <a class="link_nav_panel" routerLink="/{{item}}" >{{dataServiceLanguage.GetText(item)}}</a>
             <li class="item_list_nav_panel">
                 <a class="link_nav_panel">
                     <componentDropDownMenu class="pad"></componentDropDownMenu>

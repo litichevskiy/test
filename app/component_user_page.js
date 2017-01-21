@@ -200,7 +200,6 @@ var componentUserPage = (function () {
         var target = event.currentTarget;
         if (event.target.tagName === 'INPUT')
             return;
-        // target.classList.toggle('label_active');
         var input = target.querySelector('input[type="checkbox"]');
         input.checked = !input.checked;
         input.dispatchEvent(new Event('change'));

@@ -4,19 +4,19 @@
     <div class="container_form">
         <div method="post" class="form_support" #div >
             <div class="container_user_info">
-                <input autofocus="true" class="user_name" placeholder="{{dataServiceLanguage.GetText('Name')}}" type="text" name="fname"/>
+                <input autofocus="true" class="user_name" placeholder="{{dataServiceLanguage.GetText('NAME')}}" type="text" name="fname"/>
             </div>
             <div class="user_contact">
-                <input class="user_email" placeholder="{{dataServiceLanguage.GetText('E_mailAddress')}}" type="email" name="email"/>
+                <input class="user_email" placeholder="{{dataServiceLanguage.GetText('E_MAIL_ADDRESS')}}" type="email" name="email"/>
                 <componentError *ngIf="errorEmail" [text]="errorEmailText" ></componentError>
             </div>
             <div class="cotainer_user_content">
-                <textarea class="user_mesage" placeholder="{{dataServiceLanguage.GetText('TextTextArea')}}" name="message" rows="7"></textarea>
+                <textarea class="user_mesage" placeholder="{{dataServiceLanguage.GetText('TEXT_TEXTAREA')}}" name="message" rows="7"></textarea>
                 <componentError *ngIf="errorMessage" [text]="errorMessageText" ></componentError>
             </div>
             <footer>
                 <button class="btn get_popular" type="submit" (click)="checkValue($event)">
-                    {{dataServiceLanguage.GetText('TextButton')}}
+                    {{dataServiceLanguage.GetText('TEXT_BUTTON')}}
                 </button>
             </footer>
         </div>

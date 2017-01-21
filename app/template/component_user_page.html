@@ -5,10 +5,10 @@
         <div class="user_info" >
             <div class="container_user_photo">
                 <img class="user_photo" src="{{dataUserInfo.user.pathToPhoto}}" alt="" >
-                <div class="to_pay">{{dataService.totalSum}}$ {{dataServiceLanguage.GetText('Pay')}}</div>
+                <div class="to_pay">{{dataService.totalSum}}$ {{dataServiceLanguage.GetText('PAY')}}</div>
                 <div class="form_pay_now">
                     <button class="btn submit_pay_now" type="submit" (click)="showPayNow()" >
-                        {{dataServiceLanguage.GetText('PayNow')}}
+                        {{dataServiceLanguage.GetText('PAY_NOW')}}
                     </button>
                 </div>
             </div>
@@ -18,15 +18,15 @@
                     <div class="container_content_user_info">
                         <span class="user_content user_posts" >
                             <strong class="count_bold">{{infoPosts[0].value}}</strong>
-                            {{dataServiceLanguage.GetText('Posts')}}
+                            {{dataServiceLanguage.GetText('POSTS')}}
                         </span>
                         <span class="user_content user_posts" >
                             <strong class="count_bold">{{infoPosts[1].value}}</strong>
-                            {{dataServiceLanguage.GetText('Followers')}}
+                            {{dataServiceLanguage.GetText('FOLLOWERS')}}
                         </span>
                         <span class="user_content user_posts" >
                             <strong class="count_bold">{{infoPosts[2].value}}</strong>
-                            {{dataServiceLanguage.GetText('Following')}}
+                            {{dataServiceLanguage.GetText('FOLLOWING')}}
                         </span>
                     </div>
                 </div>
@@ -41,9 +41,9 @@
                         <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
-                        <span class="content">{{dataServiceLanguage.GetText('SelectPicturesFirst')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('SELECT_PICTURES_FIRST')}}</span>
                         <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="selectAll($event.target)">
-                        <span class="content">{{dataServiceLanguage.GetText('SelectPicturesLast')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('SELECT_PICTURES_LAST')}}</span>
                     </div>
                     <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()" >
                         <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="changeStateChecked($event)" [checked]="listSelected.likes.checked"/>
@@ -53,9 +53,9 @@
                         <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
-                        <span class="content">{{dataServiceLanguage.GetText('AddLikesFirst')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('ADD_LIKES_FIRST')}}</span>
                         <input type="text" class="select_value" [(ngModel)]="listSelected.likes.value" data-role="likes" (input)="checkValue($event)" (input)="addSelect()">
-                        <span class="content">{{dataServiceLanguage.GetText('AddLikesLast')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('ADD_LIKES_LAST')}}</span>
                     </div>
                     <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()" >
                         <input type="checkbox" class="hide input_container_settings" data-role="views" (change)="changeStateChecked($event)" [checked]="listSelected.views.checked"/>
@@ -65,9 +65,9 @@
                         <svg class="checked hide" x="0px" y="0px" viewBox="0 0 406.834 406.834" xml:space="preserve">
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
-                        <span class="content">{{dataServiceLanguage.GetText('ADDVIDEOFIRST')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('ADD_VIDEO_FIRST')}}</span>
                         <input type="text" class="select_value" [(ngModel)]="listSelected.views.value" data-role="views" (input)="checkValue($event)" (input)="addSelect()">
-                        <span class="content">{{dataServiceLanguage.GetText('ADDVIDEOLAST')}}</span>
+                        <span class="content">{{dataServiceLanguage.GetText('ADD_VIDEO_LAST')}}</span>
                     </div>
                 </div>
             </div>
@@ -78,13 +78,13 @@
             </ComponentContainerUserPhoto>
             <div class="container_load_more">
                 <div class="form_container_load_more">
-                    <button class="btn load" (click)="loadPhotos()">{{dataServiceLanguage.GetText('LoadMore')}}</button>
+                    <button class="btn load" (click)="loadPhotos()">{{dataServiceLanguage.GetText('LOAD_MORE')}}</button>
                 </div>
             </div>
             <div class="container_sign_up">
                 <div class="form_sign_up">
                     <button class="sign_up btn" (click)="showPayNow()">
-                        {{dataServiceLanguage.GetText('PayNow')}} {{dataService.totalSum}} $
+                        {{dataServiceLanguage.GetText('PAY_NOW')}} {{dataService.totalSum}} $
                     </button>
                 </div>
             </div>

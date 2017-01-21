@@ -310,8 +310,6 @@ export class componentUserPage implements OnInit {
 
         if( event.target.tagName === 'INPUT' ) return;
 
-        // target.classList.toggle('label_active');
-
         var input = target.querySelector('input[type="checkbox"]');
         input.checked = !input.checked
 

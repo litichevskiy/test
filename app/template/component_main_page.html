@@ -12,16 +12,16 @@
     </header>
     <div class="block_content_main_page">
         <h1 class="main_header">
-            {{dataServiceLanguage.GetText('MainHeader')}}
-            <p class="content_main_header">{{dataServiceLanguage.GetText('Header')}}</p>
+            {{dataServiceLanguage.GetText('MAIN_HEADER')}}
+            <p class="content_main_header">{{dataServiceLanguage.GetText('HEADER')}}</p>
         </h1>
         <div class="form_user__profile_name">
             <div class="user_nick_name" #div >
-                <input autofocus="true" type="text" placeholder="{{dataServiceLanguage.GetText('UserName')}}" class="user_profile_name" autocomplete="on" />
+                <input autofocus="true" type="text" placeholder="{{dataServiceLanguage.GetText('USER_NAME')}}" class="user_profile_name" autocomplete="on" />
                 <componentError *ngIf="errorUser" [text]="UserError"></componentError>
             </div>
             <button type="submit" class="btn get_popular" (click)="checkValue()">
-                {{dataServiceLanguage.GetText('GetStart')}}
+                {{dataServiceLanguage.GetText('GET_START')}}
             </button>
         </div>
         <div class="container_main_content">

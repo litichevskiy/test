@@ -14,12 +14,12 @@ export class componentDropDownMenu {
 
 
     constructor( private dataServiceLanguage : DataServiceLanguage ){
-        this.items = dataServiceLanguage.listLanguages;
+        this.items = dataServiceLanguage.languagesList;
     }
 
 
     replaceLang( event ){
-        debugger
+
         this.language = event.target.innerHTML;
         PubSub.publish('newLang', this.language );
     }

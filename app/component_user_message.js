@@ -28,4 +28,3 @@ var componentUserMessage = (function () {
     return componentUserMessage;
 }());
 exports.componentUserMessage = componentUserMessage;
-// component_user_message 

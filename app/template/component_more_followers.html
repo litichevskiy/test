@@ -1,15 +1,9 @@
 <div class="more_followers container_input_range">
-    <!-- <span class="user_content content_more_followers">
-        {{dataServiceLanguage.GetText('MoreFollowers')}}
-    </span>
-    <input type="text" class="value counter_more_followers"/>
-    <input type="range" class="input_range"> -->
     <ComponentInputRange    [item]="data.Followers"
                             [ranges]="data.ranges"
                             [settings]="data.settings"
                             [checked]="data.checked"
                             (onChanged)="onChanged($event)"
                             [video]="data.video" >
-
     </ComponentInputRange>
 </div>

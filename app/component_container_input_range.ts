@@ -49,6 +49,8 @@ export class ComponentInputRange implements ngOnInit {
 
             if( this.checked ){
 
+                this.inputRange.value = +this.item.total;
+
                 this.replaceInputRangeValue();
                 this.changeProgres(true);
             }

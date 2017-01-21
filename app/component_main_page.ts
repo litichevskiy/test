@@ -14,7 +14,7 @@ export class componentMainPage implements OnInit{
         private dataService : DataService
     ){
         this.errorUser = false;
-        this.UserError = 'UserError';
+        this.UserError = 'USER_ERROR';
         this.input;
     };
 

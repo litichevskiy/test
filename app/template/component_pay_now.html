@@ -4,7 +4,7 @@
             <span class="closeBlock" (click)="closePayNow($event)">✕</span>
         </div>
         <p class="header_block_payment_method">
-            {{dataServiceLanguage.GetText('ChooseTheMethodOfPayment')}}
+            {{dataServiceLanguage.GetText('CHOOSE_THE_METHOD_OF_PAYMENT')}}
         </p>
         <div class="container_payment_element">
             <componentProcessForPayment [item]="item" *ngFor="let item of listPayMethod">
