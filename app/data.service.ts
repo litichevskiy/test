@@ -89,15 +89,15 @@ export class DataService{
     id = '123 123 123';/////////////////////
 
     listPayNow = [
-        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DescriptionMethodOfPayment'},
-        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DescriptionMethodOfPayment'},
-        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DescriptionMethodOfPayment'}
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT'},
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT'},
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT'}
     ]
 
     dataMoreFollowers = {
 
         checked   : true,
-        Followers : { name : 'MoreFollowers', total : 0 },
+        Followers : { name : 'MORE_FOLLOWERS', total : 0 },
         settings  : { min : 0, max : 1000 , currentValue : 0 },
         ranges    : [
 

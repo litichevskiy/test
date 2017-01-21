@@ -15,7 +15,7 @@ var componentPageSupport = (function () {
     function componentPageSupport(dataServiceLanguage, dataService) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
-        this.MAX_LENGTH_MESSAGE = 250;
+        this.MAX_LENGTH_MESSAGE = 255;
         this.REG_EXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
         this.container;
         this.email;

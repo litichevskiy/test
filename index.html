@@ -5,9 +5,9 @@
         <title>Hello Angular 2</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <link rel="stylesheet" type="text/css" href="app/style/reset.css">
         <link rel="stylesheet" type="text/css" href="app/style/defoult_classes.css">
+        <link rel="stylesheet" type="text/css" href="app/style/defoult_classes_for_small_device.css">
         <link rel="stylesheet" type="text/css" href="/app/style/payment_method/payment_method.css">
         <link rel="stylesheet" type="text/css" href="/app/style/payment_method/payment_method_for_small_device.css">
         <link rel="stylesheet" type="text/css" href="/app/style/support_page/support_page.css">
@@ -18,8 +18,6 @@
         <link rel="stylesheet" type="text/css" href="/app/style/page_id/style_page_id_for_small_devise.css">
         <link rel="stylesheet" type="text/css" href="/app/style/user_page/style_user_page.css">
         <link rel="stylesheet" type="text/css" href="/app/style/user_page/style_user_page_for_small_device.css">
-
-
         <script src="node_modules/core-js/client/shim.min.js"></script>
         <script src="node_modules/zone.js/dist/zone.js"></script>
         <script src="node_modules/reflect-metadata/Reflect.js"></script>
@@ -29,7 +27,7 @@
           System.import('app').catch(function(err){ console.error(err); });
         </script>
     </head>
-    <body onhashchange="funcRef();">
+    <body>
         <my-app></my-app>
     </body>
 </html>

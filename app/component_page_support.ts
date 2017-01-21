@@ -10,7 +10,7 @@ import { DataService } from './data.service';
 
 export class componentPageSupport implements OnInit{
 
-    MAX_LENGTH_MESSAGE = 250;
+    MAX_LENGTH_MESSAGE = 255;
     REG_EXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
 
 

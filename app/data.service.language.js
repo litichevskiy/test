@@ -47,7 +47,7 @@ var DataServiceLanguage = (function () {
                 RETURN_TO_THE_WEBSITE: 'Вернуться на сайт',
                 CONTENT_PAGE_ID: '',
                 ERROR_MAIL: 'введите корректный адрес почты',
-                ERROR_MESSAGE: 'текст сообщения должен содержать от 1 до 250 символов',
+                ERROR_MESSAGE: 'введите текст сообщения "до 255 символов"',
                 USER_ERROR: 'введите имя',
                 MESSAGE_SUPPORT: 'мы свяжемся с Вами в ближайшее время'
             },
@@ -93,7 +93,7 @@ var DataServiceLanguage = (function () {
                 RETURN_TO_THE_WEBSITE: 'Return to the website',
                 CONTENT_PAGE_ID: 'On average it takes 10 minutes execute an order, but it can take up to several hourse. If your order is not completed in 24 hours, please contact us by email: info@cccc.com',
                 ERROR_MAIL: 'enter a valid address',
-                ERROR_MESSAGE: 'message text should contain from 1 to 250 characters',
+                ERROR_MESSAGE: 'write the message, "255 characters"',
                 USER_ERROR: 'enter your name',
                 MESSAGE_SUPPORT: 'We will contact You shortly'
             }

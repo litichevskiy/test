@@ -8,8 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 var core_1 = require('@angular/core');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
@@ -17,7 +15,7 @@ var ComponentInputRange = (function () {
     function ComponentInputRange(dataServiceLanguage) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.COLOR_DEFAULT = 'rgb(221,224,225)';
-        this.COLOR_SELECT = 'rgb(37,197,204)';
+        this.COLORS_ELECT = 'rgb(37,197,204)';
         this.onChanged = new core_1.EventEmitter();
         this.inputRange;
         this.maxSum;
@@ -30,11 +28,10 @@ var ComponentInputRange = (function () {
         this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length - 1].vmax;
         if (!this.checked) {
-            this.item.total = this.getValue(this.settings.currentValue);
+            this.item.total = this.getValue(this.inputRange.value);
             this.changeProgres();
         }
         else if (this.checked) {
-            this.inputRange.value = +this.item.total;
             this.replaceInputRangeValue();
             this.changeProgres(true);
         }
@@ -49,7 +46,7 @@ var ComponentInputRange = (function () {
         var val = this.inputRange.value / 1000;
         this.inputRange.style.backgroundImage = '-webkit-gradient(' +
             'linear, left top, right top,' +
-            'color-stop(' + val + ', ' + this.COLOR_SELECT + ' ),' +
+            'color-stop(' + val + ', ' + this.COLORS_ELECT + ' ),' +
             'color-stop(' + val + ', ' + this.COLOR_DEFAULT + ')' +
             ')';
         this.setValue(bol);
@@ -71,7 +68,7 @@ var ComponentInputRange = (function () {
         }
     };
     ComponentInputRange.prototype.replaceInputRangeValue = function () {
-        var val = parseInt(this.inputRange.value);
+        var val = parseInt(this.item.total);
         if (isNaN(val) || val < 0)
             val = 0;
         this.toPercent(this.inputRange, val, { min: 0, max: this.inputRange.max });

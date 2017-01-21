@@ -105,116 +105,8 @@
     .more_followers{
         margin-top: 2em;
     }
-    .nav_panel{
-        -webkit-transition: 0.3s linear;
-        transition: 0.3s linear;
-        position: absolute;
-        top: 100%;
-        left: -100%;
-        height: 100vh !important;
-        margin: 0;
-        color: rgb(255,255,255);
-        width: 60%;
-        background-color: rgb(0, 198, 206);
-        z-index: 4;
-        overflow: auto;
-    }
-    .list_nav_panel{
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
-    .item_list_nav_panel{
-        top: 0%;
-        width: 90%;
-        -webkit-transition: 0.3s linear;
-        transition: 0.3s linear;
-        opacity: 0;
-        display: table;
-        vertical-align: middle;
-    }
-    .item_list_nav_panel,
-    .link_nav_panel{
-        color: rgb(255,255,255) !important;
-        margin: 0;
-        width: 90%;
-    }
-    .link_nav_panel{
-        display: table-cell;
-        vertical-align: middle;
-        font-size: 1.3em;
-        border-bottom: 1px solid;
-        padding: 16px 12px 16px 0px;
-    }
-    .set_visibility_nav_panel:checked ~ .nav_panel{
-        left: 0;
-    }
-    .set_visibility_nav_panel:checked ~ .open_close_nav_panel .one{
-        -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-                transform: rotate(45deg);
-        top: 48%;
-    }
-    .set_visibility_nav_panel:checked ~ .open_close_nav_panel .two{
-        -webkit-transform: rotate(135deg);
-            -ms-transform: rotate(135deg);
-                transform: rotate(135deg);
-        bottom: 44%;
-    }
-    .set_visibility_nav_panel:checked ~ .nav_panel .list_nav_panel :nth-child(1){
-        -webkit-transition-delay: 0.28s;
-                transition-delay: 0.28s;
-        opacity: 1;
-        padding-left: 2em;
-    }
-    .set_visibility_nav_panel:checked ~ .nav_panel .list_nav_panel :nth-child(2){
-        -webkit-transition-delay: 0.38s;
-                transition-delay: 0.38s;
-        opacity: 1;
-        padding-left: 2em;
-    }
-    .set_visibility_nav_panel:checked ~ .nav_panel .list_nav_panel :nth-child(3){
-        -webkit-transition-delay: 0.48s;
-                transition-delay: 0.48s;
-        opacity: 1;
-        padding-left: 2em;
-    }
-    .open_close_nav_panel{
-        display: inline-block;
-    }
-    .open_close_list_language:after{
-        color: rgb(255,255,255) !important;
-    }
-    .list_language{
-        background-color: rgb(0, 198, 206) !important;
-        -webkit-box-shadow: none !important;
-                box-shadow: none !important;
-        text-align: left !important;
-        left: 13% !important;
-        width: 85% !important;
-    }
-    .list_language .item_list_language{
-        padding-left: 0 !important;
-        -webkit-transition: 0.3s linear;
-        transition: 0.3s linear;
-        -webkit-transition-delay: 0;
-                transition-delay: 0;
-        opacity: 0 !important;
-        -webkit-transition-delay: 0s !important;
-                transition-delay: 0s !important;
-    }
-    .item_list_language:hover{
-        background-color: rgb(0, 198, 206) !important;
-    }
-    #open_close_list_language:checked ~ .list_language .item_list_language{
-        opacity: 1 !important;
-        margin-left: 2em;
-    }
-    .link_nav_panel{
-        padding-left: 0.8em !important;
-    }
-    .list_language .link_nav_panel {
-        font-size: 0.9em !important;
+    .container_user_photo .submit_pay_now{
+        width: 25%;
     }
 }
 @media(max-width: 800px){
@@ -311,13 +203,8 @@
         width: 1.9em !important;
         vertical-align: text-bottom !important;
     }
-    .open_close_nav_panel{
-        width: 2em;
-        height: 2em;
-    }
-    .item_list_nav_panel,
-    .item_list_language{
-        padding-left: 0;
+    .container_user_photo .submit_pay_now{
+        width: 50%;
     }
 }
 @media(max-width:420px){
@@ -428,7 +315,7 @@
         border-radius: 3px !important;
         border: 1px solid !important;
     }
-    .list_language .item_list_language{
+    .nav_panel .list_language .item_list_language{
         padding-left: 2em !important;
     }
 }
