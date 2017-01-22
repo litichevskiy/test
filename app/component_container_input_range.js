@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-//////////////////////////////////////////////////////////////////////////////////////////////////
 var core_1 = require('@angular/core');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
@@ -21,21 +20,18 @@ var ComponentInputRange = (function () {
         this.inputRange;
         this.maxSum;
         this.minSum = 0;
-        this.data;
     }
     ;
     ComponentInputRange.prototype.ngOnInit = function () {
         pubSub_1.PubSub.subscribe('newValue', this.replaceInputRangeValue.bind(this));
         this.inputRange = this.input.nativeElement;
+        this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length - 1].vmax;
         if (!this.checked) {
-            // this.inputRange.value = this.settings.currentValue;
-            this.data = this.settings.currentValue;
-            this.item.total = this.getValue(this.settings.currentValue);
+            this.item.total = this.getValue(this.inputRange.value);
             this.changeProgres();
         }
         else if (this.checked) {
-            this.data = this.item.total;
             this.replaceInputRangeValue();
             this.changeProgres(true);
         }
@@ -47,8 +43,7 @@ var ComponentInputRange = (function () {
         }, 1);
     };
     ComponentInputRange.prototype.changeProgres = function (bol) {
-        // var val = this.inputRange.value / 1000;
-        var val = this.data / 1000;
+        var val = this.inputRange.value / 1000;
         this.inputRange.style.backgroundImage = '-webkit-gradient(' +
             'linear, left top, right top,' +
             'color-stop(' + val + ', ' + this.COLORS_ELECT + ' ),' +
@@ -73,16 +68,15 @@ var ComponentInputRange = (function () {
         }
     };
     ComponentInputRange.prototype.replaceInputRangeValue = function () {
-        debugger;
         var val = parseInt(this.item.total);
         if (isNaN(val) || val < 0)
             val = 0;
-        this.toPercent(this.data, val, { min: 0, max: 1000 }); //this.inputRange // 1000 defoult max num
+        this.toPercent(this.inputRange, val, { min: 0, max: this.inputRange.max });
         this.changeProgres(true);
         this.item.total = '+' + parseInt(this.item.total); ///////////////////////
     };
     ComponentInputRange.prototype.getValue = function (rangeInput) {
-        // rangeInput = parseInt(rangeInput);
+        rangeInput = parseInt(rangeInput);
         var rng = this.findrange(rangeInput, this.ranges);
         if (rangeInput > 0 && rangeInput < this.settings.max) {
             var minp = rng.min;
@@ -103,13 +97,11 @@ var ComponentInputRange = (function () {
     };
     ;
     ComponentInputRange.prototype.toPercent = function (rangeInput, value, range) {
-        // value = parseInt(value);
+        value = parseInt(value);
         var temp;
-        debugger;
         var mid = range.min + parseInt((range.max - range.min) / 2);
-        // rangeInput.value = mid;
-        this.data = mid;
-        temp = this.getValue(this.data); //rangeInput.value
+        rangeInput.value = mid;
+        temp = this.getValue(rangeInput.value);
         if ((temp === value) || range.max - range.min < 3)
             return mid;
         else if (value < temp) {
@@ -124,7 +116,7 @@ var ComponentInputRange = (function () {
         setTimeout(function () {
             if (val)
                 return;
-            that.item.total = '+' + that.getValue(that.data); //that.inputRange.value
+            that.item.total = '+' + that.getValue(that.inputRange.value);
         }, 0);
     };
     ;

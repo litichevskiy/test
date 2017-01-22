@@ -1,4 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////////////////////////
 import { Component, Input, ViewChild, ElementRef, EventEmitter, Output, OnInit } from '@angular/core';
 import { DataServiceLanguage } from './data.service.language';
 import { PubSub } from './pubSub';
@@ -27,7 +26,6 @@ export class ComponentInputRange implements OnInit {
         this.inputRange;
         this.maxSum;
         this.minSum = 0;
-        this.data;
     };
 
 
@@ -36,22 +34,18 @@ export class ComponentInputRange implements OnInit {
         PubSub.subscribe( 'newValue', this.replaceInputRangeValue.bind(this) );
 
         this.inputRange = this.input.nativeElement;
+        this.inputRange.value = this.settings.currentValue;
         this.maxSum = this.ranges[this.ranges.length-1].vmax;
 
         if( !this.checked ){
 
-            // this.inputRange.value = this.settings.currentValue;
-
-            this.data = this.settings.currentValue;
-            this.item.total = this.getValue( this.settings.currentValue );
+            this.item.total = this.getValue(this.inputRange.value);
             this.changeProgres();
         }
 
         else
 
             if( this.checked ){
-
-                this.data = this.item.total;
 
                 this.replaceInputRangeValue();
                 this.changeProgres(true);
@@ -73,8 +67,7 @@ export class ComponentInputRange implements OnInit {
 
     changeProgres ( bol ){
 
-        // var val = this.inputRange.value / 1000;
-        var val = this.data / 1000;
+        var val = this.inputRange.value / 1000;
 
         this.inputRange.style.backgroundImage = '-webkit-gradient('+
             'linear, left top, right top,'+
@@ -83,6 +76,7 @@ export class ComponentInputRange implements OnInit {
         ')';
 
         this.setValue( bol );
+
     }
 
 
@@ -113,12 +107,12 @@ export class ComponentInputRange implements OnInit {
 
 
     replaceInputRangeValue () {
-        debugger
+
         var val = parseInt( this.item.total );
 
         if( isNaN( val ) || val < 0 ) val = 0;
 
-        this.toPercent(this.data, val, {min: 0, max: 1000 }); //this.inputRange // 1000 defoult max num
+        this.toPercent(this.inputRange, val, {min: 0, max: this.inputRange.max});
         this.changeProgres( true );
 
         this.item.total = '+' + parseInt( this.item.total ); ///////////////////////
@@ -127,7 +121,7 @@ export class ComponentInputRange implements OnInit {
 
     getValue(rangeInput) {
 
-        // rangeInput = parseInt(rangeInput);
+        rangeInput = parseInt(rangeInput);
 
         var rng = this.findrange(rangeInput, this.ranges);
 
@@ -155,15 +149,13 @@ export class ComponentInputRange implements OnInit {
 
     toPercent(rangeInput, value, range) {
 
-        // value = parseInt(value);
+        value = parseInt(value);
 
         var temp;
-        debugger
         var mid = range.min + parseInt((range.max - range.min) / 2);
 
-        // rangeInput.value = mid;
-        this.data = mid;
-        temp = this.getValue(this.data); //rangeInput.value
+        rangeInput.value = mid;
+        temp = this.getValue(rangeInput.value);
 
         if( ( temp === value ) || range.max - range.min < 3 ) return mid;
 
@@ -185,7 +177,7 @@ export class ComponentInputRange implements OnInit {
 
             if( val ) return;
 
-            that.item.total = '+' + that.getValue( that.data );//that.inputRange.value
+            that.item.total = '+' + that.getValue(that.inputRange.value);
 
         },0)
     };
