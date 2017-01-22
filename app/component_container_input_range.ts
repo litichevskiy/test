@@ -158,7 +158,7 @@ export class ComponentInputRange implements OnInit {
         // value = parseInt(value);
 
         var temp;
-        debugger
+
         var mid = range.min + parseInt((range.max - range.min) / 2);
 
         // rangeInput.value = mid;

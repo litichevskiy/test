@@ -105,7 +105,6 @@ var ComponentInputRange = (function () {
     ComponentInputRange.prototype.toPercent = function (rangeInput, value, range) {
         // value = parseInt(value);
         var temp;
-        debugger;
         var mid = range.min + parseInt((range.max - range.min) / 2);
         // rangeInput.value = mid;
         this.data = mid;
