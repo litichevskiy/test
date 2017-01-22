@@ -13,7 +13,7 @@ var DataService = (function () {
                             likes: { name: 'likes', total: 0 },
                             views: { name: 'views', total: 0 },
                             data: { likes: '+100', coments: '+300' },
-                            settings: { min: 0, max: 1000, currentValue: 198 },
+                            settings: { currentValue: 198 },
                             checked: false,
                             video: true,
                             ranges: [
@@ -32,7 +32,7 @@ var DataService = (function () {
                             likes: { name: 'likes', total: 0 },
                             // coments  : { name : 'comments', total : 0  },
                             data: { likes: '+100', coments: '+300' },
-                            settings: { min: 0, max: 1000, currentValue: 198 },
+                            settings: { currentValue: 198 },
                             checked: false,
                             photo: true,
                             ranges: [
@@ -70,7 +70,7 @@ var DataService = (function () {
         this.dataMoreFollowers = {
             checked: true,
             Followers: { name: 'MORE_FOLLOWERS', total: 0 },
-            settings: { min: 0, max: 1000, currentValue: 0 },
+            settings: { currentValue: 0 },
             ranges: [
                 { min: 0, max: 1, vmin: 0, vmax: 0 },
                 { min: 1, max: 500, vmin: 100, vmax: 1000 },

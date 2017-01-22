@@ -23,7 +23,7 @@ var componentUserPage = (function () {
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
         this.items = this.dataService.getData();
-        this.maxSelect = this.allLIst.length;
+        this.max_select = this.allLIst.length;
         this.selectedPayNow = false;
         this.htmlElement;
         this.listSelected = this.dataService.selectPhotosAndVideos;
@@ -39,8 +39,8 @@ var componentUserPage = (function () {
             }
             target = target.parentElement;
         }
-        this.getMaxNumber('photo', 'maxLikesSelect');
-        this.getMaxNumber('views', 'maxViewsSelect');
+        this.getMaxNumber('photo', 'max_likes');
+        this.getMaxNumber('views', 'max_views');
         this.htmlElement.lang = this.language;
         pubSub_1.PubSub.subscribe('closePaNow', this.closePayNow.bind(this));
         pubSub_1.PubSub.subscribe('language', this.setLanguage.bind(this));
@@ -64,7 +64,9 @@ var componentUserPage = (function () {
             item.checked = false;
         });
     };
-    componentUserPage.prototype.selectAll = function () {
+    componentUserPage.prototype.selectAll = function (target) {
+        if (target.tagName === 'INPUT')
+            return;
         var likes = +this.listSelected.likes.value, views = +this.listSelected.views.value, quantity = +this.listSelected.select.value;
         if (this.listSelected.select.checked) {
             this.unCheckedAll();
@@ -140,8 +142,11 @@ var componentUserPage = (function () {
         var target = event.currentTarget;
         var key = event.currentTarget.dataset.role;
         if (!isNaN(+target.value)) {
-            target.value = +target.value;
-            this.checkMaxValue(target);
+            var cash = target.value = +target.value;
+            var check = this.checkMaxAndMinValue(target, 'max_' + key);
+            if (cash !== check) {
+                this.listSelected[key].value = check;
+            }
         }
         else {
             this.listSelected[key].value = this.listSelected[key].value.replace(/\D/g, '');
@@ -149,22 +154,15 @@ var componentUserPage = (function () {
             this.checkMaxValue(target);
         }
     };
-    componentUserPage.prototype.checkMaxValue = function (target) {
+    componentUserPage.prototype.checkMaxAndMinValue = function (target, key) {
         var value = +target.value;
-        if (value < 0)
-            return target.value = 0;
-        if (target.dataset.role === 'select') {
-            if (value > this.maxSelect)
-                target.value = this.maxSelect;
+        if (this[key]) {
+            if (value > this[key])
+                value = target.value = this[key];
+            else if (value < 0)
+                value = target.value = 0;
         }
-        else if (target.dataset.role === 'views') {
-            if (value > this.maxViewsSelect)
-                target.value = this.maxSelect;
-        }
-        else if (target.dataset.role === 'likes') {
-            if (value > this.maxLikesSelect)
-                target.value = this.maxSelect;
-        }
+        return value;
     };
     componentUserPage.prototype.loadPhotos = function () {
         this.dataService.addData();

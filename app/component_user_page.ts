@@ -23,7 +23,7 @@ export class componentUserPage implements OnInit {
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
         this.items = this.dataService.getData();
-        this.maxSelect = this.allLIst.length;
+        this.max_select = this.allLIst.length;
         this.selectedPayNow = false;
         this.htmlElement;
         this.listSelected = this.dataService.selectPhotosAndVideos;
@@ -50,8 +50,8 @@ export class componentUserPage implements OnInit {
             target = target.parentElement;
         }
 
-        this.getMaxNumber( 'photo', 'maxLikesSelect' );
-        this.getMaxNumber( 'views', 'maxViewsSelect' );
+        this.getMaxNumber( 'photo', 'max_likes' );
+        this.getMaxNumber( 'views', 'max_views' );
 
         this.htmlElement.lang = this.language;
 
@@ -93,7 +93,9 @@ export class componentUserPage implements OnInit {
     }
 
 
-    selectAll() {
+    selectAll( target ) {
+
+        if ( target.tagName === 'INPUT' ) return;
 
         var likes = +this.listSelected.likes.value,
             views = +this.listSelected.views.value,
@@ -219,9 +221,14 @@ export class componentUserPage implements OnInit {
 
         if( !isNaN( +target.value ) ) {
 
-            target.value = +target.value;
+            var cash = target.value = +target.value;
 
-            this.checkMaxValue( target );
+            var check = this.checkMaxAndMinValue( target, 'max_' + key );
+
+            if ( cash !== check ) {
+
+                this.listSelected[key].value = check;
+            }
         }
 
         else {
@@ -233,30 +240,18 @@ export class componentUserPage implements OnInit {
         }
     }
 
-    checkMaxValue( target ) {
+    checkMaxAndMinValue( target, key ) {
 
         var value = +target.value;
 
-        if ( value < 0 ) return target.value = 0;
+        if( this[key] ) {
 
-        if ( target.dataset.role === 'select' ) {
-
-            if ( value > this.maxSelect ) target.value = this.maxSelect;
+            if ( value > this[ key ] ) value = target.value = this[ key ];
+            else
+                if ( value < 0 ) value = target.value = 0;
         }
 
-        else
-
-            if ( target.dataset.role === 'views' ) {
-
-                if ( value > this.maxViewsSelect ) target.value = this.maxSelect;
-            }
-
-            else
-
-                if( target.dataset.role === 'likes' ) {
-
-                    if ( value > this.maxLikesSelect ) target.value = this.maxSelect;
-                }
+        return value;
     }
 
     loadPhotos(){
