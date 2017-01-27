@@ -12,8 +12,9 @@ var core_1 = require('@angular/core');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
 var ComponentInputRange = (function () {
-    function ComponentInputRange(dataServiceLanguage) {
+    function ComponentInputRange(dataServiceLanguage, pubSub) {
         this.dataServiceLanguage = dataServiceLanguage;
+        this.pubSub = pubSub;
         this.COLOR_DEFAULT = 'rgb(221,224,225)';
         this.COLORS_ELECT = 'rgb(37,197,204)';
         this.onChanged = new core_1.EventEmitter();
@@ -24,7 +25,7 @@ var ComponentInputRange = (function () {
     }
     ;
     ComponentInputRange.prototype.ngOnInit = function () {
-        pubSub_1.PubSub.subscribe('newValue', this.replaceInputRangeValue.bind(this));
+        this.pubSub.subscribe('newValue', this.replaceInputRangeValue.bind(this));
         this.inputRange = this.input.nativeElement;
         this.maxSum = this.ranges[this.ranges.length - 1].vmax;
         if (!this.checked) {
@@ -163,7 +164,7 @@ var ComponentInputRange = (function () {
             selector: 'ComponentInputRange',
             templateUrl: 'app/template/component_input_range.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, pubSub_1.PubSub])
     ], ComponentInputRange);
     return ComponentInputRange;
 }());

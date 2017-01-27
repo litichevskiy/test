@@ -13,12 +13,13 @@ export class ComponentPayNow  {
 
     constructor(
         private dataServiceLanguage : DataServiceLanguage,
-        private dataService : DataService
+        private dataService : DataService,
+        private pubSub : PubSub
     ){
         this.listPayMethod = this.dataService.listPayNow;
     }
 
-    closePayNow( event ){
+    closePayNow( event: any ){
 
         var target = event.target;
 
@@ -26,7 +27,7 @@ export class ComponentPayNow  {
             target.classList.contains('container_payment_method') )
         {
 
-            PubSub.publish('closePaNow');
+            this.pubSub.publish('closePaNow');
         }
     }
 }

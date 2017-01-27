@@ -462,6 +462,7 @@
     right: 1%;
     top: 1%;
     width: 42px;
+    max-height: 42px;
     padding: 3px;
 }
 .load{

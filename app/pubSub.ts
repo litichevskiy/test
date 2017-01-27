@@ -1,30 +1,31 @@
-export let PubSub{
+type CallbackFunction = (...args: any[]) => void;
 
-    storage : {},
+export class PubSub {
 
-    subscribe : function( eventName, func ){
+    private storage : any = {};
+
+    subscribe( eventName: any, func: any ) {
 
         if ( !this.storage.hasOwnProperty( eventName ) ){
             this.storage[eventName] = [];
         }
         this.storage[eventName].push( func );
-    },
+    }
 
-    publish: function( eventName, data ){
+    publish( eventName: any, data: any ) {
 
-        ( this.storage[eventName] || [] ).forEach( function( func ){
+        ( this.storage[eventName] || [] ).forEach(function(func : CallbackFunction){
+            func(data)
+        });
+    }
 
-                func( data )
-            });
-    },
-
-    unSubscribe : function( eventName, func ){
+    unSubscribe( eventName: any, func: any ) {
 
         var index = this.storage[eventName].indexOf( func );
 
         if ( index > -1 ) {
 
             this.storage[eventName].splice( index, 1  )
-        };
-    };
+        }
+    }
 }

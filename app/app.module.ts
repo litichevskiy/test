@@ -2,12 +2,15 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpModule }   from '@angular/http';
 
 import { AppComponent }   from './app.component';
 import { componentUserPage }   from './component_user_page';
 import { ComponentInputRange }   from './component_container_input_range';
 import { ComponentContainerUserPhoto }   from './component_container_user_photo';
+import { PubSub } from './pubSub';
 import { DataService } from './data.service';
+import { ServerAPI } from './serverAPI';
 import { DataServiceLanguage } from './data.service.language';
 import { componentDropDownMenu } from './component_drop_down_menu';
 import { ComponentNavBar } from './component_nav_bar';
@@ -33,7 +36,7 @@ const appRoutes: Routes =[
 
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, RouterModule.forRoot(appRoutes) ],
+    imports:      [ BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), HttpModule ],
     declarations:
         [
             AppComponent,
@@ -53,7 +56,7 @@ const appRoutes: Routes =[
             componentError,
             componentUserMessage
         ],
-    providers: [ DataService, DataServiceLanguage ],
+    providers: [ PubSub, DataService, DataServiceLanguage, ServerAPI ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

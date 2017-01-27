@@ -12,11 +12,14 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
+var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var component_user_page_1 = require('./component_user_page');
 var component_container_input_range_1 = require('./component_container_input_range');
 var component_container_user_photo_1 = require('./component_container_user_photo');
+var pubSub_1 = require('./pubSub');
 var data_service_1 = require('./data.service');
+var serverAPI_1 = require('./serverAPI');
 var data_service_language_1 = require('./data.service.language');
 var component_drop_down_menu_1 = require('./component_drop_down_menu');
 var component_nav_bar_1 = require('./component_nav_bar');
@@ -42,7 +45,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(appRoutes)],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(appRoutes), http_1.HttpModule],
             declarations: [
                 app_component_1.AppComponent,
                 component_user_page_1.componentUserPage,
@@ -61,7 +64,7 @@ var AppModule = (function () {
                 component_error_1.componentError,
                 component_user_message_1.componentUserMessage
             ],
-            providers: [data_service_1.DataService, data_service_language_1.DataServiceLanguage],
+            providers: [pubSub_1.PubSub, data_service_1.DataService, data_service_language_1.DataServiceLanguage, serverAPI_1.ServerAPI],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

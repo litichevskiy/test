@@ -13,15 +13,18 @@ export class componentDropDownMenu {
     language;
 
 
-    constructor( private dataServiceLanguage : DataServiceLanguage ){
+    constructor(
+        private dataServiceLanguage : DataServiceLanguage,
+        private pubSub : PubSub
+    ){
         this.items = dataServiceLanguage.languagesList;
     }
 
 
-    replaceLang( event ){
+    replaceLang( event: any ){
 
         this.language = event.target.innerHTML;
-        PubSub.publish('newLang', this.language );
+        this.pubSub.publish('newLang', this.language );
     }
 
 }

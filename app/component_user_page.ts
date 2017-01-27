@@ -14,11 +14,12 @@ export class componentUserPage implements OnInit {
     constructor(
         private dataService: DataService,
         private dataServiceLanguage : DataServiceLanguage,
-        private cdr:ChangeDetectorRef
+        private cdr:ChangeDetectorRef,
+        private pubSub : PubSub
     ){
 
         this.dataMoreFollowers = this.dataService.dataMoreFollowers;
-        this.allLIst = this.dataService.dataUsersPhotos.getAllList();
+        this.allLIst = this.dataService.getAllList();
         this.language = this.dataServiceLanguage.languageDefault;
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
@@ -56,12 +57,12 @@ export class componentUserPage implements OnInit {
         this.htmlElement.lang = this.language;
 
 
-        PubSub.subscribe('closePaNow', this.closePayNow.bind(this) );
-        PubSub.subscribe('language', this.setLanguage.bind(this) );
+        this.pubSub.subscribe('closePaNow', this.closePayNow.bind(this) );
+        this.pubSub.subscribe('language', this.setLanguage.bind(this) );
     }
 
 
-    getMaxNumber( key, vars ) {
+    getMaxNumber( key: any, vars: any ) {
 
         var that = this;
 
@@ -77,7 +78,7 @@ export class componentUserPage implements OnInit {
         });
     }
 
-    setLanguage( key ) {
+    setLanguage( key: any ) {
 
         this.language = key;
         this.htmlElement.lang = this.language;
@@ -89,13 +90,16 @@ export class componentUserPage implements OnInit {
         this.allLIst.forEach(function( item ) {
 
             item.checked = false;
-        })
+        });
     }
 
 
-    selectAll( target ) {
+    selectAll( target: any ) {
 
-        if ( target.tagName === 'INPUT' ) return;
+        if( target ) {
+
+            if ( target.tagName === 'INPUT' ) return;
+        }
 
         var likes = +this.listSelected.likes.value,
             views = +this.listSelected.views.value,
@@ -128,17 +132,19 @@ export class componentUserPage implements OnInit {
             this.selectViewsAndLikes( 0, 0, quantity, false );
         }
 
-        PubSub.publish('newValue');
+        this.pubSub.publish('newValue');
     }
 
-    selectLikes( likes, quantity ) {
+    selectLikes( likes: any, quantity: any ) {
 
-        var total = 0;
+        var total = 0, data;
 
         for (var i = 0; i < quantity; i++ ) {
 
-            this.allLIst[i].likes.total = likes;
-            this.allLIst[i].checked = true;
+            data = this.allLIst[i];
+
+            data.likes.total = likes;
+            data.checked = true;
 
             total += likes;
         }
@@ -146,7 +152,7 @@ export class componentUserPage implements OnInit {
         this.dataService.totalSum = total;
     }
 
-    selectViews( views, quantity, pictures ){
+    selectViews( views: any, quantity: any, pictures: any ){
 
         var total = 0,
             videos = [];
@@ -156,9 +162,9 @@ export class componentUserPage implements OnInit {
             if( this.allLIst[i].video ) videos.push( this.allLIst[i] );
         }
 
-        videos.every(function( item, i ) {
+        videos.every(function( item, counter ) {
 
-            if ( i === pictures ) return false;
+            if ( counter === pictures ) return false; // pictures = quantity
 
             item.views.total = views;
             item.checked = true;
@@ -171,42 +177,39 @@ export class componentUserPage implements OnInit {
         this.dataService.totalSum = total;
     }
 
-    selectViewsAndLikes( likes, views, quantity, checked ) {
+    selectViewsAndLikes( likes: any, views: any, quantity: any, checked: any ) {
 
-        var total = 0;
+        var total = 0, data;
 
-        for (var i = 0; i < quantity; i++ ) {
+        for( var i = 0; i < quantity; i++ ) {
 
-            if( this.allLIst[i].video ) {
+            data = this.allLIst[i];
 
-                this.allLIst[i].likes.total = likes;
-                this.allLIst[i].views.total = views;
-                this.allLIst[i].checked = checked;
+            if( data.views ) {
 
-                total += likes + views;
-                continue
-            }
-
-            if( this.allLIst[i].photo ) {
-
-                this.allLIst[i].likes.total = likes;
-                this.allLIst[i].checked = checked;
-
+                data.views.total = views;
+                data.checked = checked;
                 total += views;
             }
 
+            if( data.likes ) {
+
+                data.likes.total = likes;
+                data.checked = checked;
+                total += views;
+            }
         }
 
         this.dataService.totalSum = total;
     }
 
 
-    addSelect() {
+    checkSelect() {
 
         if( this.listSelected.select.checked ) this.selectAll();
     }
 
-    changeStateChecked( event ) {
+    changeStateChecked( event: any ) {
 
         var target = event.currentTarget,
             role = event.currentTarget.dataset.role;
@@ -214,18 +217,18 @@ export class componentUserPage implements OnInit {
         this.listSelected[role].checked = target.checked;
     }
 
-    checkValue ( event ) {
+    checkValue ( event: any ) {
 
         var target = event.currentTarget;
         var key = event.currentTarget.dataset.role;
 
         if( !isNaN( +target.value ) ) {
 
-            var cash = target.value = +target.value;
+            var cashValue = +target.value;
 
-            var check = this.checkMaxAndMinValue( target, 'max_' + key );
+            var check = this.checkMaxAndMinValue( cashValue, 'max_' + key );
 
-            if ( cash !== check ) {
+            if ( cashValue !== check ) {
 
                 this.listSelected[key].value = check;
             }
@@ -236,13 +239,11 @@ export class componentUserPage implements OnInit {
             this.listSelected[key].value = this.listSelected[key].value.replace( /\D/g, '');
             target.value = this.listSelected[key].value;
 
-            this.checkMaxValue( target );
+            this.checkMaxAndMinValue( +target.value, 'max_' + key );
         }
     }
 
-    checkMaxAndMinValue( target, key ) {
-
-        var value = +target.value;
+    checkMaxAndMinValue( value: any, key: any ) {
 
         if( this[key] ) {
 
@@ -299,7 +300,7 @@ export class componentUserPage implements OnInit {
         this.dataService.totalSum = total;
     }
 
-    replaceState( event ) {
+    replaceState( event: any ) {
 
         var target = event.currentTarget;
 
@@ -309,6 +310,5 @@ export class componentUserPage implements OnInit {
         input.checked = !input.checked
 
         input.dispatchEvent(new Event('change'));
-
     }
 }

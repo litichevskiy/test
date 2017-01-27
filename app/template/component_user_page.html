@@ -42,10 +42,10 @@
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
                         <span class="content">{{dataServiceLanguage.GetText('SELECT_PICTURES_FIRST')}}</span>
-                        <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="addSelect()">
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.select.value" data-role="select" (input)="checkValue($event)" (input)="checkSelect()">
                         <span class="content">{{dataServiceLanguage.GetText('SELECT_PICTURES_LAST')}}</span>
                     </div>
-                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()" >
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="checkSelect()" >
                         <input type="checkbox" class="hide input_container_settings" data-role="likes" (change)="changeStateChecked($event)" [checked]="listSelected.likes.checked"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
@@ -54,10 +54,10 @@
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
                         <span class="content">{{dataServiceLanguage.GetText('ADD_LIKES_FIRST')}}</span>
-                        <input type="text" class="select_value" [(ngModel)]="listSelected.likes.value" data-role="likes" (input)="checkValue($event)" (input)="addSelect()">
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.likes.value" data-role="likes" (input)="checkValue($event)" (input)="checkSelect()">
                         <span class="content">{{dataServiceLanguage.GetText('ADD_LIKES_LAST')}}</span>
                     </div>
-                    <div class="data_role_label" (click)="replaceState($event)" (click)="addSelect()" >
+                    <div class="data_role_label" (click)="replaceState($event)" (click)="checkSelect()" >
                         <input type="checkbox" class="hide input_container_settings" data-role="views" (change)="changeStateChecked($event)" [checked]="listSelected.views.checked"/>
                         <svg class="unchecked" x="0px" y="0px" viewBox="0 0 342.947 342.947" xml:space="preserve">
                             <polygon points="342.947,21.213 321.734,0 171.473,150.26 21.213,0 0,21.213 150.26,171.473 0,321.734 21.213,342.947   171.473,192.686 321.734,342.947 342.947,321.734 192.686,171.473 " fill="#25c5cc"/>
@@ -66,7 +66,7 @@
                             <polygon points="385.621,62.507 146.225,301.901 21.213,176.891 0,198.104 146.225,344.327 406.834,83.72 " fill="#25c5cc"/>
                         </svg>
                         <span class="content">{{dataServiceLanguage.GetText('ADD_VIDEO_FIRST')}}</span>
-                        <input type="text" class="select_value" [(ngModel)]="listSelected.views.value" data-role="views" (input)="checkValue($event)" (input)="addSelect()">
+                        <input type="text" class="select_value" [(ngModel)]="listSelected.views.value" data-role="views" (input)="checkValue($event)" (input)="checkSelect()">
                         <span class="content">{{dataServiceLanguage.GetText('ADD_VIDEO_LAST')}}</span>
                     </div>
                 </div>

@@ -43,7 +43,7 @@ export class componentPageSupport implements OnInit{
         this.userName = this.container.querySelector('.user_name');
     }
 
-    checkUserEmail( val ) {
+    checkUserEmail( val: any ) {
 
         var result = this.REG_EXP.test( val );
 
@@ -51,13 +51,13 @@ export class componentPageSupport implements OnInit{
         else return false;
     }
 
-    checkUserMessage( val ) {
+    checkUserMessage( val: any ) {
 
         if( val.length > 0 && val.length < this.MAX_LENGTH_MESSAGE ) return true;
         else return false;
     }
 
-    checkValue( event ) {
+    checkValue( event: any ) {
 
         var email = this.checkUserEmail( this.email.value ),
             content = this.checkUserMessage( this.content.value );
@@ -97,7 +97,7 @@ export class componentPageSupport implements OnInit{
             }
     }
 
-    clearInput( list ) {
+    clearInput( list: any ) {
 
         list.forEach(function(  item) {
 

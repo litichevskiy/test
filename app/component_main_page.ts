@@ -25,7 +25,7 @@ export class componentMainPage implements OnInit{
         this.input = this.div.nativeElement.querySelector('input[type="text"]');
     }
 
-    checkValue( event ) {
+    checkValue( event: any ) {
 
         var value = this.input.value;
 

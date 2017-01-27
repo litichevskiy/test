@@ -1,98 +1,84 @@
-import { PubSub } from './pubSub';
+import { Injectable, Inject } from "@angular/core";
+import { ServerAPI } from './serverAPI';
+
+export class Data {
+    public items: Array<Object>;
+    public config: Array<Object>;
+}
+
+@Injectable()
 
 export class DataService{
 
-    from = 0;
+    constructor(
+        @Inject("_data.items") public _data: Data,
+        private serverAPI : ServerAPI
+    ){
+        this.createListPhotos();
+    }
+
+
+    private data = [];
+    _from = 0;
     quantity = 12;
-
-    private dataUsersPhotos : function () {
-
-        var list = [],
-            count = 0;
-
-        (function(){
-
-            for( let i = 0; i < 1000; i++ ){
-
-                if( i >= 3 && i <= 5 ) {
-
-                    list.push({
-
-                        url      : { path : '/app/img/bg_0.png' },
-                        likes    : { name : 'likes' , total : 0 },
-                        views    : { name : 'views', total : 0  },
-                        data     : { likes : '+100', coments : '+300' },
-                        settings : { currentValue : 198 },
-                        checked  : false,
-                        video : true,
-                        ranges   : [
-
-                            {  min: 0, max: 1, vmin: 0, vmax: 0 },
-                            {  min: 1, max: 500, vmin: 100, vmax: 1000 },
-                            {  min: 501, max: 550, vmin: 1000, vmax: 5000 },
-                            {  min: 551, max: 650, vmin: 5000, vmax: 10000 },
-                            {  min: 651, max: 700, vmin: 10000, vmax: 25000 },
-                            {  min: 701, max: 1000, vmin: 25000, vmax: 50000 }
-                        ];
-
-                    });
-
-                } else {
-
-
-                    list.push({
-
-                        url      : { path : '/app/img/bg_0.png' },
-                        likes    : { name : 'likes' , total : 0 },
-                        // coments  : { name : 'comments', total : 0  },
-                        data     : { likes : '+100', coments : '+300' },
-                        settings : { currentValue : 198 },
-                        checked  : false,
-                        photo    : true,
-                        ranges   : [
-
-                            {  min: 0, max: 1, vmin: 0, vmax: 0 },
-                            {  min: 1, max: 500, vmin: 100, vmax: 1000 },
-                            {  min: 501, max: 550, vmin: 1000, vmax: 5000 },
-                            {  min: 551, max: 650, vmin: 5000, vmax: 10000 },
-                            {  min: 651, max: 700, vmin: 10000, vmax: 25000 },
-                            {  min: 701, max: 1000, vmin: 25000, vmax: 50000 }
-                        ];
-
-                    });
-                }
-            }
-
-        })()
-
-        return {
-
-            getList : function( from, quantity ) {
-
-                if ( from >= list.length ) return;
-
-                var data = list.slice( from, quantity );
-
-                return data;
-            }
-
-            getAllList : function(){
-                return list;
-            }
-
-        }
-    }()
-
-
+    list = [];
     totalSum = 0;
     profileIsOpen = false;
-    id = '123 123 123';/////////////////////
+    id = '123 123 123';
+
+
+    createListPhotos() {
+
+        this.list = this._data.items;
+
+        for( let i = 0; i < 1000; i++ ) {
+
+            this.list.push({
+
+                id       : this.list.length,
+                url      : { path : '/app/img/bg_0.png' },
+                likes    : { name : 'likes' , total : 0 },
+                data     : { likes : '+100', coments : '+300' },
+                settings : { currentValue : 198 },
+                checked  : false,
+                photo    : true,
+                ranges   : [
+
+                    {  min: 0, max: 1, vmin: 0, vmax: 0 },
+                    {  min: 1, max: 500, vmin: 100, vmax: 1000 },
+                    {  min: 501, max: 550, vmin: 1000, vmax: 5000 },
+                    {  min: 551, max: 650, vmin: 5000, vmax: 10000 },
+                    {  min: 651, max: 700, vmin: 10000, vmax: 25000 },
+                    {  min: 701, max: 1000, vmin: 25000, vmax: 50000 }
+                ];
+
+            });
+        }
+    }
+
+
+    getList( from: any, quantity: any ) {
+
+        if ( from >= this.list.length ) return;
+
+        var data = this.list.slice( from, quantity );
+
+        return data;
+    }
+
+
+    getAllList() {
+
+        return this.list;
+    }
+
 
     listPayNow = [
-        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT'},
-        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT'},
-        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT'}
+        {pathToPhoto: 'app/img/logo_2_checkout.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT', url : '/pay/checkout' },
+        {pathToPhoto: 'app/img/sprypay_logo.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT', url : '/pay/sprypay' },
+        {pathToPhoto: 'app/img/sprypay_logo.png',content: 'DESCRIPTION_METHOD_OF_PAYMENT', url : '/pay/sprypay' }
     ]
+
 
     dataMoreFollowers = {
 
@@ -131,12 +117,9 @@ export class DataService{
     }
 
 
-    private data = [];
-
-
     getData() {
 
-        var list = this.dataUsersPhotos.getList( this.from, this.quantity ),
+        var list = this.getList( this._from, this.quantity ),
             that = this;
 
         list.forEach(function(item){
@@ -154,34 +137,34 @@ export class DataService{
     }
 
 
-    logOn( val ) {
+    logOn( val: any ) {
 
         this.profileIsOpen = true;
 
-        console.log( 'DataService------', val );
+        this.serverAPI.logOn( val );
     }
 
 
-    payNow() {
+    payNow( url: any ) {
 
         var data = this.getSelectedPhotos();
 
-       console.log( 'DataService------', data );
+        this.serverAPI.payNow( data, url );
     }
 
 
-    messageSupport( data ) {
+    messageSupport( data: any ) {
 
-        console.log( 'DataService------', data );
+        this.serverAPI.messageSupport( data );
     }
 
 
     addData(){
 
-        this.from = this.quantity;
+        this._from = this.quantity;
         this.quantity = this.quantity + 12;
 
-        var list = this.dataUsersPhotos.getList( this.from, this.quantity ),
+        var list = this.getList( this._from, this.quantity ),
             that = this;
 
         list.forEach(function(item){
@@ -193,9 +176,10 @@ export class DataService{
 
     }
 
+
     getSelectedPhotos() {
 
-        var list = this.dataUsersPhotos.getAllList(),
+        var list = this.getAllList(),
             result = [],
             check = false;
 
@@ -216,6 +200,11 @@ export class DataService{
                 if( check ) check = false, result.push( item );
             }
         });
+
+        if ( this.dataMoreFollowers ) {
+
+            if( this.dataMoreFollowers.Followers.total > 0 ) result.push( this.dataMoreFollowers );
+        }
 
         return result;
     }

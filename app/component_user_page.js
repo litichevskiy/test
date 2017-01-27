@@ -13,12 +13,13 @@ var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
 var componentUserPage = (function () {
-    function componentUserPage(dataService, dataServiceLanguage, cdr) {
+    function componentUserPage(dataService, dataServiceLanguage, cdr, pubSub) {
         this.dataService = dataService;
         this.dataServiceLanguage = dataServiceLanguage;
         this.cdr = cdr;
+        this.pubSub = pubSub;
         this.dataMoreFollowers = this.dataService.dataMoreFollowers;
-        this.allLIst = this.dataService.dataUsersPhotos.getAllList();
+        this.allLIst = this.dataService.getAllList();
         this.language = this.dataServiceLanguage.languageDefault;
         this.dataUserInfo = this.dataService.getDataUserInfo();
         this.infoPosts = this.dataUserInfo.info;
@@ -42,8 +43,8 @@ var componentUserPage = (function () {
         this.getMaxNumber('photo', 'max_likes');
         this.getMaxNumber('views', 'max_views');
         this.htmlElement.lang = this.language;
-        pubSub_1.PubSub.subscribe('closePaNow', this.closePayNow.bind(this));
-        pubSub_1.PubSub.subscribe('language', this.setLanguage.bind(this));
+        this.pubSub.subscribe('closePaNow', this.closePayNow.bind(this));
+        this.pubSub.subscribe('language', this.setLanguage.bind(this));
     };
     componentUserPage.prototype.getMaxNumber = function (key, vars) {
         var that = this;
@@ -65,8 +66,10 @@ var componentUserPage = (function () {
         });
     };
     componentUserPage.prototype.selectAll = function (target) {
-        if (target.tagName === 'INPUT')
-            return;
+        if (target) {
+            if (target.tagName === 'INPUT')
+                return;
+        }
         var likes = +this.listSelected.likes.value, views = +this.listSelected.views.value, quantity = +this.listSelected.select.value;
         if (this.listSelected.select.checked) {
             this.unCheckedAll();
@@ -85,13 +88,14 @@ var componentUserPage = (function () {
         else {
             this.selectViewsAndLikes(0, 0, quantity, false);
         }
-        pubSub_1.PubSub.publish('newValue');
+        this.pubSub.publish('newValue');
     };
     componentUserPage.prototype.selectLikes = function (likes, quantity) {
-        var total = 0;
+        var total = 0, data;
         for (var i = 0; i < quantity; i++) {
-            this.allLIst[i].likes.total = likes;
-            this.allLIst[i].checked = true;
+            data = this.allLIst[i];
+            data.likes.total = likes;
+            data.checked = true;
             total += likes;
         }
         this.dataService.totalSum = total;
@@ -102,9 +106,9 @@ var componentUserPage = (function () {
             if (this.allLIst[i].video)
                 videos.push(this.allLIst[i]);
         }
-        videos.every(function (item, i) {
-            if (i === pictures)
-                return false;
+        videos.every(function (item, counter) {
+            if (counter === pictures)
+                return false; // pictures = quantity
             item.views.total = views;
             item.checked = true;
             total += views;
@@ -113,24 +117,23 @@ var componentUserPage = (function () {
         this.dataService.totalSum = total;
     };
     componentUserPage.prototype.selectViewsAndLikes = function (likes, views, quantity, checked) {
-        var total = 0;
+        var total = 0, data;
         for (var i = 0; i < quantity; i++) {
-            if (this.allLIst[i].video) {
-                this.allLIst[i].likes.total = likes;
-                this.allLIst[i].views.total = views;
-                this.allLIst[i].checked = checked;
-                total += likes + views;
-                continue;
+            data = this.allLIst[i];
+            if (data.views) {
+                data.views.total = views;
+                data.checked = checked;
+                total += views;
             }
-            if (this.allLIst[i].photo) {
-                this.allLIst[i].likes.total = likes;
-                this.allLIst[i].checked = checked;
+            if (data.likes) {
+                data.likes.total = likes;
+                data.checked = checked;
                 total += views;
             }
         }
         this.dataService.totalSum = total;
     };
-    componentUserPage.prototype.addSelect = function () {
+    componentUserPage.prototype.checkSelect = function () {
         if (this.listSelected.select.checked)
             this.selectAll();
     };
@@ -142,20 +145,19 @@ var componentUserPage = (function () {
         var target = event.currentTarget;
         var key = event.currentTarget.dataset.role;
         if (!isNaN(+target.value)) {
-            var cash = target.value = +target.value;
-            var check = this.checkMaxAndMinValue(target, 'max_' + key);
-            if (cash !== check) {
+            var cashValue = +target.value;
+            var check = this.checkMaxAndMinValue(cashValue, 'max_' + key);
+            if (cashValue !== check) {
                 this.listSelected[key].value = check;
             }
         }
         else {
             this.listSelected[key].value = this.listSelected[key].value.replace(/\D/g, '');
             target.value = this.listSelected[key].value;
-            this.checkMaxValue(target);
+            this.checkMaxAndMinValue(+target.value, 'max_' + key);
         }
     };
-    componentUserPage.prototype.checkMaxAndMinValue = function (target, key) {
-        var value = +target.value;
+    componentUserPage.prototype.checkMaxAndMinValue = function (value, key) {
         if (this[key]) {
             if (value > this[key])
                 value = target.value = this[key];
@@ -211,7 +213,7 @@ var componentUserPage = (function () {
             selector: 'userPage',
             templateUrl: './app/template/component_user_page.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataService, data_service_language_1.DataServiceLanguage, core_1.ChangeDetectorRef])
+        __metadata('design:paramtypes', [data_service_1.DataService, data_service_language_1.DataServiceLanguage, core_1.ChangeDetectorRef, pubSub_1.PubSub])
     ], componentUserPage);
     return componentUserPage;
 }());

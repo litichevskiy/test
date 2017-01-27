@@ -13,13 +13,14 @@ var data_service_1 = require('./data.service');
 var data_service_language_1 = require('./data.service.language');
 var pubSub_1 = require('./pubSub');
 var componentProcessForPayment = (function () {
-    function componentProcessForPayment(dataServiceLanguage, dataService) {
+    function componentProcessForPayment(dataServiceLanguage, dataService, pubSub) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
+        this.pubSub = pubSub;
     }
     componentProcessForPayment.prototype.payNow = function () {
-        this.dataService.payNow();
-        pubSub_1.PubSub.publish('closePaNow');
+        this.dataService.payNow(this.item.url);
+        this.pubSub.publish('closePaNow');
     };
     __decorate([
         core_1.Input(), 
@@ -30,7 +31,7 @@ var componentProcessForPayment = (function () {
             selector: 'componentProcessForPayment',
             templateUrl: './app/template/component_process_for_payment.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService, pubSub_1.PubSub])
     ], componentProcessForPayment);
     return componentProcessForPayment;
 }());

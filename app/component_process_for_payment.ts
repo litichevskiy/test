@@ -14,12 +14,13 @@ export class componentProcessForPayment {
 
     constructor(
         private dataServiceLanguage : DataServiceLanguage,
-        private dataService : DataService
+        private dataService : DataService,
+        private pubSub : PubSub
     ){}
 
     payNow() {
 
-        this.dataService.payNow();
-        PubSub.publish('closePaNow');
+        this.dataService.payNow( this.item.url );
+        this.pubSub.publish('closePaNow');
     }
 }

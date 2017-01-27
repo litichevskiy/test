@@ -13,16 +13,17 @@ var pubSub_1 = require('./pubSub');
 var data_service_language_1 = require('./data.service.language');
 var data_service_1 = require('./data.service');
 var ComponentPayNow = (function () {
-    function ComponentPayNow(dataServiceLanguage, dataService) {
+    function ComponentPayNow(dataServiceLanguage, dataService, pubSub) {
         this.dataServiceLanguage = dataServiceLanguage;
         this.dataService = dataService;
+        this.pubSub = pubSub;
         this.listPayMethod = this.dataService.listPayNow;
     }
     ComponentPayNow.prototype.closePayNow = function (event) {
         var target = event.target;
         if (target.classList.contains('closeBlock') ||
             target.classList.contains('container_payment_method')) {
-            pubSub_1.PubSub.publish('closePaNow');
+            this.pubSub.publish('closePaNow');
         }
     };
     ComponentPayNow = __decorate([
@@ -30,7 +31,7 @@ var ComponentPayNow = (function () {
             selector: 'ComponentPayNow',
             templateUrl: 'app/template/component_pay_now.html'
         }), 
-        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService])
+        __metadata('design:paramtypes', [data_service_language_1.DataServiceLanguage, data_service_1.DataService, pubSub_1.PubSub])
     ], ComponentPayNow);
     return ComponentPayNow;
 }());

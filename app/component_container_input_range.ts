@@ -21,7 +21,10 @@ export class ComponentInputRange implements OnInit {
     @ViewChild('input') input: ElementRef;
 
 
-    constructor( private dataServiceLanguage : DataServiceLanguage){
+    constructor(
+        private dataServiceLanguage : DataServiceLanguage,
+        private pubSub : PubSub
+    ){
 
         this.inputRange;
         this.maxSum;
@@ -32,7 +35,7 @@ export class ComponentInputRange implements OnInit {
 
     ngOnInit() {
 
-        PubSub.subscribe( 'newValue', this.replaceInputRangeValue.bind(this) );
+        this.pubSub.subscribe( 'newValue', this.replaceInputRangeValue.bind(this) );
 
         this.inputRange = this.input.nativeElement;
         this.maxSum = this.ranges[this.ranges.length-1].vmax;
@@ -68,7 +71,7 @@ export class ComponentInputRange implements OnInit {
     }
 
 
-    changeProgres ( bol ){
+    changeProgres ( bol : any ){
 
         var val = this.valueRange.value / 1000;
 
@@ -82,7 +85,7 @@ export class ComponentInputRange implements OnInit {
     }
 
 
-    checkDataEventInput( event ) {
+    checkDataEventInput( event: any ) {
 
         if ( !isNaN( +this.item.total ) ) {
 
@@ -120,7 +123,7 @@ export class ComponentInputRange implements OnInit {
     }
 
 
-    getValue( rangeInput ) {
+    getValue( rangeInput: any ) {
 
         var rng = this.findrange( rangeInput, this.ranges );
 
@@ -144,7 +147,7 @@ export class ComponentInputRange implements OnInit {
     };
 
 
-    toPercent(rangeInput, value, range) {
+    toPercent(rangeInput: any, value: any, range: any ) {
 
         var temp;
 
@@ -166,7 +169,7 @@ export class ComponentInputRange implements OnInit {
     };
 
 
-    setValue( val ){
+    setValue( val: any ){
 
         var that = this;
 
@@ -180,7 +183,7 @@ export class ComponentInputRange implements OnInit {
     };
 
 
-    findrange (value, ranges){
+    findrange (value: any, ranges: any ){
 
         var rng = null;
         var i = ranges.length - 1;

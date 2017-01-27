@@ -1,12 +1,20 @@
 import { PubSub } from './pubSub';
+import { Injectable, Inject } from "@angular/core";
 
-
+@Injectable()
 export class DataServiceLanguage {
 
-    languageDefault = 'en';
-    languagesList = ['ru','en'];
+    languageDefault : string;
+    languagesList : Array<string>;
 
-    languages = {
+
+    constructor( private pubSub : PubSub ) {
+        this.init();
+        this.languageDefault = 'en';
+        this.languagesList = ['ru','en'];
+    }
+
+    private languages: {[name : string] : {[name : string] : string}} = {
 
         ru : {
 
@@ -108,21 +116,21 @@ export class DataServiceLanguage {
     };
 
 
-    init : function( that ) {
+    init(){
 
-        PubSub.subscribe('newLang', that.setLanguage.bind( that ) );
+        this.pubSub.subscribe('newLang', this.setLanguage.bind( this ) );
 
-    }( this )
+    }
 
 
-    setLanguage( key ) {
+    setLanguage( key : any ) {
 
         this.languageDefault = key;
 
-        PubSub.publish('language', this.languageDefault );
+        this.pubSub.publish('language', this.languageDefault );
     }
 
-    GetText( key ){
+    GetText( key: string ){
 
         return this.languages[this.languageDefault][key.toUpperCase()];
     }
